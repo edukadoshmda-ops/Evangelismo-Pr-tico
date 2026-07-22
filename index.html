@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Evangelismo Explosivo - Pr. Roberto Casas. Descubra a certeza da vida eterna e compartilhe o evangelho de forma eficaz com um método comprovado.">
+    <meta name="keywords" content="Evangelismo, Pr. Roberto Casas, Vida Eterna, Salvação, Evangelismo Explosivo, Acre">
+    <meta name="author" content="Pr. Roberto Rodrigues Casas">
+    <meta property="og:title" content="Evangelismo Explosivo | Pr. Roberto Casas">
+    <meta property="og:description" content="Método prático e eficaz de evangelismo pessoal que já alcançou milhares de vidas para Cristo.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://evangelismo-explosivo.netlify.app">
+    
+    <title>Evangelismo Explosivo | Pr. Roberto Casas</title>
+    
+    <!-- Fonts: Poppins & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & THEME SYSTEM
+           ========================================= */
+        :root {
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+            
+            --accent-gold: #D4AF37;
+            --accent-teal: #0D9488;
+            --gradient-primary: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-teal) 100%);
+            
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --border-glass: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* =========================================
+           2. GLOBAL RESET & BASE STYLES
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* Scroll Progress Bar */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 4px;
+            background: var(--gradient-primary);
+            width: 0%; z-index: 9999;
+            transition: width 0.1s;
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed; inset: 0; background: var(--bg-primary);
+            z-index: 10000; display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid var(--border-glass);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Cursor Glow (Desktop Only) */
+        .cursor-glow {
+            position: fixed; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            display: none;
+        }
+        @media (hover: hover) and (pointer: fine) { .cursor-glow { display: block; } }
+
+        /* Canvas Particles */
+        #particles-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.4;
+        }
+
+        /* =========================================
+           3. UTILITIES & ANIMATIONS
+           ========================================= */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        .section-padding { padding: 6rem 0; }
+        
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.9rem 2rem; border-radius: 50px;
+            font-weight: 600; font-family: var(--font-heading);
+            cursor: pointer; border: none; transition: var(--transition);
+        }
+        .btn-primary {
+            background: var(--gradient-primary); color: white;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(13, 148, 136, 0.4); }
+        
+        .btn-outline {
+            background: transparent; border: 2px solid var(--accent-teal);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover { background: var(--accent-teal); color: white; }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* =========================================
+           4. HEADER & NAVIGATION
+           ========================================= */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            transition: var(--transition);
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 80px;
+        }
+        .logo {
+            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            font-weight: 500; font-size: 0.95rem; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px; background: var(--gradient-primary);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none; border: 1px solid var(--border-glass);
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-primary); transition: var(--transition);
+        }
+        .theme-toggle:hover { background: var(--bg-secondary); transform: rotate(15deg); }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px; cursor: pointer;
+            background: none; border: none; padding: 5px;
+        }
+        .hamburger span {
+            width: 25px; height: 3px; background: var(--text-primary);
+            border-radius: 3px; transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed; top: 80px; right: -100%; width: 100%; height: calc(100vh - 80px);
+                background: var(--bg-primary); flex-direction: column;
+                justify-content: center; gap: 2rem; transition: right 0.4s ease;
+                border-top: 1px solid var(--border-glass);
+            }
+            .nav-links.active { right: 0; }
+        }
+
+        /* =========================================
+           5. HERO SECTION
+           ========================================= */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding-top: 80px; position: relative; overflow: hidden;
+        }
+        .hero-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .typewriter {
+            font-size: 1.5rem; color: var(--accent-teal); font-weight: 500;
+            min-height: 2rem; margin-bottom: 1.5rem;
+        }
+        .hero-text p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        
+        .hero-image {
+            position: relative; display: flex; justify-content: center;
+        }
+        .profile-img-container {
+            width: 720px; height: 720px;
+            animation: float 6s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .profile-img {
+            width: 100%; height: 100%; object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: high-quality;
+            filter: contrast(1.08) saturate(1.1) brightness(1.02);
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { margin: 0 auto 2rem; }
+            .hero-buttons { justify-content: center; }
+            .profile-img-container { width: 515px; height: 515px; margin: 0 auto; }
+        }
+
+        /* =========================================
+           6. TIMELINE SECTION
+           ========================================= */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after {
+            content: ''; position: absolute; width: 4px; background: var(--border-glass);
+            top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px;
+        }
+        .timeline-item {
+            padding: 10px 40px; position: relative; width: 50%;
+            opacity: 0; transform: translateY(30px); transition: all 0.6s ease;
+        }
+        .timeline-item.active { opacity: 1; transform: translateY(0); }
+        .timeline-item::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            right: -10px; background: var(--bg-primary); border: 4px solid var(--accent-gold);
+            top: 15px; border-radius: 50%; z-index: 1;
+        }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -10px; }
+        
+        .timeline-content {
+            padding: 1.5rem; background: var(--bg-secondary);
+            border-radius: 12px; box-shadow: var(--shadow);
+            border: 1px solid var(--border-glass);
+            position: relative; overflow: hidden;
+        }
+        /* Shine Effect */
+        .timeline-content::before, .card-glass::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-25deg); transition: 0.5s;
+        }
+        .timeline-content:hover::before, .card-glass:hover::before { left: 150%; }
+
+        @media (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 21px; }
+            .right { left: 0%; }
+        }
+
+        /* =========================================
+           7. EVANGELISM CARDS (Glassmorphism)
+           ========================================= */
+        .section-title {
+            text-align: center; font-size: 2.5rem; margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--text-secondary); margin-bottom: 4rem; max-width: 600px; margin-inline: auto;
+        }
+        
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .card-glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px; padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .card-glass:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--accent-teal);
+        }
+        .card-icon {
+            width: 60px; height: 60px; border-radius: 12px;
+            background: var(--gradient-primary);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .card-glass h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .verse {
+            background: rgba(13, 148, 136, 0.1); border-left: 3px solid var(--accent-teal);
+            padding: 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+            font-style: italic; font-size: 0.95rem; color: var(--text-primary);
+        }
+
+        /* =========================================
+           8. STATS COUNTER
+           ========================================= */
+        .stats-section {
+            background: var(--gradient-primary); color: white;
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .stat-item h3 { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .stat-item p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* =========================================
+           9. CONTACT FORM
+           ========================================= */
+        .contact-wrapper {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+        }
+        .contact-info-card {
+            display: flex; align-items: center; gap: 1.5rem;
+            padding: 1.5rem; background: var(--bg-secondary);
+            border-radius: 12px; margin-bottom: 1.5rem;
+            border: 1px solid var(--border-glass);
+        }
+        .contact-info-card i {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(13, 148, 136, 0.1); color: var(--accent-teal);
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+        .form-control {
+            width: 100%; padding: 1rem; border-radius: 8px;
+            border: 1px solid var(--border-glass); background: var(--bg-secondary);
+            color: var(--text-primary); font-family: var(--font-body);
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none; border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper { grid-template-columns: 1fr; }
+        }
+
+        /* =========================================
+           10. FOOTER
+           ========================================= */
+        footer {
+            background: var(--bg-secondary); border-top: 1px solid var(--border-glass);
+            padding: 4rem 0 2rem; text-align: center;
+        }
+        .footer-logo {
+            font-family: var(--font-heading); font-size: 2rem; font-weight: 700;
+            margin-bottom: 1rem; display: inline-block;
+        }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin: 2rem 0; }
+        .social-links a {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--bg-primary); border: 1px solid var(--border-glass);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--gradient-primary); color: white;
+            transform: translateY(-5px); border-color: transparent;
+        }
+        .copyright { color: var(--text-secondary); font-size: 0.9rem; margin-top: 2rem; }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader" aria-hidden="true">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav role="navigation" aria-label="Menu principal">
+                <a href="#" class="logo">
+                    <i class="fas fa-cross text-gradient"></i>
+                    <span class="text-gradient">Evangelismo Explosivo</span>
+                </a>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#trajetoria">Trajetória</a></li>
+                    <li><a href="#metodo">O Método</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li>
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema claro/escuro">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu mobile" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="container hero-content">
+                <div class="hero-image reveal">
+                    <div class="profile-img-container">
+                        <!-- Substitua pelo link real da foto -->
+                        <img src="Imagem/Gemini_Generated_Image_gjfs5ugjfs5ugjfs__1_-removebg.png" alt="Pr. Roberto Rodrigues Casas" class="profile-img">
+                    </div>
+                </div>
+                <div class="hero-text reveal">
+                    <h1>A Certeza da <span class="text-gradient">Vida Eterna</span></h1>
+                    <div class="typewriter" id="typewriter"></div>
+                    <p>Descubra o método prático e bíblico de evangelismo pessoal desenvolvido pelo Pr. Roberto Casas, com quase 50 anos de ministério e milhares de vidas alcançadas.</p>
+                    <div class="hero-buttons">
+                        <a href="#metodo" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Conhecer o Método
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Counter -->
+        <section class="section-padding stats-section">
+            <div class="container stats-grid">
+                <div class="stat-item reveal">
+                    <h3 data-target="50">0</h3>
+                    <p>Anos de Ministério</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 data-target="55">0</h3>
+                    <p>Cursos de Especialização</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 data-target="1000">0</h3>
+                    <p>Vidas Alcançadas (Est.)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="trajetoria" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Trajetória e <span class="text-gradient">Formação</span></h2>
+                <p class="section-subtitle reveal">Formado por alguns dos maiores líderes cristãos e instituições do mundo.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item left reveal">
+                        <div class="timeline-content">
+                            <h4>Billy Graham</h4>
+                            <p class="text-secondary">2º Congresso Internacional de Evangelismo — Holanda</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right reveal">
+                        <div class="timeline-content">
+                            <h4>Rick Warren</h4>
+                            <p class="text-secondary">Igreja com Propósitos — Rio de Janeiro</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left reveal">
+                        <div class="timeline-content">
+                            <h4>Dr. Bill Bright</h4>
+                            <p class="text-secondary">Líder da Cruzada Estudantil e Profissional para Cristo</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right reveal">
+                        <div class="timeline-content">
+                            <h4>Dr. Augusto Cury</h4>
+                            <p class="text-secondary">Curso de Psicanálise Clínica — São Paulo</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left reveal">
+                        <div class="timeline-content">
+                            <h4>Dr. Paulo Vieira</h4>
+                            <p class="text-secondary">Treinamento em Coaching Febracis (Flórida, EUA)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right reveal">
+                        <div class="timeline-content">
+                            <h4>STBE Belém</h4>
+                            <p class="text-secondary">Bacharel em Teologia — Convenção Batista Brasileira</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8 Answers Section -->
+        <section id="metodo" class="section-padding" style="background: var(--bg-secondary);">
+            <div class="container">
+                <h2 class="section-title reveal">As 8 Respostas do <span class="text-gradient">Evangelismo</span></h2>
+                <p class="section-subtitle reveal">Um roteiro bíblico, lógico e eficaz para compartilhar a certeza da salvação.</p>
+                
+                <div class="cards-grid">
+                    <!-- Card 1 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-certificate"></i></div>
+                        <h3>1. A Certeza da Vida Eterna</h3>
+                        <div class="verse">"E o testemunho é este: que Deus nos deu a vida eterna; e esta vida está no seu Filho." — 1 João 5:11</div>
+                        <p>A vida eterna não é merecida, é <strong>dada</strong>. Já foi dada no passado e precisa ser <strong>recebida</strong> agora. Não vem de religiões, mas das mãos de Deus, em Jesus.</p>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-heart"></i></div>
+                        <h3>2. O Amor de Deus</h3>
+                        <div class="verse">"Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito..." — João 3:16</div>
+                        <p>Deus te ama e quer te dar a vida eterna agora. Este é o amor incondicional do Criador por sua criação.</p>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h3>3. Todos Somos Pecadores</h3>
+                        <div class="verse">"...porque todos pecaram e estão separados da presença de Deus." — Romanos 3:23</div>
+                        <p>O pecado nos separa de Deus. Reconhecer essa condição é o primeiro passo para receber o perdão.</p>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-skull"></i></div>
+                        <h3>4. A Consequência do Pecado</h3>
+                        <div class="verse">"...porque o salário do pecado é a morte..." — Romanos 6:23</div>
+                        <p><strong>1ª:</strong> Morte Espiritual (separação). <strong>2ª:</strong> Morte Física. <strong>3ª:</strong> Morte Eterna. Não há purgatório ou reencarnação, apenas céu ou inferno.</p>
+                    </article>
+
+                    <!-- Card 5 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-cross"></i></div>
+                        <h3>5. A Solução de Deus</h3>
+                        <div class="verse">"Mas Deus prova o seu próprio amor para conosco pelo fato de ter Cristo morrido por nós..." — Romanos 5:8</div>
+                        <p>Cristo, nosso Cordeiro Pascal, foi condenado em nosso lugar. Uma morte só paga com outra morte.</p>
+                    </article>
+
+                    <!-- Card 6 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
+                        <h3>6. Você Pode Receber</h3>
+                        <div class="verse">"Se com a tua boca confessares ao Senhor Jesus, e em teu coração creres... serás salvo." — Romanos 10:9</div>
+                        <p>Crer no coração, confessar com a boca e receber o Espírito Santo como testemunha da salvação.</p>
+                    </article>
+
+                    <!-- Card 7 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+                        <h3>7. Avaliando sua Salvação</h3>
+                        <div class="verse">"Recebestes vós o Espírito Santo quando crestes?" — Atos 19:2</div>
+                        <p>Não basta apenas entender intelectualmente. É necessário o <strong>novo nascimento</strong>. Sua pena de morte já foi paga por Cristo.</p>
+                    </article>
+
+                    <!-- Card 8 -->
+                    <article class="card-glass reveal">
+                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                        <h3>8. Compartilhe a Salvação</h3>
+                        <div class="verse">"Quão formosos são os pés dos que anunciam as boas novas..." — Isaías 52:7</div>
+                        <p>Evangelizar é o maior investimento. "Haverá mais alegria no céu por um pecador que se arrepende..." (Lucas 15:7).</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contato" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Entre em <span class="text-gradient">Contato</span></h2>
+                <p class="section-subtitle reveal">Solicite materiais, convites para palestras ou tire suas dúvidas.</p>
+                
+                <div class="contact-wrapper">
+                    <div class="contact-info reveal">
+                        <div class="contact-info-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>Telefone / WhatsApp</h4>
+                                <p>(68) 99239-3910</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-card">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>E-mail</h4>
+                                <p>contato@evangelismoexplosivo.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Localização</h4>
+                                <p>Acre, Brasil</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-card">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <h4>Site Oficial</h4>
+                                <p><a href="https://evangelismo-explosivo.netlify.app" target="_blank" rel="noopener noreferrer">evangelismo-explosivo.netlify.app</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulário Funcional (Pronto para Formspree) -->
+                    <form class="contact-form reveal" action="https://formspree.io/f/SEU_ID_FORMSPREE_AQUI" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="form-control" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" class="form-control" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" name="message" rows="5" class="form-control" required aria-required="true"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo text-gradient">Evangelismo Explosivo</a>
+            <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">
+                "Pois, que aproveitaria ao homem ganhar todo o mundo e perder a sua alma?" — Marcos 8:36
+            </p>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/5568992393910" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Evangelismo Explosivo. Pr. Roberto Rodrigues Casas. Todos os direitos reservados.</p>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Coordenação: (68) 99239-3910</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+        });
+
+        // 2. Theme Toggle (Dark/Light) with localStorage
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // 3. Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // 4. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + "%";
+            document.getElementById('progress-bar').setAttribute('aria-valuenow', Math.round(scrolled));
+        });
+
+        // 5. Scroll Reveal Animation (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 6. Typewriter Effect
+        const phrases = [
+            "Quem tem o Filho de Deus, tem a vida eterna.",
+            "Quase 50 anos dedicados à evangelização.",
+            "Um método prático, bíblico e transformador."
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter');
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 60;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+        typeWriter();
+
+        // 7. Animated Counters
+        const counters = document.querySelectorAll('.stat-item h3');
+        let hasCounted = false;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasCounted) {
+                hasCounted = true;
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const increment = target / (duration / 16);
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.textContent = Math.ceil(current) + (target > 100 ? '+' : '');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + (target > 100 ? '+' : '');
+                        }
+                    };
+                    updateCounter();
+                });
+            }
+        }, { threshold: 0.5 });
+
+        if(counters.length > 0) counterObserver.observe(counters[0].parentElement.parentElement);
+
+        // 8. Cursor Glow Effect (Desktop)
+        const cursorGlow = document.getElementById('cursor-glow');
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+        }
+
+        // 9. Optimized Canvas Particles (Pauses when tab is inactive)
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+        let isTabActive = true;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`; // Gold color
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = Math.min(window.innerWidth / 10, 100); // Responsive count
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            if (!isTabActive) return; // Pause to save battery
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            animationId = requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // Pause animation when tab is not active (Battery saving)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                isTabActive = false;
+                cancelAnimationFrame(animationId);
+            } else {
+                isTabActive = true;
+                animateParticles();
+            }
+        });
+    </script>
+</body>
+</html>
