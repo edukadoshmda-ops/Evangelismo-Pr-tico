@@ -38,7 +38,7 @@
             --bg-glass: rgba(255, 255, 255, 0.7);
             --text-primary: #1E293B;
             --text-secondary: #64748B;
-            --border-glass: rgba(255, 255, 255, 0.5);
+            --border-glass: rgba(0, 0, 0, 0.1);
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
             
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -240,7 +240,8 @@
             position: relative; display: flex; justify-content: center;
         }
         .profile-img-container {
-            width: 720px; height: 720px;
+            width: 520px; height: 520px;
+            max-width: 100%;
             animation: float 6s ease-in-out infinite;
             display: flex; align-items: center; justify-content: center;
         }
@@ -257,12 +258,25 @@
             50% { transform: translateY(-20px); }
         }
 
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3rem; }
+            .profile-img-container { width: 455px; height: 455px; margin: 0 auto; }
+        }
+
         @media (max-width: 768px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .hero-text p { margin: 0 auto 2rem; }
             .hero-buttons { justify-content: center; }
-            .profile-img-container { width: 515px; height: 515px; margin: 0 auto; }
+            .profile-img-container { width: 364px; height: 364px; margin: 0 auto; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 { font-size: 2rem; }
+            .hero-text p { font-size: 1rem; }
+            .profile-img-container { width: 286px; height: 286px; margin: 0 auto; }
+            .container { padding: 0 1rem; }
         }
 
         /* =========================================
@@ -351,7 +365,67 @@
         }
 
         /* =========================================
-           8. STATS COUNTER
+           8. PODCAST PLAYER
+           ========================================= */
+        .podcast-player {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .podcast-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--accent-teal);
+        }
+        .podcast-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .podcast-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .podcast-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+        .podcast-details p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .audio-player {
+            width: 100%;
+            border-radius: 50px;
+            color-scheme: light dark;
+        }
+        .audio-player::-webkit-media-controls-panel {
+            background-color: var(--bg-secondary);
+        }
+        .audio-player::-webkit-media-controls-play-button {
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+        }
+
+        /* =========================================
+           9. STATS COUNTER
            ========================================= */
         .stats-section {
             background: var(--gradient-primary); color: white;
@@ -458,6 +532,7 @@
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#trajetoria">Trajetória</a></li>
                     <li><a href="#metodo">O Método</a></li>
+                    <li><a href="#podcast">Podcast</a></li>
                     <li><a href="#contato">Contato</a></li>
                     <li>
                         <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema claro/escuro">
@@ -631,6 +706,88 @@
                         <div class="verse">"Quão formosos são os pés dos que anunciam as boas novas..." — Isaías 52:7</div>
                         <p>Evangelizar é o maior investimento. "Haverá mais alegria no céu por um pecador que se arrepende..." (Lucas 15:7).</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podcast Section -->
+        <section id="podcast" class="section-padding" style="background: var(--bg-secondary);">
+            <div class="container">
+                <h2 class="section-title reveal">Audiobook <span class="text-gradient">Trilha de Evangelismo</span></h2>
+                <p class="section-subtitle reveal">Ouça todos os estudos bíblicos e a mensagem original narrados em alta qualidade.</p>
+                
+                <div class="cards-grid">
+                    <!-- Introdução (Original) -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-play-circle"></i></div>
+                            <div class="podcast-details">
+                                <h3>Introdução: A Salvação Eterna</h3>
+                                <p>Pr. Roberto Casas (Original)</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="A_salvação_eterna.m4a" type="audio/mp4"></audio>
+                    </div>
+
+                    <!-- Estudo 1 -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-headphones"></i></div>
+                            <div class="podcast-details">
+                                <h3>Estudo 1: Vida Eterna na Bíblia</h3>
+                                <p>Audiobook Reflexivo</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="Audio_Estudo_1.mp3" type="audio/mp3"></audio>
+                    </div>
+
+                    <!-- Estudo 2 -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-headphones"></i></div>
+                            <div class="podcast-details">
+                                <h3>Estudo 2: Vida Eterna x Morte Eterna</h3>
+                                <p>Audiobook Reflexivo</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="Audio_Estudo_2.mp3" type="audio/mp3"></audio>
+                    </div>
+
+                    <!-- Estudo 3 -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-headphones"></i></div>
+                            <div class="podcast-details">
+                                <h3>Estudo 3: Vida Eterna e Religiosidade</h3>
+                                <p>Audiobook Reflexivo</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="Audio_Estudo_3.mp3" type="audio/mp3"></audio>
+                    </div>
+
+                    <!-- Estudo 4 -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-headphones"></i></div>
+                            <div class="podcast-details">
+                                <h3>Estudo 4: Como ter a Vida Eterna</h3>
+                                <p>Audiobook Reflexivo</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="Audio_Estudo_4.mp3" type="audio/mp3"></audio>
+                    </div>
+
+                    <!-- Batismo -->
+                    <div class="podcast-player reveal" style="margin:0; width:100%;">
+                        <div class="podcast-info">
+                            <div class="podcast-icon"><i class="fas fa-headphones"></i></div>
+                            <div class="podcast-details">
+                                <h3>Pilares do Discipulado</h3>
+                                <p>Audiobook Reflexivo</p>
+                            </div>
+                        </div>
+                        <audio controls class="audio-player" preload="metadata"><source src="Audio_Batismo.mp3" type="audio/mp3"></audio>
+                    </div>
                 </div>
             </div>
         </section>
