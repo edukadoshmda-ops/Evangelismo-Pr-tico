@@ -1,17 +1,30 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
+export const SUPER_ADMIN_EMAILS = [
+  'pastorrobertocasas57@gmail.com',
+  'edukadoshmda@gmail.com'
+];
+
 export interface User {
   id: string;
   email: string;
   name?: string;
   avatar_url?: string;
+  role?: 'super_admin' | 'user';
 }
+
+export const isSuperAdminUser = (user: User | null): boolean => {
+  if (!user || !user.email) return false;
+  const email = user.email.toLowerCase().trim();
+  return SUPER_ADMIN_EMAILS.includes(email) || user.role === 'super_admin';
+};
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   isConfigured: boolean;
+  isSuperAdmin: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   loginAsDemo: () => void;
@@ -31,7 +44,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const storedUser = localStorage.getItem(DEMO_USER_KEY);
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsed = JSON.parse(storedUser);
+        // Normalize role if email is super admin
+        if (parsed.email && SUPER_ADMIN_EMAILS.includes(parsed.email.toLowerCase().trim())) {
+          parsed.role = 'super_admin';
+        }
+        setUser(parsed);
         setLoading(false);
         return;
       } catch {
@@ -43,10 +61,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (isSupabaseConfigured && supabase) {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session?.user) {
+          const email = session.user.email || '';
+          const isSA = SUPER_ADMIN_EMAILS.includes(email.toLowerCase().trim());
           setUser({
             id: session.user.id,
-            email: session.user.email || '',
-            name: session.user.user_metadata?.name || session.user.email?.split('@')[0],
+            email,
+            name: session.user.user_metadata?.name || email.split('@')[0],
+            role: isSA ? 'super_admin' : 'user'
           });
         }
         setLoading(false);
@@ -54,10 +75,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
         if (session?.user) {
+          const email = session.user.email || '';
+          const isSA = SUPER_ADMIN_EMAILS.includes(email.toLowerCase().trim());
           setUser({
             id: session.user.id,
-            email: session.user.email || '',
-            name: session.user.user_metadata?.name || session.user.email?.split('@')[0],
+            email,
+            name: session.user.user_metadata?.name || email.split('@')[0],
+            role: isSA ? 'super_admin' : 'user'
           });
         } else if (!localStorage.getItem(DEMO_USER_KEY)) {
           setUser(null);
@@ -71,17 +95,55 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const login = async (rawEmail: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const email = rawEmail.trim().toLowerCase();
+
+    // 1. Verificação Predefinida dos 2 Super Administradores
+    if (email === 'pastorrobertocasas57@gmail.com') {
+      if (password !== '123456') {
+        return { success: false, error: 'Senha incorreta para a conta Super Admin do Pr. Roberto Casas.' };
+      }
+      const adminUser: User = {
+        id: 'super-admin-pr-casas',
+        email: 'pastorrobertocasas57@gmail.com',
+        name: 'Pr. Roberto Casas',
+        role: 'super_admin'
+      };
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(adminUser));
+      setUser(adminUser);
+      return { success: true };
+    }
+
+    if (email === 'edukadoshmda@gmail.com') {
+      if (password !== '123456') {
+        return { success: false, error: 'Senha incorreta para a conta Super Admin Edukadosh.' };
+      }
+      const adminUser: User = {
+        id: 'super-admin-edukadosh',
+        email: 'edukadoshmda@gmail.com',
+        name: 'Administrador Edukadosh',
+        role: 'super_admin'
+      };
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(adminUser));
+      setUser(adminUser);
+      return { success: true };
+    }
+
+    // 2. Supabase Login para outros usuários
     if (isSupabaseConfigured && supabase) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) return { success: false, error: error.message };
         if (data.user) {
-          setUser({
+          const isSA = SUPER_ADMIN_EMAILS.includes(email);
+          const loggedUser: User = {
             id: data.user.id,
-            email: data.user.email || '',
+            email: data.user.email || email,
             name: data.user.user_metadata?.name || email.split('@')[0],
-          });
+            role: isSA ? 'super_admin' : 'user'
+          };
+          setUser(loggedUser);
+          localStorage.setItem(DEMO_USER_KEY, JSON.stringify(loggedUser));
           return { success: true };
         }
       } catch (err: any) {
@@ -89,18 +151,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
 
-    // Fallback: Modo Demonstração Local
+    // 3. Fallback: Usuário Comum Local
+    if (!password || password.length < 6) {
+      return { success: false, error: 'A senha deve conter no mínimo 6 caracteres.' };
+    }
+
     const demoUser: User = {
-      id: 'demo-' + Date.now(),
+      id: 'user-' + Date.now(),
       email,
       name: email.split('@')[0].toUpperCase(),
+      role: 'user'
     };
     localStorage.setItem(DEMO_USER_KEY, JSON.stringify(demoUser));
     setUser(demoUser);
     return { success: true };
   };
 
-  const register = async (name: string, email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const register = async (name: string, rawEmail: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const email = rawEmail.trim().toLowerCase();
+
+    // Se tentar cadastrar com e-mail de super admin
+    if (SUPER_ADMIN_EMAILS.includes(email)) {
+      return login(email, password);
+    }
+
     if (isSupabaseConfigured && supabase) {
       try {
         const { data, error } = await supabase.auth.signUp({
@@ -110,11 +184,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         if (error) return { success: false, error: error.message };
         if (data.user) {
-          setUser({
+          const newUser: User = {
             id: data.user.id,
-            email: data.user.email || '',
+            email: data.user.email || email,
             name,
-          });
+            role: 'user'
+          };
+          setUser(newUser);
+          localStorage.setItem(DEMO_USER_KEY, JSON.stringify(newUser));
           return { success: true };
         }
       } catch (err: any) {
@@ -122,11 +199,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
 
-    // Fallback: Cadastro Demo
+    // Fallback: Cadastro Local
     const newUser: User = {
-      id: 'demo-' + Date.now(),
+      id: 'user-' + Date.now(),
       email,
       name,
+      role: 'user'
     };
     localStorage.setItem(DEMO_USER_KEY, JSON.stringify(newUser));
     setUser(newUser);
@@ -135,9 +213,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginAsDemo = () => {
     const demoUser: User = {
-      id: 'demo-pr-casas',
+      id: 'demo-aluno',
       email: 'aluno@evangelismopratico.com',
-      name: 'Discípulo / Líder',
+      name: 'Discípulo / Aluno',
+      role: 'user'
     };
     localStorage.setItem(DEMO_USER_KEY, JSON.stringify(demoUser));
     setUser(demoUser);
@@ -151,11 +230,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
   };
 
+  const isSuperAdmin = isSuperAdminUser(user);
+
   return (
     <AuthContext.Provider value={{
       user,
       loading,
       isConfigured: isSupabaseConfigured,
+      isSuperAdmin,
       login,
       register,
       loginAsDemo,

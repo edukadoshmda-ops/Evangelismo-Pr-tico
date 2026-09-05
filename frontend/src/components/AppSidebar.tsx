@@ -36,7 +36,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   mobileOpen,
   setMobileOpen,
 }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, isSuperAdmin } = useAuth();
 
   const menuItems = [
     {
@@ -201,16 +201,25 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
             {!collapsed && <span className="truncate">Ver Apresentação</span>}
           </Link>
 
-          <div className="p-2 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between gap-2">
+          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
-                {user?.name ? user.name[0].toUpperCase() : 'U'}
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
+                isSuperAdmin ? 'bg-gradient-to-tr from-amber-500 to-teal-500 text-white shadow-sm' : 'bg-teal-600 text-white'
+              }`}>
+                {isSuperAdmin ? '👑' : (user?.name ? user.name[0].toUpperCase() : 'U')}
               </div>
               {!collapsed && (
                 <div className="min-w-0">
-                  <p className="text-xs font-bold text-slate-800 dark:text-white truncate">
-                    {user?.name || 'Discípulo'}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-slate-800 dark:text-white truncate">
+                      {user?.name || (isSuperAdmin ? 'Super Admin' : 'Discípulo')}
+                    </p>
+                    {isSuperAdmin && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold uppercase">
+                        Admin
+                      </span>
+                    )}
+                  </div>
                   <p className="text-[10px] text-slate-400 truncate">{user?.email}</p>
                 </div>
               )}

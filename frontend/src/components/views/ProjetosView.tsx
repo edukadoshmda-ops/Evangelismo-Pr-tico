@@ -3,8 +3,9 @@ import {
   Globe2, MapPin, Target, HeartHandshake, Plus, 
   Upload, Download, UserCheck, Pencil, Trash2, X, 
   Check, AlertCircle, Sparkles, Image as ImageIcon,
-  CheckCircle2
+  CheckCircle2, Lock
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export interface Project {
   id: string;
@@ -61,6 +62,7 @@ const INITIAL_PROJECTS: Project[] = [
 ];
 
 export const ProjetosView: React.FC = () => {
+  const { isSuperAdmin } = useAuth();
   const [projects, setProjects] = useState<Project[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -117,6 +119,10 @@ export const ProjetosView: React.FC = () => {
 
   // Open Create Modal
   const openCreateModal = () => {
+    if (!isSuperAdmin) {
+      alert('Acesso restrito: Apenas os Super Administradores podem criar projetos.');
+      return;
+    }
     setEditingProject(null);
     setTitle('');
     setResponsible('Pr. Roberto Casas');
@@ -132,6 +138,10 @@ export const ProjetosView: React.FC = () => {
 
   // Open Edit Modal
   const openEditModal = (proj: Project) => {
+    if (!isSuperAdmin) {
+      alert('Acesso restrito: Apenas os Super Administradores podem editar projetos.');
+      return;
+    }
     setEditingProject(proj);
     setTitle(proj.title);
     setResponsible(proj.responsible || 'Pr. Roberto Casas');
@@ -148,6 +158,10 @@ export const ProjetosView: React.FC = () => {
   // Submit Create or Edit Form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isSuperAdmin) {
+      alert('Acesso restrito: Apenas os Super Administradores podem salvar projetos.');
+      return;
+    }
     if (!title.trim() || !description.trim()) return;
 
     const defaultImage = 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80';
@@ -196,6 +210,10 @@ export const ProjetosView: React.FC = () => {
 
   // Delete Project
   const handleDelete = (id: string) => {
+    if (!isSuperAdmin) {
+      alert('Acesso restrito: Apenas os Super Administradores podem excluir projetos.');
+      return;
+    }
     setProjects(projects.filter(p => p.id !== id));
     setDeleteConfirmId(null);
   };
@@ -302,13 +320,20 @@ export const ProjetosView: React.FC = () => {
           </p>
         </div>
 
-        {/* Create Project Button */}
-        <button
-          onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
-        >
-          <Plus size={18} /> Criar Novo Projeto
-        </button>
+        {/* Create Project Button / Admin Badge */}
+        {isSuperAdmin ? (
+          <button
+            onClick={openCreateModal}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
+          >
+            <Plus size={18} /> Criar Novo Projeto
+          </button>
+        ) : (
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs font-medium">
+            <Lock size={14} className="text-slate-400" />
+            <span>Postagem e gestão restrita aos Super Admins</span>
+          </div>
+        )}
       </div>
 
       {/* Projects Grid */}
@@ -342,23 +367,25 @@ export const ProjetosView: React.FC = () => {
                   <span className="text-[10px] hidden sm:inline">Baixar Foto (PNG)</span>
                 </button>
 
-                {/* Bottom Right Floating Action Bar for Edit / Delete */}
-                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => openEditModal(proj)}
-                    className="p-2 rounded-xl bg-slate-900/80 hover:bg-teal-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                    title="Editar Projeto"
-                  >
-                    <Pencil size={13} />
-                  </button>
-                  <button
-                    onClick={() => setDeleteConfirmId(proj.id)}
-                    className="p-2 rounded-xl bg-slate-900/80 hover:bg-rose-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                    title="Excluir Projeto"
-                  >
-                    <Trash2 size={13} />
-                  </button>
-                </div>
+                {/* Bottom Right Floating Action Bar for Edit / Delete (Super Admin only) */}
+                {isSuperAdmin && (
+                  <div className="absolute bottom-3 right-3 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => openEditModal(proj)}
+                      className="p-2 rounded-xl bg-slate-900/80 hover:bg-teal-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
+                      title="Editar Projeto"
+                    >
+                      <Pencil size={13} />
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirmId(proj.id)}
+                      className="p-2 rounded-xl bg-slate-900/80 hover:bg-rose-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
+                      title="Excluir Projeto"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Card Body */}

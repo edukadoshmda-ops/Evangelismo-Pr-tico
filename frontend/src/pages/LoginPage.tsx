@@ -225,8 +225,41 @@ export const LoginPage: React.FC = () => {
               </button>
             </form>
 
-            {/* Quick Demo Access Option */}
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-center space-y-3">
+            {/* Quick Super Admin & Demo Access */}
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="text-center">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  Acesso Rápido Super Administradores
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('pastorrobertocasas57@gmail.com');
+                      setPassword('123456');
+                      setIsRegister(false);
+                      setError(null);
+                    }}
+                    className="py-2 px-3 rounded-xl border border-teal-500/30 bg-teal-50/50 dark:bg-teal-950/30 hover:bg-teal-100/70 text-teal-800 dark:text-teal-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <span>👑 Pr. Roberto Casas</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('edukadoshmda@gmail.com');
+                      setPassword('123456');
+                      setIsRegister(false);
+                      setError(null);
+                    }}
+                    className="py-2 px-3 rounded-xl border border-teal-500/30 bg-teal-50/50 dark:bg-teal-950/30 hover:bg-teal-100/70 text-teal-800 dark:text-teal-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <span>👑 Edukadosh</span>
+                  </button>
+                </div>
+              </div>
+
               <button
                 type="button"
                 onClick={handleDemoAccess}

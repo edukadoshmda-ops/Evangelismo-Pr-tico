@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { 
   Video, Play, Plus, Youtube, ExternalLink, 
   Trash2, Pencil, X, Check, AlertCircle, 
-  CheckCircle2, Film, Music
+  CheckCircle2, Film, Music, ShieldCheck
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export type VideoTheme = 
   | 'Evangelismo' 
@@ -122,6 +123,7 @@ const INITIAL_VIDEOS: VideoItem[] = [
 ];
 
 export const VideosView: React.FC = () => {
+  const { isSuperAdmin } = useAuth();
   const [videos, setVideos] = useState<VideoItem[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -160,8 +162,12 @@ export const VideosView: React.FC = () => {
     }
   }, [videos]);
 
-  // Open Create Modal
+  // Open Create Modal (Super Admin Only)
   const openCreateModal = () => {
+    if (!isSuperAdmin) {
+      alert('Acesso Restrito: Apenas os Super Administradores (Pr. Roberto Casas e Edukadosh) têm permissão para publicar vídeos.');
+      return;
+    }
     setEditingVideo(null);
     setTitle('');
     setTheme('Evangelismo');
@@ -173,8 +179,12 @@ export const VideosView: React.FC = () => {
     setShowModal(true);
   };
 
-  // Open Edit Modal
+  // Open Edit Modal (Super Admin Only)
   const openEditModal = (video: VideoItem) => {
+    if (!isSuperAdmin) {
+      alert('Acesso Restrito: Apenas os Super Administradores têm permissão para editar vídeos.');
+      return;
+    }
     setEditingVideo(video);
     setTitle(video.title);
     setTheme(video.theme);
@@ -189,6 +199,10 @@ export const VideosView: React.FC = () => {
   // Handle Submit Video
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isSuperAdmin) {
+      alert('Apenas os Super Administradores têm permissão para publicar vídeos.');
+      return;
+    }
     if (!title.trim() || !youtubeUrl.trim()) return;
 
     const ytId = extractYouTubeId(youtubeUrl);
@@ -241,6 +255,10 @@ export const VideosView: React.FC = () => {
 
   // Delete Video
   const handleDelete = (id: string) => {
+    if (!isSuperAdmin) {
+      alert('Apenas os Super Administradores têm permissão para excluir vídeos.');
+      return;
+    }
     setVideos(videos.filter(v => v.id !== id));
     setDeleteConfirmId(null);
   };
@@ -281,13 +299,20 @@ export const VideosView: React.FC = () => {
           </p>
         </div>
 
-        {/* Action Button: Add YouTube Video */}
-        <button
-          onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
-        >
-          <Plus size={18} /> Adicionar / Baixar Vídeo do YouTube
-        </button>
+        {/* Action Button: Add YouTube Video (Super Admin Only) */}
+        {isSuperAdmin ? (
+          <button
+            onClick={openCreateModal}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
+          >
+            <Plus size={18} /> Adicionar / Baixar Vídeo do YouTube
+          </button>
+        ) : (
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-medium border border-slate-200 dark:border-slate-700">
+            <ShieldCheck size={16} className="text-amber-500" />
+            <span>Painel de Publicação: Restrito a Super Admin</span>
+          </div>
+        )}
       </div>
 
       {/* Filter Tabs by Theme */}
@@ -360,26 +385,28 @@ export const VideosView: React.FC = () => {
                     {video.duration}
                   </span>
 
-                  {/* Edit / Delete Icons */}
-                  <div 
-                    onClick={(e) => e.stopPropagation()}
-                    className="absolute top-3 right-3 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity"
-                  >
-                    <button
-                      onClick={() => openEditModal(video)}
-                      className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-teal-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                      title="Editar Vídeo"
+                  {/* Edit / Delete Icons (Super Admin Only) */}
+                  {isSuperAdmin && (
+                    <div 
+                      onClick={(e) => e.stopPropagation()}
+                      className="absolute top-3 right-3 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity"
                     >
-                      <Pencil size={12} />
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirmId(video.id)}
-                      className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-rose-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                      title="Excluir Vídeo"
-                    >
-                      <Trash2 size={12} />
-                    </button>
-                  </div>
+                      <button
+                        onClick={() => openEditModal(video)}
+                        className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-teal-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
+                        title="Editar Vídeo (Super Admin)"
+                      >
+                        <Pencil size={12} />
+                      </button>
+                      <button
+                        onClick={() => setDeleteConfirmId(video.id)}
+                        className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-rose-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
+                        title="Excluir Vídeo (Super Admin)"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Card Content */}
