@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Headphones, BookOpen, Video, 
   MessageSquareQuote, Globe2, FileSpreadsheet, 
   LogOut, ExternalLink, ChevronLeft, ChevronRight, Flame,
-  Smartphone
+  Smartphone, GraduationCap, Award
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,8 @@ import { TRACKS } from './AudioPlayer';
 
 export type TabType = 
   | 'dashboard' 
+  | 'cursos'
+  | 'certificados'
   | 'audiobook' 
   | 'playbook' 
   | 'videos' 
@@ -18,6 +20,7 @@ export type TabType =
   | 'projetos' 
   | 'relatorios'
   | 'conferencia';
+
 
 interface AppSidebarProps {
   activeTab: TabType;
@@ -44,6 +47,18 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       label: 'Painel Dashboard',
       icon: LayoutDashboard,
       badge: 'Geral',
+    },
+    {
+      id: 'cursos' as TabType,
+      label: 'Fazer Cursos',
+      icon: GraduationCap,
+      badge: 'Estude Aqui',
+    },
+    {
+      id: 'certificados' as TabType,
+      label: 'Certificados',
+      icon: Award,
+      badge: 'Oficial',
     },
     {
       id: 'audiobook' as TabType,

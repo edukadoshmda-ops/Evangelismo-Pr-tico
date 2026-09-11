@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
+import axios from 'axios';
 import { 
   FileSpreadsheet, Plus, Search, 
   CheckCircle2, DollarSign, Users, Award, 
   Edit3, Trash2, QrCode, Copy, Check, Heart, 
   CreditCard, Building2, X, Smartphone, MessageCircle, Image as ImageIcon,
-  FileText
+  FileText, GraduationCap, Eye, Download
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { generatePixPayload } from '../../utils/pix';
 import { STORAGE_KEYS } from '../../utils/appMetrics';
+import { AlunoCursoRegistro, STORAGE_ALUNOS_CURSOS_KEY } from '../../types/cursos';
+
 
 // ==========================================
 // 1. INTERFACES DE DADOS
@@ -107,7 +110,7 @@ const INITIAL_FINANCES: FinancialRow[] = [
 ];
 
 export const RelatoriosView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'multiplicador' | 'trilhaEvang' | 'oferta' | 'financeiro'>('multiplicador');
+  const [activeTab, setActiveTab] = useState<'multiplicador' | 'trilhaEvang' | 'oferta' | 'financeiro' | 'alunosCursos'>('multiplicador');
   const [search, setSearch] = useState('');
 
   // Estados das Planilhas com sincronização LocalStorage
@@ -139,6 +142,52 @@ export const RelatoriosView: React.FC = () => {
 
   const [financesList, setFinancesList] = useState<FinancialRow[]>(INITIAL_FINANCES);
   const [discipuladorNome, setDiscipuladorNome] = useState('Pr. Roberto Rodrigues Casas');
+
+  // Alunos Concluintes dos Cursos
+  const [alunosCursosList, setAlunosCursosList] = useState<AlunoCursoRegistro[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_ALUNOS_CURSOS_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return [];
+  });
+
+  const [modalAlunoRespostas, setModalAlunoRespostas] = useState<AlunoCursoRegistro | null>(null);
+
+  // Sincronizar com Backend e eventos
+  useEffect(() => {
+    const fetchAlunosBackend = async () => {
+      try {
+        const res = await axios.get('/api/cursos/respostas');
+        if (res.data && res.data.data && Array.isArray(res.data.data)) {
+          setAlunosCursosList(res.data.data);
+          localStorage.setItem(STORAGE_ALUNOS_CURSOS_KEY, JSON.stringify(res.data.data));
+        }
+      } catch (err) {
+        console.warn('Backend offline ou sem conexão, usando dados salvos no navegador.');
+      }
+    };
+
+    fetchAlunosBackend();
+
+    const handleUpdate = () => {
+      try {
+        const saved = localStorage.getItem(STORAGE_ALUNOS_CURSOS_KEY);
+        if (saved) setAlunosCursosList(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    window.addEventListener('app-alunos-cursos-updated', handleUpdate);
+    return () => window.removeEventListener('app-alunos-cursos-updated', handleUpdate);
+  }, []);
+
 
   useEffect(() => {
     try {
@@ -679,35 +728,47 @@ export const RelatoriosView: React.FC = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
-            <Users size={24} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-3">
+          <div className="w-11 h-11 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+            <Users size={22} />
           </div>
-          <div>
-            <p className="text-xs font-medium text-slate-400">Total de Discípulos</p>
-            <h3 className="font-heading font-bold text-2xl text-slate-900 dark:text-white">{totalMultiDiscipulos} Registrados</h3>
-          </div>
-        </div>
-
-        <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-            <Award size={24} />
-          </div>
-          <div>
-            <p className="text-xs font-medium text-slate-400">Batizados / Confirmados</p>
-            <h3 className="font-heading font-bold text-2xl text-slate-900 dark:text-white">{totalBatizados} Vidas</h3>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-slate-400">Total de Discípulos</p>
+            <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white truncate">{totalMultiDiscipulos} Registrados</h3>
           </div>
         </div>
 
-        <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-            <DollarSign size={24} />
+        <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-3">
+          <div className="w-11 h-11 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <Award size={22} />
           </div>
-          <div>
-            <p className="text-xs font-medium text-slate-400">Ofertas "1 Real por um Ideal"</p>
-            <h3 className="font-heading font-bold text-2xl text-emerald-600 dark:text-emerald-400">
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-slate-400">Batizados / Salvos</p>
+            <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white truncate">{totalBatizados} Vidas</h3>
+          </div>
+        </div>
+
+        <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-3">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <DollarSign size={22} />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-slate-400">Ofertas "1 Real"</p>
+            <h3 className="font-heading font-bold text-xl text-emerald-600 dark:text-emerald-400 truncate">
               R$ {totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </h3>
+          </div>
+        </div>
+
+        <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-lg flex items-center gap-3">
+          <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <GraduationCap size={22} />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium text-slate-400">Alunos Concluintes</p>
+            <h3 className="font-heading font-bold text-xl text-indigo-600 dark:text-indigo-400 truncate">
+              {alunosCursosList.length} Certificados
             </h3>
           </div>
         </div>
@@ -744,7 +805,7 @@ export const RelatoriosView: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            💰 1 Real por um Ideal (PIX/QR)
+            💰 1 Real por um Ideal
           </button>
           <button
             onClick={() => setActiveTab('financeiro')}
@@ -756,7 +817,18 @@ export const RelatoriosView: React.FC = () => {
           >
             3. Relatório Financeiro
           </button>
+          <button
+            onClick={() => setActiveTab('alunosCursos')}
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              activeTab === 'alunosCursos'
+                ? 'bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-md'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            🎓 4. Alunos dos Cursos ({alunosCursosList.length})
+          </button>
         </div>
+
 
         {/* Search */}
         {activeTab !== 'oferta' && (
@@ -1801,6 +1873,236 @@ export const RelatoriosView: React.FC = () => {
         </div>
       )}
 
+      {/* =========================================================================
+          TAB 4: ALUNOS DOS CURSOS & RESPOSTAS COMPLETAS
+          ========================================================================= */}
+      {activeTab === 'alunosCursos' && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <h2 className="text-xl font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <GraduationCap className="text-teal-600 dark:text-teal-400" />
+                  Alunos Concluintes & Respostas das Lições
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Resultados detalhados enviados pelos alunos ao finalizarem os Cursos de Evangelismo e Discipulado.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href="/api/export/cursos-csv"
+                  download="relatorio-alunos-cursos.csv"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition-all hover:scale-105"
+                  title="Exportar planilha CSV com json2csv"
+                >
+                  <Download size={16} />
+                  Exportar CSV (json2csv)
+                </a>
+              </div>
+            </div>
+
+            {/* Tabela de Alunos Concluintes */}
+            {alunosCursosList.length === 0 ? (
+              <div className="text-center py-12 space-y-3">
+                <GraduationCap size={40} className="mx-auto text-slate-300 dark:text-slate-600" />
+                <h3 className="font-heading font-bold text-slate-700 dark:text-slate-300">
+                  Nenhum aluno concluiu o curso ainda
+                </h3>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                  Quando os alunos realizarem as lições e enviarem suas respostas na aba "Fazer Cursos", os resultados aparecerão aqui automaticamente!
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th className="py-3.5 px-4">Aluno</th>
+                      <th className="py-3.5 px-4">Igreja & Pastor</th>
+                      <th className="py-3.5 px-4">Curso Realizado</th>
+                      <th className="py-3.5 px-4">Concluído em</th>
+                      <th className="py-3.5 px-4">Certificado</th>
+                      <th className="py-3.5 px-4 text-center">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {alunosCursosList
+                      .filter(a => 
+                        a.alunoNome.toLowerCase().includes(search.toLowerCase()) || 
+                        a.igreja.toLowerCase().includes(search.toLowerCase()) || 
+                        a.pastor.toLowerCase().includes(search.toLowerCase())
+                      )
+                      .map((aluno, idx) => (
+                        <tr key={aluno.id || idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                          <td className="py-3.5 px-4">
+                            <div className="font-bold text-slate-900 dark:text-white text-sm">
+                              {aluno.alunoNome}
+                            </div>
+                            {aluno.telefone && (
+                              <div className="text-[11px] text-slate-400 font-mono">
+                                {aluno.telefone}
+                              </div>
+                            )}
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <div className="font-semibold text-slate-700 dark:text-slate-300">
+                              {aluno.igreja}
+                            </div>
+                            <div className="text-[11px] text-teal-600 dark:text-teal-400">
+                              Pastor: {aluno.pastor}
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                              {aluno.cursoTitulo.split(':')[0]}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-4 font-mono text-slate-600 dark:text-slate-400">
+                            {aluno.concluidoEm}
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <span className="font-mono text-[11px] bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg text-slate-600 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700">
+                              {aluno.certificadoCodigo}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-4 text-center">
+                            <div className="flex items-center justify-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setModalAlunoRespostas(aluno)}
+                                className="px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm"
+                                title="Visualizar respostas completas do aluno"
+                              >
+                                <Eye size={14} /> Ver Respostas
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Respostas Detalhadas do Aluno */}
+      {modalAlunoRespostas && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto space-y-6">
+            <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <span className="text-[11px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">
+                  Avaliação & Relatório Individual
+                </span>
+                <h3 className="text-xl font-heading font-black text-slate-900 dark:text-white">
+                  Respostas de {modalAlunoRespostas.alunoNome}
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {modalAlunoRespostas.igreja} • Pastor: {modalAlunoRespostas.pastor} • {modalAlunoRespostas.concluidoEm}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setModalAlunoRespostas(null)}
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Curso Realizado */}
+            <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800 flex items-center justify-between">
+              <div>
+                <span className="text-xs text-teal-600 dark:text-teal-400 font-bold block">Curso Concluído:</span>
+                <span className="text-sm font-bold text-teal-950 dark:text-teal-200">
+                  {modalAlunoRespostas.cursoTitulo}
+                </span>
+              </div>
+              <span className="font-mono text-xs bg-white dark:bg-slate-900 px-3 py-1 rounded-xl font-bold text-slate-700 dark:text-slate-300 border border-teal-200 dark:border-teal-800">
+                {modalAlunoRespostas.certificadoCodigo}
+              </span>
+            </div>
+
+            {/* Testemunho em 4 partes (se houver) */}
+            {(modalAlunoRespostas.respostas['testemunho_antes'] || modalAlunoRespostas.respostas['testemunho_despertar'] || modalAlunoRespostas.respostas['testemunho_decisao'] || modalAlunoRespostas.respostas['testemunho_agora']) && (
+              <div className="space-y-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                <h4 className="font-bold text-xs uppercase tracking-wider text-teal-600 dark:text-teal-400">
+                  Testemunho Pessoal de Salvação (Os 4 Fundamentos)
+                </h4>
+                <div className="space-y-2 text-xs">
+                  {modalAlunoRespostas.respostas['testemunho_antes'] && (
+                    <div>
+                      <strong className="text-slate-700 dark:text-slate-300">1. Vida Antes de Cristo: </strong>
+                      <span className="text-slate-600 dark:text-slate-400">{modalAlunoRespostas.respostas['testemunho_antes']}</span>
+                    </div>
+                  )}
+                  {modalAlunoRespostas.respostas['testemunho_despertar'] && (
+                    <div>
+                      <strong className="text-slate-700 dark:text-slate-300">2. O que Despertou: </strong>
+                      <span className="text-slate-600 dark:text-slate-400">{modalAlunoRespostas.respostas['testemunho_despertar']}</span>
+                    </div>
+                  )}
+                  {modalAlunoRespostas.respostas['testemunho_decisao'] && (
+                    <div>
+                      <strong className="text-slate-700 dark:text-slate-300">3. Decisão Pessoal de Fé: </strong>
+                      <span className="text-slate-600 dark:text-slate-400">{modalAlunoRespostas.respostas['testemunho_decisao']}</span>
+                    </div>
+                  )}
+                  {modalAlunoRespostas.respostas['testemunho_agora'] && (
+                    <div>
+                      <strong className="text-slate-700 dark:text-slate-300">4. Vida Agora em Cristo: </strong>
+                      <span className="text-slate-600 dark:text-slate-400">{modalAlunoRespostas.respostas['testemunho_agora']}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Listagem de Todas as Questões Respondidas */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-xs uppercase tracking-wider text-slate-400">
+                Questionário e Respostas das Lições
+              </h4>
+              <div className="space-y-2">
+                {Object.entries(modalAlunoRespostas.respostas || {}).map(([key, val]) => {
+                  if (key.startsWith('testemunho_')) return null;
+                  return (
+                    <div key={key} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs flex items-start justify-between gap-3">
+                      <span className="font-mono text-slate-500 shrink-0 font-bold">
+                        {key.toUpperCase()}:
+                      </span>
+                      <span className={`font-semibold ${
+                        val === 'SIM' ? 'text-teal-600 dark:text-teal-400' :
+                        val === 'NÃO' ? 'text-rose-600 dark:text-rose-400' :
+                        'text-slate-800 dark:text-slate-200'
+                      }`}>
+                        {String(val)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => setModalAlunoRespostas(null)}
+                className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition-colors"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
+

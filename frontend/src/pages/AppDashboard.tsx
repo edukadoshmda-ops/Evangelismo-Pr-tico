@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { AppSidebar, TabType } from '../components/AppSidebar';
 import { DashboardView } from '../components/views/DashboardView';
+import { CursosView } from '../components/views/CursosView';
+import { CertificadosView } from '../components/views/CertificadosView';
 import { AudioBookView } from '../components/views/AudioBookView';
 import { PlayBookView } from '../components/views/PlayBookView';
 import { VideosView } from '../components/views/VideosView';
@@ -10,12 +12,15 @@ import { ConferenciaView } from '../components/views/ConferenciaView';
 import { RelatoriosView } from '../components/views/RelatoriosView';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { getInitialTheme, applyTheme, Theme } from '../core/theme';
+import { AlunoCursoRegistro } from '../types/cursos';
 
 export const AppDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const [alunoCertificadoData, setAlunoCertificadoData] = useState<Partial<AlunoCursoRegistro> | undefined>(undefined);
+
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
@@ -56,6 +61,8 @@ export const AppDashboard: React.FC = () => {
               </span>
               <h2 className="font-heading font-bold text-lg text-slate-900 dark:text-white capitalize">
                 {activeTab === 'dashboard' && 'Painel Dashboard'}
+                {activeTab === 'cursos' && 'Fazer Cursos: Evangelismo & Discipulado'}
+                {activeTab === 'certificados' && 'Certificados Oficiais de Conclusão'}
                 {activeTab === 'audiobook' && 'Audio Book & Estudos'}
                 {activeTab === 'playbook' && 'Play Book de Campo'}
                 {activeTab === 'videos' && 'Vídeos & Treinamentos'}
@@ -81,6 +88,17 @@ export const AppDashboard: React.FC = () => {
         {/* Dynamic View Body */}
         <main className="flex-1 p-4 sm:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
           {activeTab === 'dashboard' && <DashboardView onNavigate={setActiveTab} />}
+          {activeTab === 'cursos' && (
+            <CursosView 
+              onNavigateToCertificado={(dadosAluno) => {
+                setAlunoCertificadoData(dadosAluno);
+                setActiveTab('certificados');
+              }} 
+            />
+          )}
+          {activeTab === 'certificados' && (
+            <CertificadosView initialAluno={alunoCertificadoData} />
+          )}
           {activeTab === 'audiobook' && <AudioBookView />}
           {activeTab === 'playbook' && <PlayBookView />}
           {activeTab === 'videos' && <VideosView />}

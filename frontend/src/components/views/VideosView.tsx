@@ -546,44 +546,44 @@ export const VideosView: React.FC = () => {
           MODAL DE ADICIONAR / BAIXAR VÍDEO DO YOUTUBE
           ========================================================================= */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn overflow-y-auto">
-          <div className="w-full max-w-xl my-8 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-teal-500/40 shadow-2xl space-y-5 animate-scaleUp">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/80 backdrop-blur-sm animate-fadeIn overflow-y-auto">
+          <div className="w-full max-w-[425px] my-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-teal-500/40 shadow-2xl space-y-3 animate-scaleUp">
             
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-                  <Youtube size={22} />
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                  <Youtube size={17} />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-                    {editingVideo ? 'Editar Vídeo do YouTube' : 'Adicionar Vídeo & Download do YouTube'}
+                  <h3 className="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-tight">
+                    {editingVideo ? 'Editar Vídeo do YouTube' : 'Adicionar Vídeo do YouTube'}
                   </h3>
-                  <p className="text-xs text-slate-400">Insira o link do YouTube e selecione o tema bíblico</p>
+                  <p className="text-[11px] text-slate-400">Insira o link do YouTube e selecione o tema bíblico</p>
                 </div>
               </div>
 
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
-                <X size={20} />
+                <X size={17} />
               </button>
             </div>
 
             {/* Success Alert */}
             {savedSuccess ? (
-              <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-center font-semibold text-xs flex items-center justify-center gap-2">
-                <CheckCircle2 size={18} className="text-emerald-500" />
+              <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-center font-semibold text-xs flex items-center justify-center gap-2">
+                <CheckCircle2 size={16} className="text-emerald-500" />
                 {editingVideo ? 'Vídeo atualizado com sucesso!' : 'Vídeo adicionado e pronto para download!'}
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-2.5">
                 {/* 1. Link do YouTube */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
-                    <Youtube size={14} className="text-rose-500" /> Link do Vídeo no YouTube *
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+                    <Youtube size={13} className="text-rose-500" /> Link do Vídeo no YouTube *
                   </label>
                   <input
                     type="url"
@@ -591,17 +591,17 @@ export const VideosView: React.FC = () => {
                     placeholder="Ex: https://www.youtube.com/watch?v=..."
                     value={youtubeUrl}
                     onChange={(e) => setYoutubeUrl(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   />
                   {youtubeUrl && extractYouTubeId(youtubeUrl) && (
-                    <div className="mt-2 flex items-center gap-3 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                    <div className="mt-1.5 flex items-center gap-2.5 p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
                       <img
                         src={`https://img.youtube.com/vi/${extractYouTubeId(youtubeUrl)}/hqdefault.jpg`}
                         alt="Capa Detectada"
-                        className="w-16 h-10 object-cover rounded-lg"
+                        className="w-12 h-8 object-cover rounded-md"
                       />
-                      <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
-                        <CheckCircle2 size={13} /> Vídeo do YouTube identificado com capa automática!
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                        <CheckCircle2 size={12} /> Vídeo identificado com capa automática!
                       </span>
                     </div>
                   )}
@@ -609,7 +609,7 @@ export const VideosView: React.FC = () => {
 
                 {/* 2. Título do Vídeo */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                     Título do Vídeo / Treinamento *
                   </label>
                   <input
@@ -618,20 +618,20 @@ export const VideosView: React.FC = () => {
                     placeholder="Ex: Como Quebrar o Gelo no Evangelismo"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   />
                 </div>
 
                 {/* 3. Tema & Preletor */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       Tema do Vídeo *
                     </label>
                     <select
                       value={theme}
                       onChange={(e) => setTheme(e.target.value as VideoTheme)}
-                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none font-semibold"
+                      className="w-full px-2.5 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none font-semibold"
                     >
                       {THEMES.map(t => (
                         <option key={t} value={t}>{t}</option>
@@ -640,7 +640,7 @@ export const VideosView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       Preletor / Responsável
                     </label>
                     <input
@@ -648,15 +648,15 @@ export const VideosView: React.FC = () => {
                       placeholder="Ex: Pr. Roberto Casas"
                       value={speaker}
                       onChange={(e) => setSpeaker(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                      className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* 4. Duração & Imagem personalizada */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       Duração (min:seg)
                     </label>
                     <input
@@ -664,53 +664,53 @@ export const VideosView: React.FC = () => {
                       placeholder="Ex: 24:15"
                       value={duration}
                       onChange={(e) => setDuration(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none font-mono"
+                      className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       Capa Alternativa (Opcional)
                     </label>
                     <input
                       type="url"
-                      placeholder="URL de imagem (caso queira substituir a do YouTube)"
+                      placeholder="URL de imagem"
                       value={customThumbnail}
                       onChange={(e) => setCustomThumbnail(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                      className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* 5. Descrição */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                     Descrição do Vídeo & Tópicos Abordados
                   </label>
                   <textarea
-                    rows={3}
-                    placeholder="Descreva o conteúdo do vídeo, versículos chaves e orientações..."
+                    rows={2}
+                    placeholder="Descreva o conteúdo do vídeo, versículos chaves..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white resize-none focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white resize-none focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   ></textarea>
                 </div>
 
                 {/* Buttons */}
-                <div className="flex justify-end gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs font-semibold shadow-md shadow-teal-600/20 transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs font-semibold shadow-md shadow-teal-600/20 transition-all hover:scale-105 active:scale-95"
                   >
-                    <Check size={16} />
-                    {editingVideo ? 'Salvar Alterações' : 'Salvar Vídeo & Habilitar Download'}
+                    <Check size={14} />
+                    {editingVideo ? 'Salvar Alterações' : 'Salvar Vídeo'}
                   </button>
                 </div>
               </form>
