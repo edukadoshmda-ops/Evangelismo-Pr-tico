@@ -10,6 +10,7 @@
     <!-- PWA & Mobile Icons -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#001869" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Evangelismo" />
@@ -23,17 +24,44 @@
     
     <!-- FontAwesome for cross icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Recuperação Automática de Cache Antigo do Navegador -->
+    <script>
+      window.addEventListener('error', function(e) {
+        var isAsset = e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK');
+        if (isAsset) {
+          console.warn('[PWA] Cache desatualizado detectado. Limpando Service Worker e recarregando a versão mais recente...');
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+            });
+          }
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              for (var i = 0; i < names.length; i++) { caches.delete(names[i]); }
+            });
+          }
+          if (!sessionStorage.getItem('pwa_auto_refreshed')) {
+            sessionStorage.setItem('pwa_auto_refreshed', 'true');
+            window.location.reload();
+          }
+        }
+      }, true);
+    </script>
   </head>
   <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-body transition-colors duration-300">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Service Worker Registration -->
+    <!-- Service Worker Registration com auto-update -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((reg) => console.log('PWA Service Worker registrado:', reg.scope))
+          navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+            .then((reg) => {
+              console.log('PWA Service Worker registrado:', reg.scope);
+              reg.update();
+            })
             .catch((err) => console.log('Falha ao registrar Service Worker:', err));
         });
       }
