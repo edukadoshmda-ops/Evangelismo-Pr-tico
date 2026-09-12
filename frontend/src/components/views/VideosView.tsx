@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Video, Play, Plus, Youtube, ExternalLink, 
   Trash2, Pencil, X, Check, AlertCircle, 
-  CheckCircle2, Film, Music, ShieldCheck
+  CheckCircle2, Film, Music, ShieldCheck,
+  Download, Copy, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -143,6 +144,8 @@ export const VideosView: React.FC = () => {
   const [editingVideo, setEditingVideo] = useState<VideoItem | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [downloadModalVideo, setDownloadModalVideo] = useState<{ video: VideoItem; type: 'video' | 'audio' } | null>(null);
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
 
   // Form State
   const [title, setTitle] = useState('');
@@ -272,13 +275,23 @@ export const VideosView: React.FC = () => {
   const handleOpenDownloader = (video: VideoItem, type: 'video' | 'audio') => {
     const ytId = video.youtubeId || extractYouTubeId(video.youtubeUrl);
     if (ytId) {
-      // Open YouTube download portal with video
+      // SaveFrom (ssyoutube) for MP4 (Full HD/HD), Loader.to for MP3 Audio
       const downloadServiceUrl = type === 'audio'
-        ? `https://y2meta.tube/en/youtube-to-mp3?q=https://www.youtube.com/watch?v=${ytId}`
-        : `https://y2meta.tube/en/youtube-to-mp4?q=https://www.youtube.com/watch?v=${ytId}`;
+        ? `https://en.loader.to/4/?link=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D${ytId}&f=mp3`
+        : `https://ssyoutube.com/watch?v=${ytId}`;
       window.open(downloadServiceUrl, '_blank', 'noopener,noreferrer');
     } else {
       window.open(video.youtubeUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handleCopyLink = (url: string) => {
+    try {
+      navigator.clipboard.writeText(url);
+      setCopiedLink(url);
+      setTimeout(() => setCopiedLink(null), 2500);
+    } catch (e) {
+      console.error('Falha ao copiar link:', e);
     }
   };
 
@@ -434,13 +447,13 @@ export const VideosView: React.FC = () => {
               </div>
 
               {/* Bottom Download Options */}
-              <div className="p-6 pt-0 space-y-2 border-t border-slate-100 dark:border-slate-800 mt-2">
+              <div className="p-6 pt-0 space-y-2.5 border-t border-slate-100 dark:border-slate-800 mt-2">
                 <div className="grid grid-cols-2 gap-2 pt-3">
                   {/* Baixar MP4 */}
                   <button
                     onClick={() => handleOpenDownloader(video, 'video')}
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-teal-600 hover:text-white text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all shadow-sm"
-                    title="Baixar Vídeo em MP4 (Full HD)"
+                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-teal-50 dark:bg-teal-950/40 hover:bg-teal-600 hover:text-white text-teal-700 dark:text-teal-300 font-semibold text-xs transition-all shadow-sm border border-teal-200/80 dark:border-teal-800/60 active:scale-95"
+                    title="Baixar Vídeo em MP4 (SaveFrom)"
                   >
                     <Film size={13} /> Baixar Vídeo (MP4)
                   </button>
@@ -448,22 +461,33 @@ export const VideosView: React.FC = () => {
                   {/* Baixar MP3 */}
                   <button
                     onClick={() => handleOpenDownloader(video, 'audio')}
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-600 hover:text-white text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all shadow-sm"
-                    title="Baixar Áudio do Vídeo em MP3"
+                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-600 hover:text-white text-amber-700 dark:text-amber-300 font-semibold text-xs transition-all shadow-sm border border-amber-200/80 dark:border-amber-800/60 active:scale-95"
+                    title="Baixar Áudio em MP3 (Loader.to)"
                   >
                     <Music size={13} /> Baixar Áudio (MP3)
                   </button>
                 </div>
 
-                {/* Assistir Direto no YouTube */}
-                <a
-                  href={video.youtubeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-[11px] font-semibold text-slate-400 hover:text-rose-500 transition-colors"
-                >
-                  <Youtube size={14} className="text-rose-500" /> Abrir no YouTube Oficial <ExternalLink size={11} />
-                </a>
+                <div className="flex items-center justify-between pt-1 text-[11px]">
+                  {/* Assistir Direto no YouTube */}
+                  <a
+                    href={video.youtubeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1.5 font-semibold text-slate-400 hover:text-rose-500 transition-colors"
+                  >
+                    <Youtube size={13} className="text-rose-500" /> YouTube Oficial <ExternalLink size={10} />
+                  </a>
+
+                  {/* Mais opções de download / Copiar Link */}
+                  <button
+                    onClick={() => setDownloadModalVideo({ video, type: 'video' })}
+                    className="flex items-center gap-1 text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 font-medium transition-colors"
+                    title="Ver mais servidores e opções de download"
+                  >
+                    <Download size={12} /> Opções extras
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -523,18 +547,27 @@ export const VideosView: React.FC = () => {
                 <p className="text-xs text-slate-300 mt-1 max-w-xl">{activeVideo.description}</p>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <button
                   onClick={() => handleOpenDownloader(activeVideo, 'video')}
-                  className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md"
+                  className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
+                  title="Baixar Vídeo em MP4 (SaveFrom)"
                 >
                   <Film size={14} /> Baixar Vídeo (MP4)
                 </button>
                 <button
                   onClick={() => handleOpenDownloader(activeVideo, 'audio')}
-                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md"
+                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
+                  title="Baixar Áudio em MP3 (Loader.to)"
                 >
                   <Music size={14} /> Baixar Áudio (MP3)
+                </button>
+                <button
+                  onClick={() => setDownloadModalVideo({ video: activeVideo, type: 'video' })}
+                  className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 border border-slate-700 active:scale-95 transition-all"
+                  title="Ver mais servidores e opções de download"
+                >
+                  <Download size={13} /> Opções
                 </button>
               </div>
             </div>
@@ -749,6 +782,176 @@ export const VideosView: React.FC = () => {
                 className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-md transition-all"
               >
                 <Trash2 size={14} /> Confirmar Exclusão
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          MODAL DE OPÇÕES E SERVIDORES DE DOWNLOAD
+          ========================================================================= */}
+      {downloadModalVideo && (
+        <div 
+          onClick={() => setDownloadModalVideo(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md p-6 rounded-3xl bg-white dark:bg-slate-900 border border-teal-500/40 shadow-2xl space-y-4 animate-scaleUp"
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center shadow-inner">
+                  <Download size={20} />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white">
+                    Opções de Download
+                  </h3>
+                  <p className="text-[11px] text-slate-400">Escolha o formato e servidor desejado</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDownloadModalVideo(null)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Video preview mini */}
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
+              <img
+                src={downloadModalVideo.video.thumbnail}
+                alt={downloadModalVideo.video.title}
+                className="w-16 h-11 object-cover rounded-xl shrink-0"
+              />
+              <div className="min-w-0 flex-1">
+                <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                  {downloadModalVideo.video.title}
+                </h4>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  {downloadModalVideo.video.speaker} • {downloadModalVideo.video.duration}
+                </p>
+              </div>
+            </div>
+
+            {/* Download Server Options */}
+            <div className="space-y-2.5">
+              {/* Opção 1: Vídeo MP4 (SaveFrom) */}
+              <a
+                href={
+                  (downloadModalVideo.video.youtubeId || extractYouTubeId(downloadModalVideo.video.youtubeUrl))
+                    ? `https://ssyoutube.com/watch?v=${downloadModalVideo.video.youtubeId || extractYouTubeId(downloadModalVideo.video.youtubeUrl)}`
+                    : downloadModalVideo.video.youtubeUrl
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30 text-teal-700 dark:text-teal-300 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center shrink-0">
+                    <Film size={16} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-bold flex items-center gap-1.5">
+                      Baixar Vídeo (MP4 HD)
+                      <span className="px-1.5 py-0.5 rounded text-[9px] bg-teal-600 text-white font-semibold">Recomendado</span>
+                    </p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Servidor SaveFrom - Baixar em 1080p, 720p ou 360p</p>
+                  </div>
+                </div>
+                <ExternalLink size={14} className="text-teal-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              {/* Opção 2: Áudio MP3 (Loader.to) */}
+              <a
+                href={
+                  (downloadModalVideo.video.youtubeId || extractYouTubeId(downloadModalVideo.video.youtubeUrl))
+                    ? `https://en.loader.to/4/?link=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D${downloadModalVideo.video.youtubeId || extractYouTubeId(downloadModalVideo.video.youtubeUrl)}&f=mp3`
+                    : downloadModalVideo.video.youtubeUrl
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-700 dark:text-amber-300 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center shrink-0">
+                    <Music size={16} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-bold flex items-center gap-1.5">
+                      Baixar Áudio (MP3)
+                      <span className="px-1.5 py-0.5 rounded text-[9px] bg-amber-600 text-white font-semibold">Rápido</span>
+                    </p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Servidor Loader.to - Extrai somente o áudio do vídeo</p>
+                  </div>
+                </div>
+                <ExternalLink size={14} className="text-amber-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              {/* Opção 3: Cobalt Tools (Sem Anúncios) */}
+              <a
+                href="https://cobalt.tools"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  navigator.clipboard.writeText(downloadModalVideo.video.youtubeUrl);
+                  setCopiedLink(downloadModalVideo.video.youtubeUrl);
+                }}
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-700 dark:text-indigo-300 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                    <Sparkles size={16} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-bold flex items-center gap-1.5">
+                      Cobalt Tools (Sem Anúncios)
+                    </p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Copia o link automaticamente para colar no Cobalt</p>
+                  </div>
+                </div>
+                <ExternalLink size={14} className="text-indigo-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              {/* Opção 4: Copiar Link Direto */}
+              <button
+                type="button"
+                onClick={() => handleCopyLink(downloadModalVideo.video.youtubeUrl)}
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-slate-600 text-white flex items-center justify-center shrink-0">
+                    <Copy size={16} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-bold">
+                      {copiedLink === downloadModalVideo.video.youtubeUrl ? 'Link Copiado com Sucesso!' : 'Copiar Link do YouTube'}
+                    </p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                      {copiedLink === downloadModalVideo.video.youtubeUrl ? 'Pronto para colar em qualquer app' : 'Ideal para apps móveis (Snaptube, TubeMate)'}
+                    </p>
+                  </div>
+                </div>
+                {copiedLink === downloadModalVideo.video.youtubeUrl ? (
+                  <CheckCircle2 size={16} className="text-emerald-500" />
+                ) : (
+                  <Copy size={14} className="text-slate-400" />
+                )}
+              </button>
+            </div>
+
+            <div className="text-center pt-1">
+              <button
+                type="button"
+                onClick={() => setDownloadModalVideo(null)}
+                className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium"
+              >
+                Fechar janela
               </button>
             </div>
           </div>
