@@ -498,7 +498,7 @@ export const RelatoriosView: React.FC = () => {
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(13);
       doc.setFont('helvetica', 'bold');
-      doc.text('TRILHA DO DISCÍPULO MULTIPLICADOR — EVANGELISMO PRÁTICO', 148.5, 19, { align: 'center' });
+      doc.text('TRILHA DO DISCÍPULO MULTIPLICADOR — FATOR DE SUCESSO DO DISCÍPULO', 148.5, 19, { align: 'center' });
 
       doc.setTextColor(50, 50, 50);
       doc.setFontSize(9);
@@ -567,7 +567,7 @@ export const RelatoriosView: React.FC = () => {
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(13);
       doc.setFont('helvetica', 'bold');
-      doc.text('TRILHA DE EVANGELISMO — A NOSSA MISSÃO É FAZER DISCÍPULOS', 148.5, 19, { align: 'center' });
+      doc.text('TRILHA DE EVANGELISMO — FATOR DE SUCESSO DO DISCÍPULO', 148.5, 19, { align: 'center' });
 
       doc.setTextColor(50, 50, 50);
       doc.setFontSize(9);
@@ -914,7 +914,9 @@ export const RelatoriosView: React.FC = () => {
                   {/* Linha 1: Título Oficial */}
                   <tr className="bg-[#1F3864] text-white font-heading font-bold text-sm tracking-wider">
                     <th colSpan={20} className="py-3 px-4 text-center">
-                      TRILHA DO DISCÍPULO MULTIPLICADOR
+                      <span className="font-heading font-black tracking-wider">TRILHA DO DISCÍPULO MULTIPLICADOR</span>
+                      <span className="mx-2 text-amber-300 font-normal">•</span>
+                      <span className="text-amber-300 uppercase tracking-wider font-bold">FATOR DE SUCESSO DO DISCÍPULO</span>
                     </th>
                   </tr>
 
@@ -1166,7 +1168,9 @@ export const RelatoriosView: React.FC = () => {
                 <thead className="sticky top-0 z-30 shadow-md">
                   <tr className="bg-slate-800 text-white font-heading font-bold text-sm tracking-wider">
                     <th colSpan={16} className="py-3 px-4 text-center">
-                      TRILHA DE EVANGELISMO
+                      <span className="font-heading font-black tracking-wider">TRILHA DE EVANGELISMO</span>
+                      <span className="mx-2 text-amber-300 font-normal">•</span>
+                      <span className="text-amber-300 uppercase tracking-wider font-bold">FATOR DE SUCESSO DO DISCÍPULO</span>
                     </th>
                   </tr>
 

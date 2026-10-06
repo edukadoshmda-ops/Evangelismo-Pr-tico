@@ -337,6 +337,43 @@ const LESSONS_SALVACAO: PageLesson[] = [
       'Se Ele disse que há mais alegria no céu por um pecador que se arrepende, você quer fazer "festas no céu" ganhando almas para Cristo?',
       'Se Cristo deu a própria vida por você na cruz, será que é muito dar o melhor do seu tempo e testemunho para Ele?'
     ],
+    specialContent: {
+      title: 'AS 8 RAZÕES BÍBLICAS PARA LEVAR O EVANGELHO (MINISTRAÇÃO PASTORAL)',
+      items: [
+        {
+          label: '1. A Grande Comissão Soberana (Mateus 28:19-20)',
+          text: 'Jesus nos deu a ordem soberana de fazer discípulos de todas as nações, ensinando-os a guardar todas as coisas. Esta é a suprema missão da Igreja com a promessa de Sua presença constante!'
+        },
+        {
+          label: '2. Os Pés Formosos e o Elogio de Deus (Isaías 52:7)',
+          text: 'Veja o elogio de Deus para você: Ele diz que os seus pés são formosos porque você anuncia a salvação. É assim que o Senhor te contempla quando você proclama as boas-novas!'
+        },
+        {
+          label: '3. O Segredo de Paulo: Discipulado Um a Um (2 Timóteo 2:2)',
+          text: 'Paulo revela o maior segredo do seu ministério: o discipulado de um a um. Uma pessoa que você treina e desafia para discipular outra, e assim sucessivamente. O encadeamento da multiplicação bíblica não pode ser quebrado!'
+        },
+        {
+          label: '4. Fazer uma Grande Festa no Céu (Lucas 15:7)',
+          text: 'Nós sabemos que quem infligiu dor em Jesus na cruz foram os nossos pecados. E agora, depois de salvos pela graça, nós podemos fazer uma festa no céu! Deus se alegra, Jesus pula do trono e todos os santos celebram por um pecador que se arrepende. O Salvador merece essa festa!'
+        },
+        {
+          label: '5. Uma Vida Vale Mais do que o Mundo Inteiro (Marcos 8:36-37)',
+          text: 'Não adianta um homem ganhar o mundo inteiro e perder a sua alma. O maior investimento da história humana está em salvar vidas e transportá-las das trevas para o Reino de Deus!'
+        },
+        {
+          label: '6. Livrar Vidas do Maior Sofrimento Eterno (Apocalipse 20:15)',
+          text: 'Aquele que não foi achado no Livro da Vida foi lançado no lago de fogo. Pela evangelização, você antecipa esse resgate para que essa pessoa entre na Cidade Santa louvando e glorificando a Deus por todo o sempre!'
+        },
+        {
+          label: '7. A Palavra Nunca Volta Vazia: A Missão é Semear (Isaías 55:11)',
+          text: 'A Palavra de Deus prosperará naquilo para que foi enviada. A nossa missão é semear! Do Espírito Santo é converter, da pessoa é crer, mas a sua parte é pregar. (Exemplos de perseverança: George Müller, Nicodemos e Noé).'
+        },
+        {
+          label: '8. O Espírito Santo Falará por Você no Momento Certo (Mateus 10:19)',
+          text: 'Jesus disse: Não vos preocupeis com o que haveis de falar; naquela mesma hora vos será ministrado o que dizer. Todo medo de evangelizar se dissipa! O Pastor Roberto Casas testemunha mais de 51 anos de ministério vendo Deus falar poderosamente, e Ele nunca falhou!'
+        }
+      ]
+    },
     color: 'from-teal-600 to-teal-800'
   }
 ];
@@ -961,7 +998,7 @@ export const PlayBookView: React.FC = () => {
             Playbook de Campo & Leitura Integral
           </div>
           <h1 className="font-heading font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">
-            {currentCourse === 'salvacao' ? 'Playbook: As 8 Lições da Certeza da Salvação' : 'Playbook: Curso de Batismo & Discipulado'}
+            {currentCourse === 'salvacao' ? 'Playbook: As 8 Lições da Certeza da Salvação' : 'Playbook: Curso da Decisão ao Batismo'}
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">
             {currentCourse === 'salvacao' 
@@ -992,7 +1029,7 @@ export const PlayBookView: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <Award size={14} /> Batismo & Discipulado (10 Lições)
+            <Award size={14} /> Curso da Decisão ao Batismo (10 Lições)
           </button>
         </div>
       </div>
@@ -1170,36 +1207,40 @@ export const PlayBookView: React.FC = () => {
         {currentPage === 0 && (
           <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-3xl p-8 sm:p-14 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8 text-center relative overflow-hidden animate-scaleUp">
             
-            {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-300 text-xs font-semibold">
-              <Sparkles size={14} className="text-amber-500" />
-              {currentCourse === 'salvacao' ? 'Manual Oficial do Evangelizador' : 'Manual Oficial de Batismo & Discipulado'}
-            </div>
-
-            {/* Logo Oficial */}
-            <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-3xl overflow-hidden shadow-xl bg-teal-700 p-1 flex items-center justify-center">
+            {/* Logo Oficial em Forma de Capa */}
+            <div className="max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl border border-slate-200/80 dark:border-slate-700/80 hover:shadow-teal-500/20 transition-all duration-300">
               <img
-                src="/pwa-512x512.png"
-                alt="Logo Oficial"
-                className="w-full h-full object-cover rounded-2xl"
+                src="/capa_playbook.png"
+                alt="Capa Oficial - Evangelismo Prático"
+                className="w-full h-auto object-cover"
               />
             </div>
 
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-300 text-xs font-bold tracking-wide uppercase">
+              <Sparkles size={14} className="text-teal-600 dark:text-teal-400" />
+              Ministério de Evangelismo Prático
+            </div>
+
             <div className="space-y-4 max-w-2xl mx-auto">
-              <h2 className="font-heading font-black text-3xl sm:text-5xl tracking-tight leading-tight text-slate-900 dark:text-white">
-                {currentCourse === 'salvacao' ? (
-                  <>A Certeza da <span className="text-teal-600 dark:text-teal-400">Salvação</span></>
-                ) : (
-                  <>Curso de Batismo & <span className="text-indigo-600 dark:text-indigo-400">Discipulado</span></>
-                )}
-              </h2>
+              <div>
+                <h2 className="font-heading font-black text-3xl sm:text-4xl tracking-tight leading-tight text-slate-900 dark:text-white">
+                  A Certeza da <span className="text-teal-600 dark:text-teal-400">Salvação</span>
+                </h2>
+                <h3 className="font-heading font-bold text-lg sm:text-xl text-teal-700 dark:text-teal-300 mt-1">
+                  &amp; Curso de Batismo e Discipulado
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 font-medium">
+                  Manual Oficial de Formação de Discípulos e Evangelismo Bíblico
+                </p>
+              </div>
               
               <div className="p-5 rounded-2xl bg-teal-50/70 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 text-teal-900 dark:text-teal-200 font-serif italic text-base sm:text-lg leading-relaxed">
-                “COMEÇAMOS ESSE ESTUDO COM A PERGUNTA MAIS IMPORTANTE DA SUA VIDA: Se você morresse agora, teria plena certeza da sua salvação? Estas lições foram escritas para ajudar você a refletir e tirar suas próprias conclusões.”
+                “COMEÇAMOS ESSE ESTUDO COM A PERGUNTA MAIS IMPORTANTE DA SUA VIDA: Pode uma pessoa ter certeza da salvação? Estas lições foram escritas para ajudar você a refletir e tirar suas próprias conclusões.”
               </div>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                Ministrado e estruturado pelo <strong className="text-slate-900 dark:text-white">Pr. Roberto Rodrigues Casas</strong>
+                Coordenação e Autoria: <strong className="text-teal-700 dark:text-teal-400 font-bold">Pastor Roberto Rodrigues Casas</strong>
               </p>
             </div>
 
@@ -1497,7 +1538,7 @@ export const PlayBookView: React.FC = () => {
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                 {currentCourse === 'salvacao'
                   ? 'Você concluiu a leitura das 8 Lições da Certeza da Salvação. Agora você está apto e capacitado para evangelizar com firmeza, clareza e fidelidade às Sagradas Escrituras!'
-                  : 'Você completou o Manual de Batismo & Discipulado Cristão (O Que Jesus Deseja Que Você Faça). Que a sua vida seja um testemunho vivo do amor de Cristo!'}
+                  : 'Você completou o Manual do Curso da Decisão ao Batismo (O Que Jesus Deseja Que Você Faça). Que a sua vida seja um testemunho vivo do amor de Cristo!'}
               </p>
             </div>
 
@@ -1518,7 +1559,7 @@ export const PlayBookView: React.FC = () => {
                 onClick={() => handleCourseChange(currentCourse === 'salvacao' ? 'batismo' : 'salvacao')}
                 className="px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md transition-all hover:scale-105"
               >
-                {currentCourse === 'salvacao' ? 'Ler Curso de Batismo →' : 'Ler 8 Lições da Salvação →'}
+                {currentCourse === 'salvacao' ? 'Ler Curso da Decisão ao Batismo →' : 'Ler 8 Lições da Salvação →'}
               </button>
             </div>
 

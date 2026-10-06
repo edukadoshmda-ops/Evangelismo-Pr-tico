@@ -15,10 +15,10 @@ LESSONS_EVANGELISMO = [
         "title": "Lição 1: Primeira Resposta - A Salvação Bíblica",
         "text": """Plataforma Evangelismo Prático.
 Estudo Bíblico: A Pergunta Mais Importante da Sua Vida.
-Lição Um: A Salvação Bíblica.
+Lição Um: A Salvação Bíblica, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Começamos este estudo com a pergunta mais importante da sua vida:
-Se você morresse agora, teria plena certeza da sua salvação?
+Pode uma pessoa ter certeza da salvação?
 
 Quem pode decidir se uma pessoa será salva ou não: Deus ou o homem?
 
@@ -42,7 +42,7 @@ A salvação é uma certeza dada por Deus hoje para quem crê em Jesus Cristo.""
         "filename": "audio_licao_2",
         "title": "Lição 2: Segunda Resposta - O Amor de Deus por Você",
         "text": """Plataforma Evangelismo Prático.
-Lição Dois: O Amor de Deus por Você.
+Lição Dois: O Amor de Deus por Você, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta para reflexão:
 Quem determina o amor de Deus por você: Deus ou você?
@@ -61,7 +61,7 @@ Deus provou Seu amor na cruz há mais de dois mil anos. O sacrifício de Jesus �
         "filename": "audio_licao_3",
         "title": "Lição 3: Terceira Resposta - A Condição do Homem Pecador",
         "text": """Plataforma Evangelismo Prático.
-Lição Três: A Condição do Homem Pecador.
+Lição Três: A Condição do Homem Pecador, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta para reflexão:
 Quem define o que é pecado: a opinião humana ou a Palavra de Deus?
@@ -77,7 +77,7 @@ Por causa do pecado, o homem ficou separado da comunhão com Deus. Reconhecer qu
         "filename": "audio_licao_4",
         "title": "Lição 4: Quarta Resposta - A Morte Eterna e as Três Separações",
         "text": """Plataforma Evangelismo Prático.
-Lição Quatro: A Morte Eterna.
+Lição Quatro: A Morte Eterna, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta para reflexão:
 Quem decide sobre o céu ou o inferno: Deus ou você?
@@ -96,7 +96,7 @@ Quando o corpo morre e vai para o cemitério, o relacionamento com este mundo f�
 
 Terceira etapa: Morte eterna.
 Se a pessoa morrer separada de Deus, continuará separada Dele por toda a eternidade.
-No Evangelho de Lucas, capítulo dezesseis, Jesus revela o que aconteceu com o homem rico e Lázaro. O rico foi para o lugar de tormento e clamou: "Pai Abraão, tem misericórdia de mim, porque estou atormentado nesta chama." Abraão respondeu que entre eles havia um grande abismo, impossível de atravessar.
+No Evangelho de Lucas, capítulo dezesseis, versículos dezenove ao trinta e um, Jesus revela o que aconteceu com o homem rico e Lázaro. O rico foi para o lugar de tormento e clamou: "Pai Abraão, tem misericórdia de mim, porque estou atormentado nesta chama." Abraão respondeu que entre eles havia um grande abismo, impossível de atravessar.
 Por isso, a salvação bíblica deve ser decidida hoje, em vida, pela fé em Jesus Cristo."""
     },
     {
@@ -104,7 +104,7 @@ Por isso, a salvação bíblica deve ser decidida hoje, em vida, pela fé em Jes
         "filename": "audio_licao_5",
         "title": "Lição 5: Quinta Resposta - A Solução de Deus para a Salvação",
         "text": """Plataforma Evangelismo Prático.
-Lição Cinco: A Solução de Deus para a Salvação.
+Lição Cinco: A Solução de Deus para a Salvação, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta de reflexão:
 Quem tem a solução para salvar: Deus ou a religião?
@@ -134,7 +134,7 @@ A dívida foi totalmente paga na cruz do Calvário!"""
         "filename": "audio_licao_6",
         "title": "Lição 6: Sexta Resposta - Como Receber a Salvação Bíblica",
         "text": """Plataforma Evangelismo Prático.
-Lição Seis: Como Receber a Salvação Bíblica.
+Lição Seis: Como Receber a Salvação Bíblica, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta para reflexão:
 Qual é o momento exato em que a pessoa passa a ser salva: no momento em que crê e confessa a Cristo, ou no juízo final?
@@ -159,7 +159,7 @@ Se você fez essa oração com sinceridade, Jesus Cristo salvou você hoje!"""
         "filename": "audio_licao_7",
         "title": "Lição 7: Sétima Resposta - A Avaliação da Salvação Bíblica",
         "text": """Plataforma Evangelismo Prático.
-Lição Sete: A Avaliação da Salvação Bíblica.
+Lição Sete: A Avaliação da Salvação Bíblica, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Pergunta de reflexão:
 É possível avaliar a salvação de uma pessoa para saber se ela realmente compreendeu a mensagem bíblica?
@@ -167,7 +167,7 @@ Pergunta de reflexão:
 No Livro de Atos dos Apóstolos, capítulo dezenove, versículo dois, o apóstolo Paulo perguntou aos discípulos:
 "Recebestes vós o Espírito Santo quando crestes?"
 
-E em Atos, capítulo dezoito, versículos vinte e quatro a vinte e seis, vemos o exemplo de Apolo. Ele era eloquente e fervoroso, mas Priscila e Áquila o chamaram com amor e lhe declararam com mais exatidão o caminho de Deus sobre a salvação.
+E no Livro de Atos dos Apóstolos, capítulo dezoito, versículos vinte e quatro ao vinte e seis, vemos o exemplo de Apolo. Ele era eloquente e fervoroso, mas Priscila e Áquila o chamaram com amor e lhe declararam com mais exatidão o caminho de Deus sobre a salvação.
 Além disso, no Evangelho de Mateus, capítulo sete, versículo vinte e um, Jesus advertiu:
 "Nem todo o que me diz: Senhor, Senhor! entrará no reino dos céus, mas aquele que faz a vontade de meu Pai que está nos céus."
 
@@ -183,14 +183,14 @@ Você tem plena certeza da sua salvação?"""
         "filename": "audio_licao_8",
         "title": "Lição 8: Oitava Resposta - O Privilégio de Compartilhar a Salvação",
         "text": """Plataforma Evangelismo Prático.
-Lição Oito: O Privilégio de Compartilhar a Salvação Bíblica.
+Lição Oito: O Privilégio de Compartilhar a Salvação Bíblica, ministrado pelo Pastor Roberto Rodrigues Casas.
 
 Toda pessoa que experimentou a graça da salvação tem o alto privilégio e o compromisso de compartilhá-la com o próximo.
 
-No Livro de Isaías, capítulo cinquenta e dois, versículo sete, está escrito:
+No Livro do profeta Isaías, capítulo cinquenta e dois, versículo sete, está escrito:
 "Quão formosos sobre os montes são os pés dos que anunciam as boas-novas, dos que anunciam a salvação!"
 
-Na Segunda Carta a Timóteo, capítulo dois, versículo dois, Paulo instrui:
+Na Segunda Carta a Timóteo, capítulo dois, versículo dois, o apóstolo Paulo instrui:
 "O que de minha parte ouviste, ensina a homens fiéis que sejam idôneos para também ensinarem a outros."
 
 E o Senhor Jesus nos deu a Grande Comissão no Evangelho de Mateus, capítulo vinte e oito, versículos dezenove e vinte:
@@ -204,12 +204,12 @@ Quem recebeu graça, compartilha graça. Quem encontrou a Vida, anuncia a Vida!"
     }
 ]
 
-AUDIOBOOK_COMPLETO_EVANGELISMO = """Plataforma Evangelismo Prático. Apresenta: O Audiobook Oficial: A Pergunta Mais Importante da Sua Vida. A Certeza da Salvação Bíblica em Oito Lições com Pr. Roberto Rodrigues Casas.
+AUDIOBOOK_COMPLETO_EVANGELISMO = """Plataforma Evangelismo Prático. Apresenta: O Audiobook Oficial: A Pergunta Mais Importante da Sua Vida. A Certeza da Salvação Bíblica em Oito Lições, com o Pastor Roberto Rodrigues Casas.
 
-Começamos este estudo com a pergunta mais decisiva da sua existência: Se você morresse agora, teria plena certeza da sua salvação?
+Começamos este estudo com a pergunta mais decisiva da sua existência: Pode uma pessoa ter certeza da salvação?
 
 Primeira Lição: A Salvação Bíblica.
-A Bíblia mostra que podemos ter absoluta certeza da vida eterna. Na Primeira Carta de João, capítulo cinco, versículo onze, a Palavra declara: E o testemunho é este: que Deus nos deu a vida eterna; e esta vida está no seu Filho. A salvação não é conquistada por religião, méritos ou boas obras, mas recebida pela fé em Cristo Jesus.
+A Bíblia Sagrada mostra que podemos ter absoluta certeza da vida eterna. Na Primeira Carta de João, capítulo cinco, versículo onze, a Palavra declara: E o testemunho é este: que Deus nos deu a vida eterna; e esta vida está no seu Filho. A salvação não é conquistada por religião, méritos ou boas obras, mas recebida pela fé em Cristo Jesus.
 
 Segunda Lição: O Amor de Deus por Você.
 No Evangelho de João, capítulo três, versículo dezesseis: Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna. E na Carta aos Romanos, capítulo cinco, versículo oito: Deus prova o seu próprio amor para conosco pelo fato de ter Cristo morrido por nós, sendo nós ainda pecadores.
@@ -218,19 +218,19 @@ Terceira Lição: A Condição do Homem Pecador.
 Na Carta aos Romanos, capítulo três, versículo vinte e três: Porque todos pecaram e destituídos estão da glória de Deus. O pecado rompeu a nossa comunhão com Deus, e reconhecer nossa necessidade de perdão é o caminho para a reconciliação.
 
 Quarta Lição: A Morte Eterna.
-Na Carta aos Romanos, capítulo seis, versículo vinte e três: O salário do pecado é a morte, mas o dom gratuito de Deus é a vida eterna. Morte na Bíblia significa separação em três fases: morte espiritual, morte física e morte eterna. No Evangelho de Lucas, capítulo dezesseis, o rico em tormentos compreendeu tarde demais que após a morte existe um abismo intransponível. Por isso, a decisão deve ser tomada em vida.
+Na Carta aos Romanos, capítulo seis, versículo vinte e três: O salário do pecado é a morte, mas o dom gratuito de Deus é a vida eterna, por Cristo Jesus nosso Senhor. Morte na Bíblia significa separação em três fases: morte espiritual, morte física e morte eterna. No Evangelho de Lucas, capítulo dezesseis, versículos dezenove ao trinta e um, o rico em tormentos compreendeu tarde demais que após a morte existe um abismo intransponível. Por isso, a decisão deve ser tomada em vida.
 
 Quinta Lição: A Solução de Deus para a Salvação.
-Cristo morreu em nosso lugar. Ele é a nossa Páscoa sacrificada. O corpo de Cristo morreu na cruz para pagar a nossa pena de morte eterna; o sangue de Cristo foi derramado para perdoar todos os nossos pecados. Como uma roupa comprada uma vez e lavada continuamente, Jesus pagou a nossa pena uma vez para sempre, e nos purifica a cada dia com Seu sangue.
+Cristo morreu em nosso lugar. Ele é a nossa Páscoa sacrificada. Conforme a Primeira Carta aos Coríntios, capítulo cinco, versículo sete, Cristo foi sacrificado por nós. O corpo de Cristo morreu na cruz para pagar a nossa pena de morte eterna; o sangue de Cristo foi derramado para perdoar todos os nossos pecados. Como uma roupa comprada uma vez e lavada continuamente, Jesus pagou a nossa pena uma vez para sempre, e nos purifica a cada dia com Seu sangue.
 
 Sexta Lição: Como Receber a Salvação.
-Na Carta aos Romanos, capítulo dez, versículo nove: Se com a tua boca confessares ao Senhor Jesus, e em teu coração creres que Deus o ressuscitou dentre os mortos, serás salvo. Ao crer e orar, entregando seu coração a Cristo, você passa da morte para a vida e torna-se filho de Deus.
+Na Carta aos Romanos, capítulo dez, versículos nove e dez: Se com a tua boca confessares ao Senhor Jesus, e em teu coração creres que Deus o ressuscitou dentre os mortos, serás salvo. Ao crer e orar, entregando seu coração a Cristo, você passa da morte para a vida e torna-se filho de Deus.
 
 Sétima Lição: A Avaliação da Salvação.
-A Palavra de Deus nos convida a examinar nossa fé. Em Mateus, capítulo sete, Jesus lembra que as palavras devem corresponder à verdadeira fé interior. O testemunho cristão expressa quem éramos antes, como fomos despertados, a nossa decisão e a nova vida que agora desfrutamos.
+A Palavra de Deus nos convida a examinar nossa fé. No Evangelho de Mateus, capítulo sete, versículo vinte e um, Jesus lembra que as palavras devem corresponder à verdadeira fé interior. O testemunho cristão expressa quem éramos antes, como fomos despertados, a nossa decisão e a nova vida que agora desfrutamos.
 
 Oitava Lição: O Privilégio de Compartilhar a Salvação.
-Mateus vinte e oito: Ide e fazei discípulos de todas as nações. Há festa no céu por cada pecador que se arrepende. Viva essa missão com alegria. Quem encontrou a Vida, anuncia a Vida!"""
+No Evangelho de Mateus, capítulo vinte e oito, versículos dezenove e vinte: Ide e fazei discípulos de todas as nações. Há festa no céu por cada pecador que se arrepende. Viva essa missão com alegria. Quem encontrou a Vida, anuncia a Vida!"""
 
 LESSONS_DISCIPULADO = [
     {
@@ -238,17 +238,17 @@ LESSONS_DISCIPULADO = [
         "filename": "discipulado_1",
         "title": "Discipulado 1: Como se Tornar um Crente em Cristo",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado Cristão.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Um: Como Você Pode se Tornar um Crente em Cristo.
 
 A decisão de convidar a Jesus Cristo para fazer parte da sua vida é a mais importante que você já fez.
 Seus pecados estão perdoados, você é filho de Deus, o céu é a sua morada eterna e Jesus Cristo é o seu Salvador pessoal.
 
 Vejamos os quatro fundamentos bíblicos:
-Primeiro: Todos pecaram. Romanos capítulo três, versículo vinte e três ensina que todos pecaram e destituídos estão da glória de Deus. Pecar significa transgredir a vontade do Criador.
-Segundo: O pecado traz a morte. Romanos seis, versículo vinte e três diz que o salário do pecado é a morte espiritual e a separação de Deus.
-Terceiro: Cristo morreu por nossos pecados. Romanos cinco, versículo oito declara que Deus prova Seu amor em que Cristo morreu por nós sendo nós ainda pecadores. Somente Cristo pode salvar!
-Quarto: Salvo por Cristo. Romanos dez, versículo treze afirma: Qualquer que invocar o nome do Senhor será salvo.
+Primeiro: Todos pecaram. A Carta aos Romanos, capítulo três, versículo vinte e três ensina que todos pecaram e destituídos estão da glória de Deus. Pecar significa transgredir a vontade do Criador.
+Segundo: O pecado traz a morte. A Carta aos Romanos, capítulo seis, versículo vinte e três diz que o salário do pecado é a morte espiritual e a separação de Deus.
+Terceiro: Cristo morreu por nossos pecados. A Carta aos Romanos, capítulo cinco, versículo oito declara que Deus prova Seu amor em que Cristo morreu por nós, sendo nós ainda pecadores. Somente Cristo pode salvar!
+Quarto: Salvo por Cristo. A Carta aos Romanos, capítulo dez, versículo treze afirma: Todo aquele que invocar o nome do Senhor será salvo.
 
 Se você invocou sinceramente o Senhor, você está salvo. A partir de agora, Jesus convida você a crescer espiritualmente!"""
     },
@@ -257,17 +257,17 @@ Se você invocou sinceramente o Senhor, você está salvo. A partir de agora, Je
         "filename": "discipulado_2",
         "title": "Discipulado 2: Certeza da Salvação e o Santo Batismo",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Dois: Certeza da Salvação e o Santo Batismo.
 
 Jesus deseja que você experimente vida abundante, como Ele prometeu no Evangelho de João, capítulo dez, versículo dez.
 Ele deseja que você cumpra Seus mandamentos por amor.
 
 Primeiro: Jesus deseja que você tenha certeza da salvação.
-Decorar Romanos dez, versículo treze. Temos três garantias: a promessa de Jesus em João cinco, versículo vinte e quatro; a nossa oração sincera ao Senhor; e o testemunho interior do Espírito Santo em Romanos oito, versículo dezesseis.
+Guarde no coração a Carta aos Romanos, capítulo dez, versículo treze. Temos três garantias: a promessa de Jesus no Evangelho de João, capítulo cinco, versículo vinte e quatro; a nossa oração sincera ao Senhor; e o testemunho interior do Espírito Santo na Carta aos Romanos, capítulo oito, versículo dezesseis.
 
 Segundo: Jesus deseja que você seja batizado nas águas.
-Decorar Mateus vinte e oito, versículo dezenove.
+Guarde no coração o Evangelho de Mateus, capítulo vinte e oito, versículo dezenove.
 O batismo é uma ordenança sagrada deixada por Jesus. Ele simboliza a morte para a velha vida e a ressurreição para uma nova vida em Cristo. É a pública profissão da sua fé.
 Jesus foi batizado por João Batista no rio Jordão, e todos os que criam nos tempos dos apóstolos desciam às águas batismais. Você deseja ser batizado?"""
     },
@@ -276,47 +276,47 @@ Jesus foi batizado por João Batista no rio Jordão, e todos os que criam nos te
         "filename": "discipulado_3",
         "title": "Discipulado 3: A Palavra de Deus e a Oração Diária",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Três: A Palavra de Deus e a Vida de Oração.
 
 Terceiro: Jesus deseja que você leia a Bíblia diariamente.
-Decorar Segunda Carta a Timóteo, capítulo três, versículos dezesseis e dezessete.
+Guarde no coração a Segunda Carta a Timóteo, capítulo três, versículos dezesseis e dezessete.
 A Palavra de Deus é o seu alimento espiritual. O Salmo cento e dezenove, versículo cento e cinco diz: Lâmpada para os meus pés é a tua palavra, e luz para o meu caminho. Comece pelo Evangelho de João e participe da Escola Bíblica Dominical.
 
 Quarto: Jesus deseja que você ore diariamente.
-Decorar Carta aos Filipenses, capítulo quatro, versículos seis e sete.
-Em João capítulo dezesseis, versículo vinte e quatro, Jesus nos ensina: Pedi e recebereis, para que a vossa alegria seja completa. Fale com Deus todos os dias, compartilhando suas alegrias, gratidão e necessidades em nome de Jesus."""
+Guarde no coração a Carta aos Filipenses, capítulo quatro, versículos seis e sete.
+No Evangelho de João, capítulo dezesseis, versículo vinte e quatro, Jesus nos ensina: Pedi e recebereis, para que a vossa alegria seja completa. Fale com Deus todos os dias, compartilhando suas alegrias, gratidão e necessidades em nome de Jesus."""
     },
     {
         "id": 104,
         "filename": "discipulado_4",
         "title": "Discipulado 4: Testemunho Fiel e Contribuição Bíblica",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Quatro: Testemunho Fiel e Contribuição com Alegria.
 
 Quinto: Jesus deseja que você seja uma testemunha fiel.
-Decorar Evangelho de Marcos, capítulo cinco, versículo dezenove.
-Em Atos capítulo um, versículo oito, Jesus declarou: E ser-me-eis testemunhas. Conte de forma natural e amorosa aos seus amigos e familiares o que Jesus fez em sua vida.
+Guarde no coração o Evangelho de Marcos, capítulo cinco, versículo dezenove.
+No Livro de Atos dos Apóstolos, capítulo um, versículo oito, Jesus declarou: E ser-me-eis testemunhas. Conte de forma natural e amorosa aos seus amigos e familiares o que Jesus fez em sua vida.
 
 Sexto: Jesus deseja que você contribua no sustento da obra de Deus.
-Decorar Segunda Carta aos Coríntios, capítulo nove, versículo sete: Deus ama a quem dá com alegria.
-A Bíblia ensina a prática do dízimo e das ofertas voluntárias para o sustento da igreja local e dos campos missionários. Em Malaquias, capítulo três, versículo dez, o Senhor promete derramar bênçãos sem medida sobre os que são fiéis."""
+Guarde no coração a Segunda Carta aos Coríntios, capítulo nove, versículo sete: Deus ama a quem dá com alegria.
+A Bíblia ensina a prática do dízimo e das ofertas voluntárias para o sustento da igreja local e dos campos missionários. No Livro do profeta Malaquias, capítulo três, versículo dez, o Senhor promete derramar bênçãos sem medida sobre os que são fiéis."""
     },
     {
         "id": 105,
         "filename": "discipulado_5",
         "title": "Discipulado 5: O Espírito Santo e a Igreja Local",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Cinco: O Espírito Santo e a Igreja Local.
 
 Sétimo: Jesus deseja que você deixe o Espírito Santo guiar a sua vida.
-Decorar Carta aos Efésios, capítulo cinco, versículo dezoito: Sede cheios do Espírito.
-O Consolador prometido em João quatorze habita em você desde o momento da salvação. Ele produz em seu caráter o fruto do Espírito descrito em Gálatas capítulo cinco: amor, alegria, paz, longanimidade, benignidade, bondade, fidelidade, mansidão e domínio próprio.
+Guarde no coração a Carta aos Efésios, capítulo cinco, versículo dezoito: Sede cheios do Espírito.
+O Consolador prometido no Evangelho de João, capítulo quatorze, habita em você desde o momento da salvação. Ele produz em seu caráter o fruto do Espírito descrito na Carta aos Gálatas, capítulo cinco, versículos vinte e dois e vinte e três: amor, alegria, paz, longanimidade, benignidade, bondade, fidelidade, mansidão e domínio próprio.
 
 Oitavo: Jesus deseja que você frequente a igreja local.
-Decorar Carta aos Hebreus, capítulo dez, versículos vinte e quatro e vinte e cinco: Não deixemos de congregar, como é costume de alguns.
+Guarde no coração a Carta aos Hebreus, capítulo dez, versículos vinte e quatro e vinte e cinco: Não deixemos de congregar, como é costume de alguns.
 Na igreja você aprende a Palavra, fortalece sua fé em comunhão com os irmãos e encontra um lugar especial para servir a Deus e ao próximo com alegria."""
     },
     {
@@ -324,10 +324,10 @@ Na igreja você aprende a Palavra, fortalece sua fé em comunhão com os irmãos
         "filename": "discipulado_6",
         "title": "Discipulado 6: Vale a Pena Plantar",
         "text": """Plataforma Evangelismo Prático.
-Curso de Batismo e Discipulado.
+Curso de Batismo e Discipulado Cristão, com o Pastor Roberto Rodrigues Casas.
 Lição Seis: Vale a Pena Plantar.
 
-No Evangelho de Marcos, capítulo quatro, versículos vinte e seis a vinte e nove, Jesus ensina:
+No Evangelho de Marcos, capítulo quatro, versículos vinte e seis ao vinte e nove, Jesus ensina:
 O Reino de Deus é como um homem que lança a semente à terra. A semente brota e cresce, primeiro a erva, depois a espiga, e por último o grão cheio. E quando o fruto amadurece, logo se lança a foice, porque é chegada a ceifa.
 
 A semente da Palavra de Deus semeada nos corações nunca volta vazia.
@@ -336,19 +336,19 @@ Continue firme plantando o Evangelho de Cristo. No passado, no presente e no fut
     }
 ]
 
-AUDIOBOOK_COMPLETO_DISCIPULADO = """Plataforma Evangelismo Prático. Apresenta: O Curso Completo de Batismo e Discipulado Cristão: O Que Jesus Deseja Que Você Faça.
+AUDIOBOOK_COMPLETO_DISCIPULADO = """Plataforma Evangelismo Prático. Apresenta: O Curso Completo de Batismo e Discipulado Cristão: O Que Jesus Deseja Que Você Faça, com o Pastor Roberto Rodrigues Casas.
 
 Parabéns por sua bendita decisão de seguir a Jesus Cristo. Seus pecados foram perdoados, você é uma nova criatura e cidadão dos céus.
 
 Jesus deseja que você viva em abundância e guarde Seus mandamentos por amor.
-Primeiro: Tenha plena certeza da salvação firmada nas promessas infalíveis da Bíblia Sagrada.
-Segundo: Dê o passo público de obediência descendo às águas do batismo, testemunhando a morte da velha vida e a ressurreição em Cristo.
-Terceiro: Alimente sua alma todos os dias com a leitura da Bíblia Sagrada.
-Quarto: Mantenha comunhão diária com o Pai através da oração sincera em nome de Jesus.
-Quinto: Seja uma testemunha fiel e corajosa, compartilhando o amor de Deus com seus familiares e vizinhos.
-Sexto: Participe alegremente da manutenção do trabalho do Senhor com dízimos e ofertas voluntárias.
-Sétimo: Viva sob a direção e o poder do Espírito Santo, cultivando o fruto do amor, da paz e da mansidão.
-Oitavo: Una-se ativamente à igreja local, congregando com fidelidade e servindo com seus dons.
+Primeiro: Tenha plena certeza da salvação firmada nas promessas infalíveis da Bíblia Sagrada, na Carta aos Romanos, capítulo dez, versículo treze.
+Segundo: Dê o passo público de obediência descendo às águas do batismo, conforme o Evangelho de Mateus, capítulo vinte e oito, versículo dezenove, testemunhando a morte da velha vida e a ressurreição em Cristo.
+Terceiro: Alimente sua alma todos os dias com a leitura da Bíblia Sagrada, conforme a Segunda Carta a Timóteo, capítulo três, versículo dezesseis.
+Quarto: Mantenha comunhão diária com o Pai através da oração sincera em nome de Jesus, conforme a Carta aos Filipenses, capítulo quatro, versículo seis.
+Quinto: Seja uma testemunha fiel e corajosa, compartilhando o amor de Deus com seus familiares e vizinhos, conforme o Livro de Atos dos Apóstolos, capítulo um, versículo oito.
+Sexto: Participe alegremente da manutenção do trabalho do Senhor com dízimos e ofertas voluntárias, conforme a Segunda Carta aos Coríntios, capítulo nove, versículo sete.
+Sétimo: Viva sob a direção e o poder do Espírito Santo, cultivando o fruto do amor, da paz e da mansidão, conforme a Carta aos Gálatas, capítulo cinco, versículos vinte e dois e vinte e três.
+Oitavo: Una-se ativamente à igreja local, congregando com fidelidade e servindo com seus dons, conforme a Carta aos Hebreus, capítulo dez, versículo vinte e cinco.
 
 Semeie a semente da fé por onde você passar. Vale a pena plantar para a glória de Deus!"""
 
@@ -362,37 +362,52 @@ async def generate_file(text: str, voice: str, output_path: str):
 
 async def main():
     public_audios = os.path.join(os.getcwd(), "frontend", "public", "audios")
+    dist_audios = os.path.join(os.getcwd(), "frontend", "dist", "audios")
     os.makedirs(public_audios, exist_ok=True)
+    if os.path.exists(os.path.join(os.getcwd(), "frontend", "dist")):
+        os.makedirs(dist_audios, exist_ok=True)
 
-    print("=== Iniciando Geracao dos Audiobooks com Pronuncia e Fonetica Impecaveis ===")
+    print("=== Iniciando Geração dos Áudios com Pronúncia Bíblica e Pastoral Perfeitas ===")
     
-    # 1. Licoes de Evangelismo (8 licoes x 2 vozes)
+    # 1. Lições de Evangelismo (8 lições x 2 vozes)
     for licao in LESSONS_EVANGELISMO:
         fem_path = os.path.join(public_audios, f"{licao['filename']}_fem.mp3")
         masc_path = os.path.join(public_audios, f"{licao['filename']}_masc.mp3")
         await generate_file(licao["text"], VOICE_FEM, fem_path)
         await generate_file(licao["text"], VOICE_MASC, masc_path)
+        if os.path.exists(dist_audios):
+            shutil.copy2(fem_path, os.path.join(dist_audios, os.path.basename(fem_path)))
+            shutil.copy2(masc_path, os.path.join(dist_audios, os.path.basename(masc_path)))
 
     # 2. Audiobook Completo de Evangelismo (2 vozes)
     comp_evang_fem = os.path.join(public_audios, "audiobook_completo_fem.mp3")
     comp_evang_masc = os.path.join(public_audios, "audiobook_completo_masc.mp3")
     await generate_file(AUDIOBOOK_COMPLETO_EVANGELISMO, VOICE_FEM, comp_evang_fem)
     await generate_file(AUDIOBOOK_COMPLETO_EVANGELISMO, VOICE_MASC, comp_evang_masc)
+    if os.path.exists(dist_audios):
+        shutil.copy2(comp_evang_fem, os.path.join(dist_audios, os.path.basename(comp_evang_fem)))
+        shutil.copy2(comp_evang_masc, os.path.join(dist_audios, os.path.basename(comp_evang_masc)))
 
-    # 3. Licoes de Discipulado (6 licoes x 2 vozes)
+    # 3. Lições de Discipulado (6 lições x 2 vozes)
     for disc in LESSONS_DISCIPULADO:
         fem_path = os.path.join(public_audios, f"{disc['filename']}_fem.mp3")
         masc_path = os.path.join(public_audios, f"{disc['filename']}_masc.mp3")
         await generate_file(disc["text"], VOICE_FEM, fem_path)
         await generate_file(disc["text"], VOICE_MASC, masc_path)
+        if os.path.exists(dist_audios):
+            shutil.copy2(fem_path, os.path.join(dist_audios, os.path.basename(fem_path)))
+            shutil.copy2(masc_path, os.path.join(dist_audios, os.path.basename(masc_path)))
 
     # 4. Audiobook Completo de Discipulado (2 vozes)
     comp_disc_fem = os.path.join(public_audios, "discipulado_completo_fem.mp3")
     comp_disc_masc = os.path.join(public_audios, "discipulado_completo_masc.mp3")
     await generate_file(AUDIOBOOK_COMPLETO_DISCIPULADO, VOICE_FEM, comp_disc_fem)
     await generate_file(AUDIOBOOK_COMPLETO_DISCIPULADO, VOICE_MASC, comp_disc_masc)
+    if os.path.exists(dist_audios):
+        shutil.copy2(comp_disc_fem, os.path.join(dist_audios, os.path.basename(comp_disc_fem)))
+        shutil.copy2(comp_disc_masc, os.path.join(dist_audios, os.path.basename(comp_disc_masc)))
 
-    print("=== Concluido! Todos os audios foram gerados com pronuncia brasileira perfeita! ===")
+    print("=== Concluído! Todos os 32 arquivos de áudio foram regerados com pronúncia bíblica impecável e Pastor Roberto Rodrigues Casas! ===")
 
 if __name__ == "__main__":
     asyncio.run(main())

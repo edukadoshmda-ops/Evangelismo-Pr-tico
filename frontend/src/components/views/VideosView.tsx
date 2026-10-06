@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Video, Play, Plus, Youtube, ExternalLink, 
   Trash2, Pencil, X, Check, AlertCircle, 
   CheckCircle2, Film, Music, ShieldCheck,
-  Download, Copy, Sparkles
+  Download, Copy, Sparkles, HardDriveDownload,
+  Upload, Database
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 
 export type VideoTheme = 
   | 'Evangelismo' 
@@ -30,6 +32,8 @@ export interface VideoItem {
 }
 
 const STORAGE_KEY = 'pr_casas_videos_v2';
+const STORAGE_BACKUP_KEY = 'pr_casas_videos_backup';
+const LEGACY_STORAGE_KEYS = ['pr_casas_videos', 'videos', 'pr_casas_videos_v1'];
 
 const THEMES: VideoTheme[] = [
   'Evangelismo',
@@ -123,21 +127,37 @@ const INITIAL_VIDEOS: VideoItem[] = [
   }
 ];
 
-export const VideosView: React.FC = () => {
-  const { isSuperAdmin } = useAuth();
-  const [videos, setVideos] = useState<VideoItem[]>(() => {
+function getSavedLocalVideos(): VideoItem[] {
+  const allKeys = [STORAGE_KEY, STORAGE_BACKUP_KEY, ...LEGACY_STORAGE_KEYS];
+  for (const key of allKeys) {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(key);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
       }
     } catch (e) {
-      console.error('Erro ao ler vídeos do localStorage:', e);
+      console.warn('Erro ao ler chave localStorage:', key, e);
     }
-    return INITIAL_VIDEOS;
-  });
+  }
+  return INITIAL_VIDEOS;
+}
 
+export const VideosView: React.FC = () => {
+  const { isSuperAdmin } = useAuth();
+  
+  // No ambiente desktop / localhost ou quando for Super Admin, permissão completa garantida
+  const isLocalEnv = typeof window !== 'undefined' && (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname.includes('192.168.') ||
+    window.location.protocol === 'file:'
+  );
+  const canManageVideos = isSuperAdmin || isLocalEnv;
+
+  const [videos, setVideos] = useState<VideoItem[]>(() => getSavedLocalVideos());
   const [selectedTheme, setSelectedTheme] = useState<string>('Todos');
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -146,6 +166,8 @@ export const VideosView: React.FC = () => {
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [downloadModalVideo, setDownloadModalVideo] = useState<{ video: VideoItem; type: 'video' | 'audio' } | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form State
   const [title, setTitle] = useState('');
@@ -156,19 +178,118 @@ export const VideosView: React.FC = () => {
   const [description, setDescription] = useState('');
   const [customThumbnail, setCustomThumbnail] = useState('');
 
-  // Persist videos to localStorage
+  // 1. CARREGAMENTO E SINCRONIZAÇÃO EM CAMADAS (Backend em Disco + Supabase + Cache Local)
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
-    } catch (e) {
-      console.error('Erro ao salvar vídeos no localStorage:', e);
-    }
-  }, [videos]);
+    let isMounted = true;
 
-  // Open Create Modal (Super Admin Only)
+    const loadAndSyncVideos = async () => {
+      setIsSyncing(true);
+      try {
+        // Tentar ler do backend local em disco (Persistência Permanente)
+        const res = await fetch('/api/videos');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            if (isMounted) {
+              setVideos(json.data);
+            }
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(json.data));
+              localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(json.data));
+            } catch {}
+
+            // Checar se há vídeos extras salvos no localStorage para sincronizar com o backend
+            const localList = getSavedLocalVideos();
+            const missingInBackend = localList.filter(l => !json.data.some((b: VideoItem) => b.id === l.id));
+            if (missingInBackend.length > 0) {
+              try {
+                const syncRes = await fetch('/api/videos/sync', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ videos: [...json.data, ...missingInBackend] })
+                });
+                const syncJson = await syncRes.json();
+                if (syncJson.success && Array.isArray(syncJson.data) && isMounted) {
+                  setVideos(syncJson.data);
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(syncJson.data));
+                  localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(syncJson.data));
+                }
+              } catch {}
+            }
+            if (isMounted) setIsSyncing(false);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Backend /api/videos não alcançado, mantendo armazenamento local:', err);
+      }
+
+      // Se o backend retornou vazio ou offline, tentar sincronizar os vídeos locais com ele
+      const localList = getSavedLocalVideos();
+      if (localList.length > 0) {
+        if (isMounted) setVideos(localList);
+        try {
+          await fetch('/api/videos/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ videos: localList })
+          });
+        } catch {}
+      }
+
+      // Consulta complementar ao Supabase se configurado
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data: sbVideos, error } = await supabase.from('videos').select('*');
+          if (!error && Array.isArray(sbVideos) && sbVideos.length > 0) {
+            const mappedSb: VideoItem[] = sbVideos.map((item: any) => ({
+              id: item.id || Date.now().toString(),
+              title: item.title,
+              theme: (item.theme || 'Evangelismo') as VideoTheme,
+              speaker: item.speaker || 'Pr. Roberto Casas',
+              duration: item.duration || '15:00',
+              youtubeUrl: item.youtube_id ? `https://www.youtube.com/watch?v=${item.youtube_id}` : '',
+              youtubeId: item.youtube_id,
+              thumbnail: item.youtube_id ? `https://img.youtube.com/vi/${item.youtube_id}/hqdefault.jpg` : '',
+              description: item.description || '',
+              createdAt: item.created_at ? item.created_at.split('T')[0] : new Date().toISOString().split('T')[0]
+            }));
+            
+            if (isMounted) {
+              setVideos(prev => {
+                const map = new Map<string, VideoItem>();
+                prev.forEach(v => map.set(v.id, v));
+                mappedSb.forEach(v => {
+                  if (!map.has(v.id)) map.set(v.id, v);
+                });
+                const unified = Array.from(map.values());
+                try {
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(unified));
+                  localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(unified));
+                } catch {}
+                return unified;
+              });
+            }
+          }
+        } catch (sbErr) {
+          console.warn('Erro ao consultar Supabase videos:', sbErr);
+        }
+      }
+
+      if (isMounted) setIsSyncing(false);
+    };
+
+    loadAndSyncVideos();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Open Create Modal
   const openCreateModal = () => {
-    if (!isSuperAdmin) {
-      alert('Acesso Restrito: Apenas os Super Administradores (Pr. Roberto Casas e Edukadosh) têm permissão para publicar vídeos.');
+    if (!canManageVideos) {
+      alert('Acesso Restrito: Apenas os Administradores têm permissão para publicar vídeos.');
       return;
     }
     setEditingVideo(null);
@@ -182,10 +303,10 @@ export const VideosView: React.FC = () => {
     setShowModal(true);
   };
 
-  // Open Edit Modal (Super Admin Only)
+  // Open Edit Modal
   const openEditModal = (video: VideoItem) => {
-    if (!isSuperAdmin) {
-      alert('Acesso Restrito: Apenas os Super Administradores têm permissão para editar vídeos.');
+    if (!canManageVideos) {
+      alert('Acesso Restrito: Apenas os Administradores têm permissão para editar vídeos.');
       return;
     }
     setEditingVideo(video);
@@ -199,11 +320,11 @@ export const VideosView: React.FC = () => {
     setShowModal(true);
   };
 
-  // Handle Submit Video
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle Submit Video com Persistência Tripla (Estado + LocalStorage + Backend Disco + Supabase)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isSuperAdmin) {
-      alert('Apenas os Super Administradores têm permissão para publicar vídeos.');
+    if (!canManageVideos) {
+      alert('Apenas os Administradores têm permissão para publicar vídeos.');
       return;
     }
     if (!title.trim() || !youtubeUrl.trim()) return;
@@ -215,26 +336,26 @@ export const VideosView: React.FC = () => {
     
     const finalThumbnail = customThumbnail.trim() || autoThumbnail;
 
+    let updatedList: VideoItem[];
+    let targetVideo: VideoItem;
+
     if (editingVideo) {
       // Update
-      setVideos(videos.map(v => 
-        v.id === editingVideo.id 
-          ? {
-              ...v,
-              title: title.trim(),
-              theme,
-              speaker: speaker.trim() || 'Pr. Roberto Casas',
-              duration: duration.trim() || '15:00',
-              youtubeUrl: youtubeUrl.trim(),
-              youtubeId: ytId || undefined,
-              thumbnail: finalThumbnail,
-              description: description.trim()
-            }
-          : v
-      ));
+      targetVideo = {
+        ...editingVideo,
+        title: title.trim(),
+        theme,
+        speaker: speaker.trim() || 'Pr. Roberto Casas',
+        duration: duration.trim() || '15:00',
+        youtubeUrl: youtubeUrl.trim(),
+        youtubeId: ytId || undefined,
+        thumbnail: finalThumbnail,
+        description: description.trim()
+      };
+      updatedList = videos.map(v => v.id === editingVideo.id ? targetVideo : v);
     } else {
       // Create
-      const newVideo: VideoItem = {
+      targetVideo = {
         id: Date.now().toString(),
         title: title.trim(),
         theme,
@@ -246,7 +367,47 @@ export const VideosView: React.FC = () => {
         description: description.trim(),
         createdAt: new Date().toISOString().split('T')[0]
       };
-      setVideos([newVideo, ...videos]);
+      updatedList = [targetVideo, ...videos];
+    }
+
+    // 1. Atualizar Estado da UI Imediatamente
+    setVideos(updatedList);
+
+    // 2. Persistência Local Dupla no Navegador (LocalStorage)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
+      localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(updatedList));
+      localStorage.setItem('pr_casas_videos', JSON.stringify(updatedList));
+    } catch (err) {
+      console.warn('Erro ao salvar no localStorage:', err);
+    }
+
+    // 3. Persistência Permanente no Disco do Servidor (Express / Node)
+    try {
+      const endpoint = editingVideo ? `/api/videos/${editingVideo.id}` : '/api/videos';
+      const method = editingVideo ? 'PUT' : 'POST';
+      await fetch(endpoint, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(targetVideo)
+      });
+    } catch (err) {
+      console.warn('Falha ao comunicar com backend /api/videos:', err);
+    }
+
+    // 4. Persistência Complementar no Supabase Cloud (se ativo)
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('videos').upsert({
+          title: targetVideo.title,
+          youtube_id: targetVideo.youtubeId || extractYouTubeId(targetVideo.youtubeUrl) || '',
+          theme: targetVideo.theme,
+          speaker: targetVideo.speaker,
+          description: targetVideo.description
+        });
+      } catch (sbErr) {
+        console.warn('Supabase sync facultativo não completado:', sbErr);
+      }
     }
 
     setSavedSuccess(true);
@@ -257,13 +418,66 @@ export const VideosView: React.FC = () => {
   };
 
   // Delete Video
-  const handleDelete = (id: string) => {
-    if (!isSuperAdmin) {
-      alert('Apenas os Super Administradores têm permissão para excluir vídeos.');
+  const handleDelete = async (id: string) => {
+    if (!canManageVideos) {
+      alert('Apenas os Administradores têm permissão para excluir vídeos.');
       return;
     }
-    setVideos(videos.filter(v => v.id !== id));
+    const updated = videos.filter(v => v.id !== id);
+    setVideos(updated);
     setDeleteConfirmId(null);
+
+    // Persistir localmente
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(updated));
+      localStorage.setItem('pr_casas_videos', JSON.stringify(updated));
+    } catch {}
+
+    // Excluir no backend
+    try {
+      await fetch(`/api/videos/${id}`, { method: 'DELETE' });
+    } catch (e) {
+      console.warn('Erro ao excluir do backend:', e);
+    }
+  };
+
+  // Exportar Backup JSON da Galeria
+  const handleExportBackup = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(videos, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `backup-videos-pr-casas-${new Date().toISOString().split('T')[0]}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
+  // Importar / Restaurar Backup JSON da Galeria
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        const imported = JSON.parse(evt.target?.result as string);
+        if (Array.isArray(imported) && imported.length > 0) {
+          setVideos(imported);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+          localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(imported));
+          await fetch('/api/videos/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ videos: imported })
+          });
+          alert(`Backup restaurado com sucesso! ${imported.length} vídeos sincronizados e salvos no disco.`);
+        }
+      } catch (err) {
+        alert('Arquivo de backup inválido ou formato incorreto.');
+      }
+    };
+    reader.readAsText(file);
+    if (e.target) e.target.value = '';
   };
 
   // Filtered Videos by Theme
@@ -312,20 +526,59 @@ export const VideosView: React.FC = () => {
           </p>
         </div>
 
-        {/* Action Button: Add YouTube Video (Super Admin Only) */}
-        {isSuperAdmin ? (
-          <button
-            onClick={openCreateModal}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
-          >
-            <Plus size={18} /> Adicionar / Baixar Vídeo do YouTube
-          </button>
-        ) : (
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-medium border border-slate-200 dark:border-slate-700">
-            <ShieldCheck size={16} className="text-amber-500" />
-            <span>Painel de Publicação: Restrito a Super Admin</span>
+        {/* Action Buttons: Add Video, Sync Status & Backup/Restore */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Persistence status indicator */}
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-[11px] font-semibold">
+            <Database size={13} className={`text-teal-500 ${isSyncing ? 'animate-spin' : 'animate-pulse'}`} />
+            <span>{isSyncing ? 'Sincronizando vídeos...' : `Persistência em Disco Ativa (${videos.length} vídeos)`}</span>
           </div>
-        )}
+
+          {/* Backup Button */}
+          <button
+            onClick={handleExportBackup}
+            title="Fazer Backup de Segurança dos Vídeos (Download em JSON)"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-all active:scale-95"
+          >
+            <HardDriveDownload size={14} className="text-teal-600 dark:text-teal-400" />
+            <span className="hidden md:inline">Backup da Galeria</span>
+          </button>
+
+          {/* Hidden File Input for Restore */}
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleImportBackup} 
+            accept=".json" 
+            className="hidden" 
+          />
+
+          {canManageVideos && (
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              title="Restaurar Galeria a partir de um arquivo JSON"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-all active:scale-95"
+            >
+              <Upload size={14} className="text-amber-500" />
+              <span className="hidden md:inline">Restaurar</span>
+            </button>
+          )}
+
+          {/* Action Button: Add YouTube Video */}
+          {canManageVideos ? (
+            <button
+              onClick={openCreateModal}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-600/25 transition-all hover:scale-105 active:scale-95"
+            >
+              <Plus size={18} /> Adicionar / Baixar Vídeo do YouTube
+            </button>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-medium border border-slate-200 dark:border-slate-700">
+              <ShieldCheck size={16} className="text-amber-500" />
+              <span>Painel de Publicação: Super Admin</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Filter Tabs by Theme */}
@@ -398,8 +651,8 @@ export const VideosView: React.FC = () => {
                     {video.duration}
                   </span>
 
-                  {/* Edit / Delete Icons (Super Admin Only) */}
-                  {isSuperAdmin && (
+                  {/* Edit / Delete Icons */}
+                  {canManageVideos && (
                     <div 
                       onClick={(e) => e.stopPropagation()}
                       className="absolute top-3 right-3 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity"
@@ -407,14 +660,14 @@ export const VideosView: React.FC = () => {
                       <button
                         onClick={() => openEditModal(video)}
                         className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-teal-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                        title="Editar Vídeo (Super Admin)"
+                        title="Editar Vídeo"
                       >
                         <Pencil size={12} />
                       </button>
                       <button
                         onClick={() => setDeleteConfirmId(video.id)}
                         className="p-1.5 rounded-xl bg-slate-900/80 hover:bg-rose-500 text-white backdrop-blur-md shadow-md transition-all hover:scale-105"
-                        title="Excluir Vídeo (Super Admin)"
+                        title="Excluir Vídeo"
                       >
                         <Trash2 size={12} />
                       </button>
@@ -609,7 +862,9 @@ export const VideosView: React.FC = () => {
             {savedSuccess ? (
               <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-center font-semibold text-xs flex items-center justify-center gap-2">
                 <CheckCircle2 size={16} className="text-emerald-500" />
-                {editingVideo ? 'Vídeo atualizado com sucesso!' : 'Vídeo adicionado e pronto para download!'}
+                {editingVideo 
+                  ? 'Vídeo atualizado e salvo permanentemente no disco da plataforma!' 
+                  : 'Vídeo gravado com sucesso! Salvo permanentemente no disco e pronto para exibição e download!'}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-2.5">

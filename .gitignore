@@ -20,6 +20,11 @@ build/
 # Temp
 .DS_Store
 .playwright-mcp/
-
 .vercel
-.env*
+
+# Temp Python and test dumps
+__pycache__/
+*.pyc
+pdf_dump.txt
+test_fit.py
+test_runner.py
