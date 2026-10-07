@@ -295,85 +295,20 @@ const LESSONS_SALVACAO: PageLesson[] = [
     id: 8,
     roman: 'VIII',
     title: 'OITAVA LIÇÃO',
-    badge: 'O Privilégio de Compartilhar a Salvação',
-    summary: 'A Bíblia comprova que a salvação deve ser compartilhada por todo aquele que foi alcançado pela graça.',
-    reflectionQuestion: 'Quem você acha que pode e deve compartilhar a salvação: o salvo ou o perdido?',
-    verses: [
-      {
-        text: '“Quão formosos sobre os montes são os pés dos que anunciam as boas-novas, dos que anunciam a salvação!”',
-        reference: 'Isaías 52:7'
-      },
-      {
-        text: '“E o que de mim, através de muitas testemunhas, ouviste, confia-o a homens fiéis, que sejam idôneos para também ensinarem os outros.”',
-        reference: '2 Timóteo 2:2'
-      },
-      {
-        text: '“Portanto, ide, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo; ensinando-os a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou convosco todos os dias, até a consumação dos séculos.”',
-        reference: 'Mateus 28:19-20'
-      },
-      {
-        text: '“Digo-vos que assim haverá alegria no céu por um pecador que se arrepende, mais do que por noventa e nove justos que não necessitam de arrependimento.”',
-        reference: 'Lucas 15:7'
-      },
-      {
-        text: '“Pois que aproveitaria ao homem ganhar todo o mundo e perder a sua alma? Ou que daria o homem pelo resgate da sua alma?”',
-        reference: 'Marcos 8:36-37'
-      },
-      {
-        text: '“E aquele que não foi achado escrito no livro da vida foi lançado no lago de fogo.”',
-        reference: 'Apocalipse 20:15'
-      },
-      {
-        text: '“Assim será a minha palavra, que sair da minha boca; ela não voltará para mim vazia, antes fará o que me apraz, e prosperará naquilo para que a enviei.”',
-        reference: 'Isaías 55:11'
-      },
-      {
-        text: '“Mas, quando vos entregarem, não vos dê cuidado como, ou o que haveis de falar, porque naquela mesma hora vos será ministrado o que haveis de dizer.”',
-        reference: 'Mateus 10:19'
-      }
+    badge: 'Discipulado & As Razões Bíblicas para Levar o Evangelho',
+    summary: 'Ministração pastoral integral com o Pr. Roberto Casas sobre o privilégio de anunciar a salvação e fazer discípulos.',
+    verses: [],
+    textBlocks: [
+      "Vejo o elogio de Deus aí para você. Ele diz: 'Os seus pés são formosos, porque você anuncia a salvação.' É assim que Deus te vê.",
+      "O apóstolo Paulo disse, é o terceiro ponto, em, em 2 Timóteo 2:2, ele disse: 'O que da minha parte viste, ou vistes, é, fala aos fiéis, que sejam idóneo para também ensinarem a outros.'\n\nAí diz assim: 'Paulo fala do maior segredo do seu ministério: o discipulado de um a um.'",
+      "Então, todos nós que seguimos a Bíblia, devemos seguir a orientação do discipulado. Pois, uma pessoa que você treina, você desafia, para ela discipular outra, e assim sucessivamente. É esse encadeamento que foi quebrado.\n\nSe eu perguntar para você: 'Cade o discípulo que você cuidou e que eles estão cuidando doutro?', você vai perceber exatamente o que é que eu estou falando.",
+      "Então, item 4, você pode fazer uma festa no céu, aí está em Lucas 17, 15:7, né?\n\nOlha só, nós sabemos que quem matou Jesus foi o nosso pecado, quem infligiu a dor em Jesus, tudo aquilo fomos nós.\n\nE agora, depois de salvos, nós que fizemos o mestre sofrer as piores dores do mundo, agora podemos fazer uma festa no céu, já imaginou isso? Pecador como eu e você, fazer uma festa onde Deus pula do trono, Jesus pula do trono, os querubins, os serafins e todos os salvos, né, o próprio Paulo, Moisés, toda essa turma, faz a maior festa no céu, mas quem está promovendo a festa? Você e eu, pecador aqui.",
+      "Quando eu percebi esse detalhe, né, de, de que uma vida salva faz mais alegria no céu do que 99 justos que não precisam de arrependimento, então eu digo: 'Eu vou fazer festa no céu, porque o meu salvador merece essa festa, não é?', fazer o salvador feliz, quando eu fiz ele chorar no calvário e, quando eu fiz ele gemer de dor, não tem nada igual a isso na terra, que um pecador possa fazer agora, um pecador salvo.\n\nSempre você poderá fazer isso com Jesus, fazer uma festa no céu, basta levar o evangelho. Essa é mais uma razão para você anunciar o evangelho. Amém.",
+      "Mas, aí no, o item 5, Marcos 8, 36 e 37, vai, Jesus vai dizer que uma vida vale mais do que o mundo inteiro. Não adianta um homem ganhar o mundo e perder a sua alma.\n\nOra, quando a gente descobre que uma vida vale mais do que o mundo inteiro, isso quer dizer que o maior investimento do mundo está em salvar pessoas.\n\nO dia que eu descobri isso na Bíblia, é, só me fortaleceu no chamado, que é levar pessoas do inferno, tirar pessoas do inferno e transportá-las para o reino, a fim de que elas aqui na terra façam o mesmo, não é?",
+      "O item 6, é, você pode livrar uma pessoa do, do, do maior sofrimento do mundo, o Apocalipse 20:15, né? Jesus disse que o verme não morre, o fogo não apaga e que lá vera choro, pranto e ranger de dentes. Imagine só, agora você antecipa isso evangelizando, e essa pessoa entrará na cidade santa, louvando a Deus, glorificando a Deus por todo o sempre.\n\nO dia que você percebe esse detalhe, é, de, de que uma vida salva faz mais alegria no céu, do que 99 justos que não precisam de arrependimento, então digam: 'Eu vou fazer festa no céu, porque o meu salvador merece essa festa, né?'\n\nCerto?",
+      "Bom, o item 7, Isaías 55:11, diz que a palavra de Deus não volta vazia, olha aí.\n\nSe a palavra de Deus não volta vazia, então descobri que a minha missão é semear. Se eu semear ela não volta vazia, ela pega, ela pega hoje, amanhã, depois. O, o, o pregador na Inglaterra, o George Müller, ele pregou para um camarada 58 anos depois o camarada se converteu. Nicodemos se converteu depois de 3 anos e meio, não é?\n\nEntão, é, é, pregue a palavra, que essa é a sua missão, pregar a palavra. Do Espírito Santo é converter, do camarada é crer, mas a sua é pregar. Então não pare de pregar mesmo que ninguém creia. Noé pregou 100 anos, não converteu ninguém, mas ele salvou ele e a família dele.\n\nLogicamente, porque creu, não porque pregou, ele pregou porque creu.",
+      "O item 8, Mateus 10:19, Jesus disse: 'Não se preocupe com o que há de falar'. Ora, se o Espírito Santo vai falar por nós no momento certo, na hora certa, então todo o medo de pregar foi embora.\n\nAh, eu não sei, eu não sou capaz, aí o Espírito Santo disse: 'Eu sou Deus, eu vou te usar, eu sou capaz'. Se você crê que eu sou capaz, você vai, vai deixar falar. Foi isso que aconteceu.\n\nQuando eu tinha 18 anos, eu cri que o Espírito Santo ia dar a palavra, como ele nunca parou de dar a palavra. Faz 51 anos que eu o vejo falar de tantas maneiras através da minha vida, para tantas pessoas diferentes, e ele nunca falhou. Seria que Deus falharia só com você?\n\nPega essa bênção aí, saiba que o Espírito Santo vai te dar palavra no momento certo, na hora certa. Está aí oito razões para você levar o evangelho do nosso Senhor e Salvador Jesus Cristo.\n\nAmém,"
     ],
-    simNaoQuestions: [
-      'Se aquele que me salvou do inferno eterno disse que eu deveria levar de graça aquilo que recebi de graça, você decide dedicar seu tempo para livrar outras pessoas desse mesmo destino?',
-      'Se Ele disse que há mais alegria no céu por um pecador que se arrepende, você quer fazer "festas no céu" ganhando almas para Cristo?',
-      'Se Cristo deu a própria vida por você na cruz, será que é muito dar o melhor do seu tempo e testemunho para Ele?'
-    ],
-    specialContent: {
-      title: 'AS 8 RAZÕES BÍBLICAS PARA LEVAR O EVANGELHO (MINISTRAÇÃO PASTORAL)',
-      items: [
-        {
-          label: '1. A Grande Comissão Soberana (Mateus 28:19-20)',
-          text: 'Jesus nos deu a ordem soberana de fazer discípulos de todas as nações, ensinando-os a guardar todas as coisas. Esta é a suprema missão da Igreja com a promessa de Sua presença constante!'
-        },
-        {
-          label: '2. Os Pés Formosos e o Elogio de Deus (Isaías 52:7)',
-          text: 'Veja o elogio de Deus para você: Ele diz que os seus pés são formosos porque você anuncia a salvação. É assim que o Senhor te contempla quando você proclama as boas-novas!'
-        },
-        {
-          label: '3. O Segredo de Paulo: Discipulado Um a Um (2 Timóteo 2:2)',
-          text: 'Paulo revela o maior segredo do seu ministério: o discipulado de um a um. Uma pessoa que você treina e desafia para discipular outra, e assim sucessivamente. O encadeamento da multiplicação bíblica não pode ser quebrado!'
-        },
-        {
-          label: '4. Fazer uma Grande Festa no Céu (Lucas 15:7)',
-          text: 'Nós sabemos que quem infligiu dor em Jesus na cruz foram os nossos pecados. E agora, depois de salvos pela graça, nós podemos fazer uma festa no céu! Deus se alegra, Jesus pula do trono e todos os santos celebram por um pecador que se arrepende. O Salvador merece essa festa!'
-        },
-        {
-          label: '5. Uma Vida Vale Mais do que o Mundo Inteiro (Marcos 8:36-37)',
-          text: 'Não adianta um homem ganhar o mundo inteiro e perder a sua alma. O maior investimento da história humana está em salvar vidas e transportá-las das trevas para o Reino de Deus!'
-        },
-        {
-          label: '6. Livrar Vidas do Maior Sofrimento Eterno (Apocalipse 20:15)',
-          text: 'Aquele que não foi achado no Livro da Vida foi lançado no lago de fogo. Pela evangelização, você antecipa esse resgate para que essa pessoa entre na Cidade Santa louvando e glorificando a Deus por todo o sempre!'
-        },
-        {
-          label: '7. A Palavra Nunca Volta Vazia: A Missão é Semear (Isaías 55:11)',
-          text: 'A Palavra de Deus prosperará naquilo para que foi enviada. A nossa missão é semear! Do Espírito Santo é converter, da pessoa é crer, mas a sua parte é pregar. (Exemplos de perseverança: George Müller, Nicodemos e Noé).'
-        },
-        {
-          label: '8. O Espírito Santo Falará por Você no Momento Certo (Mateus 10:19)',
-          text: 'Jesus disse: Não vos preocupeis com o que haveis de falar; naquela mesma hora vos será ministrado o que dizer. Todo medo de evangelizar se dissipa! O Pastor Roberto Casas testemunha mais de 51 anos de ministério vendo Deus falar poderosamente, e Ele nunca falhou!'
-        }
-      ]
-    },
     color: 'from-teal-600 to-teal-800'
   }
 ];

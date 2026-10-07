@@ -424,64 +424,49 @@ def build_manual_pdf(output_path: str):
     story.append(Spacer(1, 14))
 
     # VIII — OITAVA LIÇÃO
-    story.append(Paragraph("VIII — OITAVA LIÇÃO — DISCIPULADO & A GRANDE COMISSÃO", lesson_title))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("Pergunta para Reflexão: Quem você acha que pode e deve compartilhar a salvação: o salvo ou o perdido?", refl_style))
-    story.append(Spacer(1, 6))
-    story.append(create_verse_box("Ide, portanto, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo; ensinando-os a guardar todas as coisas que vos tenho ordenado.", "Mateus 28:19-20"))
-    story.append(Spacer(1, 6))
-    story.append(create_verse_box("Quão formosos sobre os montes são os pés dos que anunciam as boas-novas, dos que anunciam a salvação!", "Isaías 52:7"))
-    story.append(Spacer(1, 14))
-
-    # =========================================================================
-    # MINISTRAÇÃO ESPECIAL: AS 8 RAZÕES BÍBLICAS PARA LEVAR O EVANGELHO
-    # =========================================================================
     story.append(PageBreak())
-    story.append(Paragraph("AS 8 RAZÕES BÍBLICAS PARA LEVAR O EVANGELHO & FAZER DISCÍPULOS", ParagraphStyle('RTitle', fontName='Helvetica-Bold', fontSize=13.5, leading=17.5, textColor=colors.HexColor('#0f766e'))))
-    story.append(Paragraph("Ministração Especial e Fundamento Pastoral com o Pastor Roberto Rodrigues Casas", ParagraphStyle('RSub', fontName='Helvetica-Oblique', fontSize=9.5, leading=13, textColor=colors.HexColor('#475569'))))
-    story.append(HRFlowable(width="100%", thickness=1.0, color=colors.HexColor('#0f766e'), spaceBefore=5, spaceAfter=10))
+    story.append(Paragraph("VIII — OITAVA LIÇÃO — DISCIPULADO & A GRANDE COMISSÃO", lesson_title))
+    story.append(Paragraph("Ministração Pastoral com o Pastor Roberto Rodrigues Casas", ParagraphStyle('RSub', fontName='Helvetica-Oblique', fontSize=10, leading=14, textColor=colors.HexColor('#0f766e'))))
+    story.append(HRFlowable(width="100%", thickness=1.0, color=colors.HexColor('#0f766e'), spaceBefore=4, spaceAfter=10))
 
-    r1_text = "Jesus nos deu a ordem soberana de fazer discípulos e ensiná-los. Essa não é uma sugestão para poucos, mas o maior mandamento para toda a Igreja, com a promessa fiel de que Ele estará conosco todos os dias!"
-    story.append(create_reason_box(1, "A Grande Comissão Soberana", r1_text, "Mateus 28:19-20"))
-    story.append(Spacer(1, 8))
+    pastoral_p = ParagraphStyle(
+        'PastoralP',
+        fontName='Helvetica',
+        fontSize=9.5,
+        leading=14.5,
+        textColor=colors.HexColor('#1e293b'),
+        spaceAfter=7
+    )
 
-    r2_text = "Veja o elogio de Deus aí para você! Ele diz: 'Os seus pés são formosos, porque você anuncia a salvação.' É exatamente assim que o Criador do universo te vê quando você se levanta para proclamar a mensagem da cruz."
-    story.append(create_reason_box(2, "Os Pés Formosos e o Elogio de Deus", r2_text, "Isaías 52:7"))
-    story.append(Spacer(1, 8))
+    p_texts = [
+        "Vejo o elogio de Deus aí para você. Ele diz: 'Os seus pés são formosos, porque você anuncia a salvação.' É assim que Deus te vê.",
+        "O apóstolo Paulo disse, é o terceiro ponto, em, em 2 Timóteo 2:2, ele disse: 'O que da minha parte viste, ou vistes, é, fala aos fiéis, que sejam idóneo para também ensinarem a outros.'",
+        "Aí diz assim: 'Paulo fala do maior segredo do seu ministério: o discipulado de um a um.'",
+        "Então, todos nós que seguimos a Bíblia, devemos seguir a orientação do discipulado. Pois, uma pessoa que você treina, você desafia, para ela discipular outra, e assim sucessivamente. É esse encadeamento que foi quebrado.",
+        "Se eu perguntar para você: 'Cade o discípulo que você cuidou e que eles estão cuidando doutro?', você vai perceber exatamente o que é que eu estou falando.",
+        "Então, item 4, você pode fazer uma festa no céu, aí está em Lucas 17, 15:7, né?",
+        "Olha só, nós sabemos que quem matou Jesus foi o nosso pecado, quem infligiu a dor em Jesus, tudo aquilo fomos nós.",
+        "E agora, depois de salvos, nós que fizemos o mestre sofrer as piores dores do mundo, agora podemos fazer uma festa no céu, já imaginou isso? Pecador como eu e você, fazer uma festa onde Deus pula do trono, Jesus pula do trono, os querubins, os serafins e todos os salvos, né, o próprio Paulo, Moisés, toda essa turma, faz a maior festa no céu, mas quem está promovendo a festa? Você e eu, pecador aqui.",
+        "Quando eu percebi esse detalhe, né, de, de que uma vida salva faz mais alegria no céu do que 99 justos que não precisam de arrependimento, então eu digo: 'Eu vou fazer festa no céu, porque o meu salvador merece essa festa, não é?', fazer o salvador feliz, quando eu fiz ele chorar no calvário e, quando eu fiz ele gemer de dor, não tem nada igual a isso na terra, que um pecador possa fazer agora, um pecador salvo.",
+        "Sempre você poderá fazer isso com Jesus, fazer uma festa no céu, basta levar o evangelho. Essa é mais uma razão para você anunciar o evangelho. Amém.",
+        "Mas, aí no, o item 5, Marcos 8, 36 e 37, vai, Jesus vai dizer que uma vida vale mais do que o mundo inteiro. Não adianta um homem ganhar o mundo e perder a sua alma.",
+        "Ora, quando a gente descobre que uma vida vale mais do que o mundo inteiro, isso quer dizer que o maior investimento do mundo está em salvar pessoas.",
+        "O dia que eu descobri isso na Bíblia, é, só me fortaleceu no chamado, que é levar pessoas do inferno, tirar pessoas do inferno e transportá-las para o reino, a fim de que elas aqui na terra façam o mesmo, não é?",
+        "O item 6, é, você pode livrar uma pessoa do, do, do maior sofrimento do mundo, o Apocalipse 20:15, né? Jesus disse que o verme não morre, o fogo não apaga e que lá vera choro, pranto e ranger de dentes. Imagine só, agora você antecipa isso evangelizando, e essa pessoa entrará na cidade santa, louvando a Deus, glorificando a Deus por todo o sempre.",
+        "O dia que você percebe esse detalhe, é, de, de que uma vida salva faz mais alegria no céu, do que 99 justos que não precisam de arrependimento, então digam: 'Eu vou fazer festa no céu, porque o meu salvador merece essa festa, né?' Certo?",
+        "Bom, o item 7, Isaías 55:11, diz que a palavra de Deus não volta vazia, olha aí.",
+        "Se a palavra de Deus não volta vazia, então descobri que a minha missão é semear. Se eu semear ela não volta vazia, ela pega, ela pega hoje, amanhã, depois. O, o, o pregador na Inglaterra, o George Müller, ele pregou para um camarada 58 anos depois o camarada se converteu. Nicodemos se converteu depois de 3 anos e meio, não é?",
+        "Então, é, é, pregue a palavra, que essa é a sua missão, pregar a palavra. Do Espírito Santo é converter, do camarada é crer, mas a sua é pregar. Então não pare de pregar mesmo que ninguém creia. Noé pregou 100 anos, não converteu ninguém, mas ele salvou ele e a família dele.",
+        "Logicamente, porque creu, não porque pregou, ele pregou porque creu.",
+        "O item 8, Mateus 10:19, Jesus disse: 'Não se preocupe com o que há de falar'. Ora, se o Espírito Santo vai falar por nós no momento certo, na hora certa, então todo o medo de pregar foi embora.",
+        "Ah, eu não sei, eu não sou capaz, aí o Espírito Santo disse: 'Eu sou Deus, eu vou te usar, eu sou capaz'. Se você crê que eu sou capaz, você vai, vai deixar falar. Foi isso que aconteceu.",
+        "Quando eu tinha 18 anos, eu cri que o Espírito Santo ia dar a palavra, como ele nunca parou de dar a palavra. Faz 51 anos que eu o vejo falar de tantas maneiras através da minha vida, para tantas pessoas diferentes, e ele nunca falhou. Seria que Deus falharia só com você?",
+        "Pega essa bênção aí, saiba que o Espírito Santo vai te dar palavra no momento certo, na hora certa. Está aí oito razões para você levar o evangelho do nosso Senhor e Salvador Jesus Cristo.",
+        "Amém,"
+    ]
 
-    r3_text = "Paulo revela o maior segredo do seu ministério: o discipulado de um a um. Uma pessoa que você treina e desafia para discipular outra, e assim sucessivamente. Foi esse encadeamento que muitos deixaram quebrar. Onde está o discípulo que você cuidou e que agora está cuidando de outro? A multiplicação bíblica precisa continuar através de você!"
-    story.append(create_reason_box(3, "O Segredo de Paulo: Discipulado Um a Um", r3_text, "2 Timóteo 2:2"))
-    story.append(Spacer(1, 8))
-
-    r4_text = "Nós sabemos que quem infligiu dor e morte em Jesus foi o nosso pecado. Mas agora, salvos pela Sua graça, nós que fizemos o Mestre sofrer no Calvário podemos promover uma festa no céu! Deus se alegra, Jesus pula do trono, os anjos, arcanjos, Paulo e Moisés celebram cada pecador que se arrepende. O Salvador merece essa alegria!"
-    story.append(create_reason_box(4, "Fazer uma Grande Festa no Céu", r4_text, "Lucas 15:7"))
-    story.append(Spacer(1, 8))
-
-    r5_text = "Jesus declarou: Que aproveitaria ao homem ganhar o mundo inteiro e perder a sua alma? Uma única vida vale mais do que todo o ouro e impérios deste planeta. O maior investimento da história humana está em salvar pessoas e transportá-las das trevas para o Reino da Luz!"
-    story.append(create_reason_box(5, "Uma Vida Vale Mais do que o Mundo Inteiro", r5_text, "Marcos 8:36-37"))
-    story.append(Spacer(1, 8))
-
-    r6_text = "Aquele que não foi achado no Livro da Vida foi lançado no lago de fogo, onde o verme não morre e o fogo nunca se apaga. Evangelizar é antecipar esse resgate eterno, garantindo que essa alma entre na Cidade Celestial louvando a Deus por toda a eternidade."
-    story.append(create_reason_box(6, "Livrar Vidas do Maior Sofrimento Eterno", r6_text, "Apocalipse 20:15"))
-    story.append(Spacer(1, 8))
-
-    r7_text = "A Palavra de Deus nunca volta vazia; ela prosperará naquilo para que foi enviada. A nossa missão é semear! O Espírito Santo converte, a pessoa crê, mas a sua parte é pregar. George Müller orou e pregou para um amigo que se converteu 58 anos depois. Nicodemos se converteu 3 anos e meio depois. Noé pregou por 100 anos. Continue semeando!"
-    story.append(create_reason_box(7, "A Palavra Nunca Volta Vazia: A Missão é Semear", r7_text, "Isaías 55:11"))
-    story.append(Spacer(1, 8))
-
-    r8_text = "Jesus disse: 'Não vos preocupeis com o que haveis de falar; na mesma hora vos será ministrado o que dizer.' O medo vai embora! O Espírito Santo diz: 'Eu sou Deus, Eu vou te usar'. O Pastor Roberto Casas testemunha: 'Aos 18 anos cri que o Espírito Santo daria a palavra; faz mais de 51 anos de ministério e Ele nunca falhou!' Deus jamais falhará com você!"
-    story.append(create_reason_box(8, "O Espírito Santo Falará por Você na Hora Certa", r8_text, "Mateus 10:19"))
-    story.append(Spacer(1, 10))
-
-    story.append(Paragraph("COMPROMISSO PESSOAL COM A EVANGELIZAÇÃO E O DISCIPULADO:", sub_topic))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("(   ) Você aceita o chamado de Jesus para não guardar essa bênção só para você, mas ser um anunciador da salvação?    [   ] SIM    [   ] NÃO", qa_check))
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("(   ) Se aquele que me salvou do inferno eterno disse que eu deveria levar de graça aquilo que recebi de graça, você decide dedicar seu tempo para livrar outras pessoas desse mesmo destino?    [   ] SIM    [   ] NÃO", qa_check))
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("(   ) Se Ele disse que há mais alegria no céu por um pecador que se arrepende, você quer fazer 'festas no céu' ganhando almas para Cristo?    [   ] SIM    [   ] NÃO", qa_check))
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("(   ) Se Cristo deu a própria vida por você na cruz, será que é muito dar o melhor do seu tempo e testemunho para Ele?    [   ] SIM    [   ] NÃO", qa_check))
+    for pt in p_texts:
+        story.append(Paragraph(pt, pastoral_p))
     story.append(Spacer(1, 14))
 
     # =========================================================================
