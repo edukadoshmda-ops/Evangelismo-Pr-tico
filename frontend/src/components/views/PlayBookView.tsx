@@ -322,505 +322,150 @@ const LESSONS_BATISMO: PageLesson[] = [
     id: 1,
     roman: 'I',
     title: 'LIÇÃO 1',
-    badge: 'Como Você Pode Se Tornar Um Crente em Cristo',
-    summary: 'A decisão de convidar a Jesus Cristo para fazer parte da sua vida foi a mais importante que você já fez.',
+    badge: 'O Batismo Bíblico',
+    summary: 'O batismo nas águas é mandamento expresso de Jesus para todo aquele que crê e deseja segui-lO.',
     verses: [
       {
-        text: '“Porque todos pecaram e destituídos estão da glória de Deus.”',
-        reference: 'Romanos 3:23'
-      },
-      {
-        text: '“Porque o salário do pecado é a morte, mas o dom gratuito de Deus é a vida eterna por Cristo Jesus nosso Senhor.”',
-        reference: 'Romanos 6:23'
-      },
-      {
-        text: '“Mas Deus prova o seu amor para conosco em que Cristo morreu por nós, sendo nós ainda pecadores.”',
-        reference: 'Romanos 5:8'
-      },
-      {
-        text: '“Porque todo aquele que invocar o nome do Senhor será salvo.”',
-        reference: 'Romanos 10:13'
-      }
-    ],
-    textBlocks: [
-      'A decisão de convidar a Jesus Cristo para fazer parte de sua vida foi a mais importante que você já fez. Seus pecados estão perdoados. Você é filho de Deus. O céu é sua morada eterna, e Jesus Cristo é o seu Salvador Pessoal.',
-      'Deus o ama e quer que sua vida tenha significado e que ela seja abundante no Espírito. Ele deseja lhe dar a vida eterna. Tendo como base o Seu grande amor, Ele providenciou um plano simples e maravilhoso, através do qual você pode alcançar a salvação em Cristo.',
-      '1. TODOS PECARAM: Pecar significa violar ou transgredir a lei de Deus. O homem peca quando suas ações, palavras e pensamentos são contrários à Vontade de Deus. A Bíblia afirma que todos os homens, sem exceção, estão em pecado (Romanos 3:23).',
-      '2. O PECADO TRAZ A MORTE: Neste versículo (Romanos 6:23) o significado de "morte" não é apenas no sentido físico, mas se refere principalmente à morte espiritual, que separa o homem de Deus. Mas Deus providenciou que o homem pudesse ser salvo através da fé em Jesus Cristo.',
-      '3. CRISTO MORREU POR NOSSOS PECADOS: A morte de Cristo na cruz é o alto preço pelo qual são resgatados os pecados dos homens. No entanto, os seus pecados só serão perdoados se você pedir perdão ao Senhor, implorando que Ele venha habitar em sua vida.',
-      'SOMENTE CRISTO PODE SALVAR! Todo esforço empreendido pelo homem é insuficiente para alcançar a salvação. Boas obras, honestidade, pertencer a uma igreja ou ser batizado não garantem salvação: somente Cristo pode salvar!',
-      '4. SALVO POR CRISTO: Com uma simples oração ao Senhor você receberá a salvação. Suplique a Cristo o perdão e a Sua presença no seu viver diário.'
-    ],
-    prayer: 'Senhor, reconheço que sou pecador. Creio que morreste por meus pecados e agradeço por este sacrifício. Salva-me e venha habitar na minha vida. Eu quero Te receber como meu Salvador e Senhor para que possas guiar a minha vida. Ajuda-me a fazer a Tua Vontade. Amém.',
-    color: 'from-teal-600 to-teal-800'
-  },
-  {
-    id: 2,
-    roman: 'II',
-    title: 'LIÇÃO 2',
-    badge: 'O Que Jesus Deseja Que Você Faça (8 Pontos de Fé)',
-    summary: 'Para experimentar a vida abundante (João 10:10), Jesus convida você a segui-lO em amor e obediência (João 14:15).',
-    verses: [
-      {
-        text: '“...eu vim para que tenham vida, e a tenham com abundância.”',
-        reference: 'João 10:10'
-      },
-      {
-        text: '“Se me amais, guardareis os meus mandamentos.”',
-        reference: 'João 14:15'
-      }
-    ],
-    specialContent: {
-      title: 'OS 8 PONTOS QUE JESUS DESEJA QUE VOCÊ CUMPRA',
-      items: [
-        {
-          label: '1. Jesus deseja que você tenha CERTEZA DA SALVAÇÃO (Decorar Romanos 10:13)',
-          text: 'Pela promessa de Jesus (João 5:24), porque você invocou a Ele (Romanos 10:13) e pelo testemunho interior do Espírito Santo (Romanos 8:16).'
-        },
-        {
-          label: '2. Jesus deseja que você SEJA BATIZADO (Decorar Mateus 28:19)',
-          text: 'O batismo retrata a morte, o sepultamento e a ressurreição de Cristo. É a pública profissão de fé e o primeiro passo na obediência.'
-        },
-        {
-          label: '3. Jesus deseja que você LEIA A BÍBLIA DIARIAMENTE (Decorar 2 Timóteo 3:16-17)',
-          text: 'A Palavra de Deus é o seu alimento espiritual essencial para o crescimento (1 Pedro 2:2). Comece pelo Evangelho de João.'
-        },
-        {
-          label: '4. Jesus deseja que você ORE DIARIAMENTE (Decorar Filipenses 4:6-7)',
-          text: 'Você tem o privilégio de falar com o Pai em nome de Jesus (João 16:24). Separe um momento a cada dia para estar a sós com Deus.'
-        },
-        {
-          label: '5. Jesus deseja que você seja uma TESTEMUNHA FIEL (Decorar Marcos 5:19)',
-          text: 'Como discípulo você é chamado para falar do que Cristo fez em sua vida (Atos 1:8). Fale de Cristo naturalmente aos seus conhecidos.'
-        },
-        {
-          label: '6. Jesus deseja que você CONTRIBUA (Decorar 2 Coríntios 9:7)',
-          text: 'Participar no sustento do trabalho do Reino com alegria (1 Coríntios 16:2; Malaquias 3:10). Deus ama ao que dá com alegria!'
-        },
-        {
-          label: '7. Jesus deseja que você DEIXE O ESPÍRITO SANTO GUIAR SUA VIDA (Decorar Efésios 5:18)',
-          text: 'O Espírito Santo habita em você (João 14:16-17; Efésios 1:13). Deixe-O encher e conduzir seus pensamentos e atitudes.'
-        },
-        {
-          label: '8. Jesus deseja que você FREQUENTE A IGREJA (Decorar Hebreus 10:24-25)',
-          text: 'Não abandone as reuniões! Na igreja você ouve a Palavra, tem comunhão com os irmãos e serve a Cristo em boas obras (Efésios 2:10).'
-        }
-      ]
-    },
-    color: 'from-indigo-600 to-indigo-800'
-  },
-  {
-    id: 3,
-    roman: 'III',
-    title: 'LIÇÃO 3',
-    badge: 'Questionário Bíblico: Segurança da Salvação',
-    summary: 'Estudo das Escrituras sobre a Certeza Eterna (Para Preenchimento do Aluno • Sem Gabarito).',
-    verses: [
-      {
-        text: '“Crê no Senhor Jesus Cristo e serás salvo, tu e a tua casa.”',
-        reference: 'Atos 16:31'
-      },
-      {
-        text: '“As minhas ovelhas ouvem a minha voz; eu as conheço, e elas me seguem. Eu lhes dou a vida eterna, e jamais perecerão, e ninguém as arrebatará da minha mão.”',
-        reference: 'João 10:27-28'
-      }
-    ],
-    studyQuestions: [
-      {
-        question: '1. O que é necessário fazer para ser salvo?',
-        ref: 'Atos 16:31',
-        linesCount: 3
-      },
-      {
-        question: '2. O que Jesus promete a todos os que o invocam?',
-        ref: 'Romanos 10:13',
-        linesCount: 2
-      },
-      {
-        question: '3. Que tipo de vida é prometida àqueles que aceitam a Cristo como Salvador?',
-        ref: 'João 3:16',
-        linesCount: 2
-      },
-      {
-        question: '4. Procure em um dicionário o significado da palavra "eterno" e dê uma breve definição para "vida eterna":',
-        ref: 'Dicionário & Bíblia',
-        linesCount: 3
-      },
-      {
-        question: '5. O que Jesus promete sobre a sua segurança estando você sob os cuidados dele?',
-        ref: 'João 10:27-29',
-        linesCount: 3
-      },
-      {
-        question: '6. Nenhum crente vive uma vida sem pecado. Quando você peca o que é preciso fazer para receber o perdão de Deus?',
-        ref: '1 João 1:9',
-        linesCount: 3
-      },
-      {
-        question: '7. Quem testemunha, juntamente com o seu espírito de que você é filho de Deus?',
-        ref: 'Romanos 8:16',
-        linesCount: 2
-      },
-      {
-        question: '8. Que promessa Cristo faz em Hebreus 13:5?',
-        ref: 'Hebreus 13:5',
-        linesCount: 2
-      }
-    ],
-    color: 'from-teal-600 to-teal-800'
-  },
-  {
-    id: 4,
-    roman: 'IV',
-    title: 'LIÇÃO 4',
-    badge: 'Questionário Bíblico: O Batismo',
-    summary: 'A ordenança bíblica e o testemunho público nas águas (Para Preenchimento do Aluno • Sem Gabarito).',
-    verses: [
-      {
-        text: '“Então veio Jesus da Galileia ao Jordão ter com João, para ser batizado por ele.”',
-        reference: 'Mateus 3:13'
+        text: '“De sorte que foram batizados os que de bom grado receberam a sua palavra.”',
+        reference: 'Atos 2:41'
       },
       {
         text: '“Portanto ide, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo...”',
         reference: 'Mateus 28:19'
       }
     ],
+    textBlocks: [
+      'O batismo nas águas é mandamento expresso de Jesus para todo aquele que crê. Ele retrata a morte, o sepultamento e a ressurreição de Cristo, sendo a pública profissão de fé e o primeiro grande passo de obediência do novo discípulo.'
+    ],
     studyQuestions: [
       {
-        question: '1. Quem batizou Jesus e onde Ele foi batizado?',
-        ref: 'Mateus 3:13-17',
+        question: '1. Qual é a ordem expressa dada por Jesus aos Seus discípulos em Mateus 28:19?',
+        ref: 'Mateus 28:19',
         linesCount: 2
       },
       {
-        question: '2. Como Deus Pai e o Espírito Santo mostraram sua aprovação ao batismo de Jesus?',
-        ref: 'Mateus 3:16-17',
-        linesCount: 3
-      },
-      {
-        question: '3. O que qualifica alguém para o batismo segundo a Bíblia?',
-        ref: 'Atos 2:41',
+        question: '2. O que o batismo nas águas simboliza publicamente na vida do crente?',
+        ref: 'Romanos 6:3-4',
         linesCount: 2
       },
       {
-        question: '4. Quando foram as pessoas batizadas, segundo Atos 2:41?',
-        ref: 'Atos 2:41',
+        question: '3. Quem pode e deve ser batizado segundo as Escrituras Sagradas?',
+        ref: 'Atos 8:36-38; Atos 2:41',
         linesCount: 2
       },
       {
-        question: '5. Leia a conversão do eunuco etíope. O que ele quis fazer imediatamente após crer em Cristo?',
-        ref: 'Atos 8:29-40',
-        linesCount: 3
-      },
-      {
-        question: '6. O carcereiro de Filipos e sua família foram salvos numa noite. Quando eles foram batizados?',
-        ref: 'Atos 16:25-40',
+        question: '4. Qual foi o exemplo deixado pelo próprio Senhor Jesus Cristo?',
+        ref: 'Marcos 1:9-10',
         linesCount: 2
-      },
-      {
-        question: '7. Em Mateus 28:19-20, quais as ordens que Jesus deu em relação a ganhar outros, batizar e ensinar?',
-        ref: 'Mateus 28:19-20',
-        linesCount: 3
       }
     ],
     color: 'from-sky-600 to-sky-800'
   },
   {
-    id: 5,
-    roman: 'V',
-    title: 'LIÇÃO 5',
-    badge: 'Questionário Bíblico: A Bíblia Sagrada',
-    summary: 'A Palavra de Deus como regra de fé e prática diária (Para Preenchimento do Aluno • Sem Gabarito).',
+    id: 2,
+    roman: 'II',
+    title: 'LIÇÃO 2',
+    badge: 'A Bíblia Sagrada & A Oração',
+    summary: 'A Palavra de Deus como alimento espiritual e a oração como canal constante de intimidade com o Pai.',
     verses: [
       {
-        text: '“Lâmpada para os meus pés é tua palavra e luz para o meu caminho.”',
+        text: '“Lâmpada para os meus pés é a tua palavra e luz para o meu caminho.”',
         reference: 'Salmo 119:105'
       },
       {
-        text: '“Toda a Escritura é divinamente inspirada, e proveitosa para ensinar, para redarguir, para corrigir, para instruir em justiça.”',
-        reference: '2 Timóteo 3:16'
+        text: '“Clama a mim, e responder-te-ei, e anunciar-te-ei coisas grandes e firmes que não sabes.”',
+        reference: 'Jeremias 33:3'
+      },
+      {
+        text: '“Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças.”',
+        reference: 'Filipenses 4:6'
       }
+    ],
+    textBlocks: [
+      'A Bíblia é a infalível Palavra de Deus que nutre a nossa fé e direciona a nossa caminhada. A oração diária é o diálogo íntimo e constante do filho salvo com o seu Pai celestial, em nome de Jesus.'
     ],
     studyQuestions: [
       {
-        question: '1. Em que a Bíblia é diferente de todos os outros livros do mundo?',
-        ref: '2 Pedro 1:20-21',
+        question: '1. Em que a Bíblia Sagrada é diferente de todos os outros livros do mundo?',
+        ref: '2 Timóteo 3:16; 2 Pedro 1:21',
         linesCount: 2
       },
       {
-        question: '2. Como pode a Palavra de Deus ajudar você em sua vida diária?',
-        ref: 'Salmo 119:105',
+        question: '2. Para que serve a Palavra de Deus e com que frequência devemos meditar nela?',
+        ref: 'Salmo 119:105; Josué 1:8',
         linesCount: 2
       },
       {
-        question: '3. Como podemos saber que a Palavra de Deus é verdadeira e digna de confiança?',
-        ref: '2 Timóteo 3:16',
+        question: '3. Como Jesus nos ensinou a orar em comunhão íntima com o Pai no secreto?',
+        ref: 'Mateus 6:6',
         linesCount: 2
       },
       {
-        question: '4. Por que você deve estudar as Escrituras diariamente?',
-        ref: 'Atos 17:11 e 1 Pedro 2:2',
+        question: '4. Em nome de quem devemos apresentar todas as nossas súplicas e orações a Deus?',
+        ref: 'João 14:13-14; João 16:24',
         linesCount: 2
       },
       {
-        question: '5. Que instruções Deus dá a você no texto de 2 Timóteo 2:15?',
-        ref: '2 Timóteo 2:15',
+        question: '5. Com que atitude e perseverança devemos orar continuamente?',
+        ref: 'Filipenses 4:6; 1 Tessalonicenses 5:17',
         linesCount: 2
-      },
-      {
-        question: '6. Por quanto tempo a Palavra de Deus durará?',
-        ref: '1 Pedro 1:25',
-        linesCount: 2
-      },
-      {
-        question: '7. Quais são as sérias advertências encontradas em Apocalipse 22:18-19 a respeito das Escrituras?',
-        ref: 'Apocalipse 22:18-19',
-        linesCount: 3
       }
     ],
     color: 'from-amber-600 to-amber-800'
   },
   {
-    id: 6,
-    roman: 'VI',
-    title: 'LIÇÃO 6',
-    badge: 'Questionário Bíblico: A Oração',
-    summary: 'Comunhão diária com o Pai em nome de Jesus (Para Preenchimento do Aluno • Sem Gabarito).',
+    id: 3,
+    roman: 'III',
+    title: 'LIÇÃO 3',
+    badge: 'A Contribuição Bíblica',
+    summary: 'A fidelidade nos dízimos e ofertas com alegria e gratidão no sustento do Reino.',
     verses: [
-      {
-        text: '“Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças.”',
-        reference: 'Filipenses 4:6'
-      },
-      {
-        text: '“Clama a mim, e responder-te-ei, e anunciar-te-ei coisas grandes e firmes que não sabes.”',
-        reference: 'Jeremias 33:3'
-      }
-    ],
-    studyQuestions: [
-      {
-        question: '1. Qual é o privilégio que você possui agora como crente em Cristo?',
-        ref: 'João 16:24',
-        linesCount: 2
-      },
-      {
-        question: '2. Que instruções Cristo deu a respeito da vida de oração pessoal no secreto?',
-        ref: 'Mateus 6:6',
-        linesCount: 2
-      },
-      {
-        question: '3. Qual é a promessa divina para aquele que tem uma vida de oração sincera?',
-        ref: 'Jeremias 33:3',
-        linesCount: 2
-      },
-      {
-        question: '4. Quando e com que frequência você deve orar?',
-        ref: 'Lucas 18:1',
-        linesCount: 2
-      },
-      {
-        question: '5. A quem devemos dirigir a nossa oração?',
-        ref: 'Lucas 11:2',
-        linesCount: 2
-      },
-      {
-        question: '6. Que tipos de necessidades você pode levar a Deus em oração?',
-        ref: 'Filipenses 4:6',
-        linesCount: 2
-      },
-      {
-        question: '7. Qual a importância de manter um momento especial no início do dia dedicado à oração?',
-        ref: 'Salmo 5:1-3',
-        linesCount: 2
-      },
-      {
-        question: '8. Por que você deve orar a Deus exclusivamente em nome de Jesus?',
-        ref: 'João 14:6 e 1 Timóteo 2:5',
-        linesCount: 2
-      }
-    ],
-    color: 'from-rose-600 to-rose-800'
-  },
-  {
-    id: 7,
-    roman: 'VII',
-    title: 'LIÇÃO 7',
-    badge: 'Questionário: Testemunho & Contribuição',
-    summary: 'Compartilhando a fé e sustentando a obra de Deus com alegria (Para Preenchimento do Aluno • Sem Gabarito).',
-    verses: [
-      {
-        text: '“Mas recebereis a virtude do Espírito Santo, que há de vir sobre vós; e ser-me-eis testemunhas...”',
-        reference: 'Atos 1:8'
-      },
       {
         text: '“Cada um contribua segundo propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria.”',
         reference: '2 Coríntios 9:7'
+      },
+      {
+        text: '“Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha casa...”',
+        reference: 'Malaquias 3:10'
       }
+    ],
+    textBlocks: [
+      'A fidelidade na contribuição é expressão espontânea de amor, gratidão e adoração a Deus pelo sustento diário e pela salvação recebida. O crente participa alegremente no avanço da obra de Cristo na terra.'
     ],
     studyQuestions: [
       {
-        question: '1. O que Jesus quer que cada crente seja no seu viver diário?',
-        ref: 'Atos 1:8',
+        question: '1. Como deve ser sustentado o trabalho e o ministério da Igreja de Deus?',
+        ref: '1 Coríntios 16:2; Malaquias 3:10',
         linesCount: 2
       },
       {
-        question: '2. Segundo 1 Pedro 3:15, devemos estar sempre prontos a fazer o quê?',
-        ref: '1 Pedro 3:15',
+        question: '2. Que bênção e promessa o Senhor derrama sobre os que são fiéis na Casa do Senhor?',
+        ref: 'Malaquias 3:10',
         linesCount: 2
       },
       {
-        question: '3. Qual foi a primeira atitude de André logo após encontrar Jesus?',
-        ref: 'João 1:40-42',
+        question: '3. Com que atitude e disposição de coração o cristão deve ofertar ao Senhor?',
+        ref: '2 Coríntios 9:7',
         linesCount: 2
-      },
-      {
-        question: '4. O que Jesus prometeu fazer por aqueles que O seguem fielmente?',
-        ref: 'Mateus 4:19',
-        linesCount: 2
-      },
-      {
-        question: '5. A quem Deus deseja salvar segundo 2 Pedro 3:9?',
-        ref: '2 Pedro 3:9',
-        linesCount: 2
-      },
-      {
-        question: '6. Que aviso solene é dado àqueles que não são fiéis no testemunho?',
-        ref: 'Ezequiel 33:7-9',
-        linesCount: 2
-      },
-      {
-        question: '7. O que a Bíblia diz a respeito daquela pessoa que ganha almas?',
-        ref: 'Provérbios 11:30',
-        linesCount: 2
-      },
-      {
-        question: '8. Como deve ser sustentado o trabalho da Igreja de Cristo?',
-        ref: '1 Coríntios 16:2; Malaquias 3:10; 2 Coríntios 9:7',
-        linesCount: 3
       }
     ],
     color: 'from-emerald-600 to-emerald-800'
   },
   {
-    id: 8,
-    roman: 'VIII',
-    title: 'LIÇÃO 8',
-    badge: 'Questionário: O Espírito Santo & Seus Frutos',
-    summary: 'A Pessoa do Espírito Santo habitando no crente e produzindo Seu Fruto (Para Preenchimento do Aluno • Sem Gabarito).',
+    id: 4,
+    roman: 'IV',
+    title: 'LIÇÃO 4',
+    badge: 'A Igreja de Jesus Cristo & Membresia',
+    summary: 'O corpo visível de Cristo, a congregação dos santos e a missão da colheita: Vale a Pena Plantar!',
     verses: [
       {
-        text: '“E eu rogarei ao Pai, e ele vos dará outro Consolador, para que fique convosco para sempre.”',
-        reference: 'João 14:16'
+        text: '“Não deixando a nossa congregação, como é costume de alguns, antes admoestando-nos uns aos outros...”',
+        reference: 'Hebreus 10:25'
       },
-      {
-        text: '“Mas o fruto do Espírito é: amor, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança.”',
-        reference: 'Gálatas 5:22-23'
-      }
-    ],
-    studyQuestions: [
-      {
-        question: '1. Depois de salvo, Quem passou a habitar dentro de você?',
-        ref: 'Romanos 8:9',
-        linesCount: 2
-      },
-      {
-        question: '2. Por quanto tempo o Espírito Santo habitará em sua vida?',
-        ref: 'João 14:16',
-        linesCount: 2
-      },
-      {
-        question: '3. Quem nos dá a plena certeza interior de que somos filhos de Deus?',
-        ref: 'Romanos 8:16',
-        linesCount: 2
-      },
-      {
-        question: '4. O que Deus deseja para cada crente no texto de Efésios 5:18?',
-        ref: 'Efésios 5:18',
-        linesCount: 2
-      },
-      {
-        question: '5. De que maneiras práticas podemos entristecer o Espírito Santo?',
-        ref: 'Efésios 4:30-32',
-        linesCount: 3
-      },
-      {
-        question: '6. Se o Espírito Santo enche e controla a sua vida, quais são os 9 aspectos do Fruto que Ele produzirá em você?',
-        ref: 'Gálatas 5:22-23',
-        linesCount: 4
-      },
-      {
-        question: '7. Quem concede poder e ousadia ao crente para testemunhar de Cristo?',
-        ref: 'Atos 1:8',
-        linesCount: 2
-      }
-    ],
-    color: 'from-purple-600 to-purple-800'
-  },
-  {
-    id: 9,
-    roman: 'IX',
-    title: 'LIÇÃO 9',
-    badge: 'Questionário Bíblico: A Igreja Local',
-    summary: 'O Corpo de Cristo, a família da fé e a Grande Comissão (Para Preenchimento do Aluno • Sem Gabarito).',
-    verses: [
       {
         text: '“Ora, vós sois o corpo de Cristo, e seus membros em particular.”',
         reference: '1 Coríntios 12:27'
       },
-      {
-        text: '“Não deixando a nossa congregação, como é costume de alguns, antes admoestando-nos uns aos outros...”',
-        reference: 'Hebreus 10:25'
-      }
-    ],
-    studyQuestions: [
-      {
-        question: '1. Quem estabeleceu a Igreja e prometeu sustentá-la?',
-        ref: 'Mateus 16:18',
-        linesCount: 2
-      },
-      {
-        question: '2. Quem é o único cabeça e líder supremo da Igreja?',
-        ref: 'Efésios 5:23',
-        linesCount: 2
-      },
-      {
-        question: '3. Qual é a atitude de Cristo para com a Igreja?',
-        ref: 'Efésios 5:25',
-        linesCount: 2
-      },
-      {
-        question: '4. Que alto preço Jesus pagou pela Igreja?',
-        ref: 'Atos 20:28',
-        linesCount: 2
-      },
-      {
-        question: '5. Segundo Efésios 5:23-27, a relação entre Cristo e a Igreja é comparada a qual união sagrada?',
-        ref: 'Efésios 5:23-27',
-        linesCount: 2
-      },
-      {
-        question: '6. Qual é a nossa responsabilidade pessoal em relação à frequência e assistência aos cultos?',
-        ref: 'Hebreus 10:25',
-        linesCount: 2
-      },
-      {
-        question: '7. Como o apóstolo Paulo denomina a Igreja em 1 Coríntios 12:27?',
-        ref: '1 Coríntios 12:27',
-        linesCount: 2
-      },
-      {
-        question: '8. Quais as maiores responsabilidades deixadas por Cristo à Sua Igreja na terra?',
-        ref: 'Mateus 28:19-20',
-        linesCount: 3
-      }
-    ],
-    color: 'from-blue-600 to-blue-800'
-  },
-  {
-    id: 10,
-    roman: 'X',
-    title: 'LIÇÃO 10',
-    badge: 'Membresia, Testemunho & Vale a Pena Plantar',
-    summary: 'Como se unir à igreja local, redigir seu testemunho de fé e o chamado à semeadura missionária.',
-    verses: [
       {
         text: '“E Jesus dizia: O reino de Deus é assim como se um homem lançasse semente à terra... e a semente brotasse e crescesse... está chegada a ceifa.”',
         reference: 'Marcos 4:26-29'
@@ -839,23 +484,39 @@ const LESSONS_BATISMO: PageLesson[] = [
         },
         {
           label: 'Modo C: Pela Declaração de Fé',
-          text: 'Para irmãos que já foram batizados e cujas cartas não puderam ser obtidas por motivos justificados.'
+          text: 'Para irmãos já batizados cujas cartas não puderam ser obtidas por motivos justificados.'
         }
       ]
     },
     textBlocks: [
-      'ESCREVA SEU TESTEMUNHO PESSOAL: O seu testemunho escrito reforçará sua experiência de conversão. Use palavras simples e sentenças curtas. Escreva como se estivesse conversando com alguém que ainda não é crente:\n\n1. Como era minha vida antes de me tornar um crente em Cristo.\n2. Como senti a necessidade de aceitar a Cristo como o meu Salvador.\n3. O que Cristo significa para mim hoje.',
+      'A Igreja é a família da fé onde fomos inseridos pelo Espírito Santo. Nela temos comunhão, alimento, serviço e cobertura espiritual mútua.',
       'VALE A PENA PLANTAR! “E Jesus dizia: O reino de Deus é assim como se um homem lançasse semente à terra... e a semente brotasse e crescesse... primeiro a erva, depois a espiga, e por último o grão cheio na espiga. E quando já o fruto se mostra... está chegada a ceifa” (Marcos 4:26-29).',
       'Os servos de Deus semeiam o ano inteiro por todo o Brasil e pelo mundo. São sementes lançadas nas terras secas do Nordeste, nos pantanais, na selva amazônica, nos pampas do Sul e nos grandes centros urbanos.',
       'São sementes que crescem e produzem frutos — vidas salvas e transformadas pelo amor de Cristo — que nos desafiam a plantar mais, para uma maior colheita. E a colheita é o prêmio, a prova de que no passado, hoje e sempre VALE A PENA PLANTAR!'
     ],
     studyQuestions: [
       {
-        question: 'Espaço para Escrever o Seu Testemunho de Fé (Antes, Conversão e Vida com Cristo):',
-        linesCount: 5
+        question: '1. Quem estabeleceu a Igreja e prometeu sustentá-la vitoriosa contra as portas do inferno?',
+        ref: 'Mateus 16:18',
+        linesCount: 2
+      },
+      {
+        question: '2. Quem é o único cabeça supremo da Igreja?',
+        ref: 'Efésios 5:23; Colossenses 1:18',
+        linesCount: 2
+      },
+      {
+        question: '3. Quais são as formas bíblicas de tornar-se membro da igreja local?',
+        ref: 'Atos 2:41-47',
+        linesCount: 2
+      },
+      {
+        question: '4. Qual é o papel e o privilégio de cada membro no corpo de Cristo?',
+        ref: '1 Coríntios 12:27; Hebreus 10:24-25',
+        linesCount: 2
       }
     ],
-    color: 'from-teal-600 to-teal-800'
+    color: 'from-blue-600 to-blue-800'
   }
 ];
 
