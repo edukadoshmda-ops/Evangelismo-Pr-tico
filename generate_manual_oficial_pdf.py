@@ -7,6 +7,7 @@ e leitura agradável e fluida.
 """
 
 import os
+from reportlab.lib.utils import ImageReader
 import shutil
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -592,7 +593,8 @@ def build_manual_pdf(output_path: str):
 
     img_anexo1 = os.path.join(os.getcwd(), "frontend", "public", "images", "trilha_discipulo_multiplicador.png")
     if os.path.exists(img_anexo1):
-        story.append(Image(img_anexo1, width=523, height=680))
+        _iw, _ih = ImageReader(img_anexo1).getSize()
+        story.append(Image(img_anexo1, width=523, height=523 * _ih / _iw))
     else:
         story.append(Paragraph("<i>[Imagem da Trilha do Discípulo Multiplicador]</i>", body_style))
 
@@ -614,9 +616,42 @@ def build_manual_pdf(output_path: str):
 
     img_anexo2 = os.path.join(os.getcwd(), "frontend", "public", "images", "trilha_evangelismo.png")
     if os.path.exists(img_anexo2):
-        story.append(Image(img_anexo2, width=523, height=630))
+        _iw, _ih = ImageReader(img_anexo2).getSize()
+        story.append(Image(img_anexo2, width=523, height=523 * _ih / _iw))
     else:
         story.append(Paragraph("<i>[Imagem da Trilha de Evangelismo]</i>", body_style))
+
+    # =========================================================================
+    # ANEXO III — ESTRUTURA MINISTERIAL
+    # =========================================================================
+    story.append(PageBreak())
+    story.append(Paragraph("ANEXO III — ESTRUTURA MINISTERIAL", ParagraphStyle('AnexoT3', fontName='Helvetica-Bold', fontSize=14, leading=17.5, textColor=colors.HexColor('#b45309'))))
+    story.append(Paragraph("Visão Geral e Organograma do P.G.M.", ParagraphStyle('AnexoSub3', fontName='Helvetica-Bold', fontSize=9.5, leading=13, textColor=colors.HexColor('#0d9488'))))
+    story.append(HRFlowable(width="100%", thickness=1.0, color=colors.HexColor('#0d9488'), spaceBefore=4, spaceAfter=8))
+
+    img_anexo3 = os.path.join(os.getcwd(), "frontend", "public", "images", "estrutura_ministerial.png")
+    if os.path.exists(img_anexo3):
+        _iw, _ih = ImageReader(img_anexo3).getSize()
+        story.append(Spacer(1, 15))
+        story.append(Image(img_anexo3, width=523, height=523 * _ih / _iw))
+    else:
+        story.append(Paragraph("<i>[Imagem da Estrutura Ministerial]</i>", body_style))
+
+    # =========================================================================
+    # ANEXO IV — ÁRVORE DE MULTIPLICAÇÃO MINISTERIAL
+    # =========================================================================
+    story.append(PageBreak())
+    story.append(Paragraph("ANEXO IV — ÁRVORE DE MULTIPLICAÇÃO MINISTERIAL", ParagraphStyle('AnexoT4', fontName='Helvetica-Bold', fontSize=14, leading=17.5, textColor=colors.HexColor('#b45309'))))
+    story.append(Paragraph("Trilha do Discípulo Multiplicador • Modelo de Multiplicação em 3 Pernas", ParagraphStyle('AnexoSub4', fontName='Helvetica-Bold', fontSize=9.5, leading=13, textColor=colors.HexColor('#0d9488'))))
+    story.append(HRFlowable(width="100%", thickness=1.0, color=colors.HexColor('#0d9488'), spaceBefore=4, spaceAfter=8))
+
+    img_anexo4 = os.path.join(os.getcwd(), "frontend", "public", "images", "arvore_discipulo_multiplicador.png")
+    if os.path.exists(img_anexo4):
+        _iw, _ih = ImageReader(img_anexo4).getSize()
+        story.append(Spacer(1, 10))
+        story.append(Image(img_anexo4, width=480, height=480 * _ih / _iw))
+    else:
+        story.append(Paragraph("<i>[Imagem da Árvore de Multiplicação Ministerial]</i>", body_style))
 
     doc.build(story, canvasmaker=NumberedCanvas)
     print(f"[OK] Manual gerado com hierarquia impecável em: {output_path}")
