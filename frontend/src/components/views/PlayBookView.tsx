@@ -3,7 +3,7 @@ import {
   BookOpen, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, 
   RotateCcw, Copy, Check, Heart, ArrowRight, Bookmark,
   Award, Flame, HelpCircle, Sparkles, CheckSquare,
-  Printer, Download, PenTool
+  Printer, Download, PenTool, Layers, ExternalLink
 } from 'lucide-react';
 
 // --- INTERFACES DO PLAYBOOK (SOMENTE TEXTO • ZERO ÁUDIO • SEM GABARITO DE RESPOSTAS) ---
@@ -532,7 +532,7 @@ export const PlayBookView: React.FC = () => {
   const [copiedPrayer, setCopiedPrayer] = useState(false);
 
   const activeLessons = currentCourse === 'salvacao' ? LESSONS_SALVACAO : LESSONS_BATISMO;
-  const totalPages = activeLessons.length + 2; // Capa (0) + Lições (1..N) + Conclusão (N+1)
+  const totalPages = activeLessons.length + 3; // Capa (0) + Lições (1..N) + Conclusão (N+1) + Anexos (N+2)
 
   const currentLesson = currentPage >= 1 && currentPage <= activeLessons.length 
     ? activeLessons[currentPage - 1] 
@@ -692,14 +692,27 @@ export const PlayBookView: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => setCurrentPage(totalPages - 1)}
+            onClick={() => setCurrentPage(activeLessons.length + 1)}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              currentPage === totalPages - 1
+              currentPage === activeLessons.length + 1
                 ? 'bg-teal-600 text-white shadow-sm'
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             Conclusão
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setCurrentPage(activeLessons.length + 2)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              currentPage === activeLessons.length + 2
+                ? 'bg-amber-600 text-white shadow-md'
+                : 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 dark:hover:bg-amber-900/40'
+            }`}
+          >
+            <Layers size={13} />
+            Anexos &amp; Trilhas
           </button>
         </div>
 
@@ -1120,7 +1133,7 @@ export const PlayBookView: React.FC = () => {
         {/* =========================================================================
             PÁGINA FINAL: CONCLUSÃO DO PLAYBOOK
             ========================================================================= */}
-        {currentPage === totalPages - 1 && (
+        {currentPage === activeLessons.length + 1 && (
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 sm:p-12 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8 text-center animate-scaleUp">
             
             <div className="w-20 h-20 mx-auto rounded-3xl bg-teal-600 text-white flex items-center justify-center shadow-xl shadow-teal-600/30">
@@ -1152,10 +1165,182 @@ export const PlayBookView: React.FC = () => {
               </button>
               <button
                 type="button"
+                onClick={() => setCurrentPage(activeLessons.length + 2)}
+                className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition-all hover:scale-105 flex items-center gap-2"
+              >
+                <Layers size={15} /> Ver Anexos &amp; Fichas Práticas
+              </button>
+              <button
+                type="button"
                 onClick={() => handleCourseChange(currentCourse === 'salvacao' ? 'batismo' : 'salvacao')}
                 className="px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md transition-all hover:scale-105"
               >
                 {currentCourse === 'salvacao' ? 'Ler Curso da Decisão ao Batismo →' : 'Ler 8 Lições da Salvação →'}
+              </button>
+            </div>
+
+          </div>
+        )}
+
+        {/* =========================================================================
+            PÁGINA DE ANEXOS & TRILHAS (VISUALIZAÇÃO COMPLETA DAS 4 FICHAS NA TELA)
+            ========================================================================= */}
+        {currentPage === activeLessons.length + 2 && (
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-xl space-y-10 animate-fadeIn">
+            
+            {/* Header dos Anexos */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold tracking-wide uppercase">
+                  <Layers size={13} />
+                  Fichas Oficiais &amp; Organogramas
+                </div>
+                <h3 className="font-heading font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">
+                  Anexos e Trilhas Práticas de Campo
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                  Documentos oficiais para acompanhamento de discipulado, evangelismo e estrutura ministerial da igreja.
+                </p>
+              </div>
+
+              <a
+                href="/downloads/Manual_Oficial_Evangelismo_e_Discipulado.pdf"
+                download="Manual_Oficial_Evangelismo_e_Discipulado.pdf"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md transition-all hover:scale-105 shrink-0 self-start sm:self-auto"
+              >
+                <Download size={15} /> Baixar Todas em PDF
+              </a>
+            </div>
+
+            {/* Grid dos 4 Anexos */}
+            <div className="space-y-10">
+              
+              {/* ANEXO I: Ficha de Acompanhamento de Discipulado */}
+              <div className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-700/80 pb-3">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Anexo I</span>
+                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                      Ficha de Acompanhamento de Discipulado (Trilha do Discípulo Multiplicador)
+                    </h4>
+                  </div>
+                  <a
+                    href="/images/trilha_discipulo_multiplicador.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xs"
+                  >
+                    <ExternalLink size={13} /> Abrir Imagem Alta Resolução
+                  </a>
+                </div>
+                <div className="bg-white rounded-xl p-3 border border-slate-200 shadow-sm overflow-x-auto flex justify-center">
+                  <img
+                    src="/images/trilha_discipulo_multiplicador.png"
+                    alt="Anexo I - Trilha do Discípulo Multiplicador"
+                    className="w-full max-w-3xl h-auto object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+
+              {/* ANEXO II: Ficha Prática de Registro de Evangelismo */}
+              <div className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-700/80 pb-3">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Anexo II</span>
+                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                      Ficha Prática de Registro de Evangelismo (8 Lições • Ordem Dia, Hora, 01)
+                    </h4>
+                  </div>
+                  <a
+                    href="/images/trilha_evangelismo.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xs"
+                  >
+                    <ExternalLink size={13} /> Abrir Imagem Alta Resolução
+                  </a>
+                </div>
+                <div className="bg-white rounded-xl p-3 border border-slate-200 shadow-sm overflow-x-auto flex justify-center">
+                  <img
+                    src="/images/trilha_evangelismo.png"
+                    alt="Anexo II - Trilha de Evangelismo"
+                    className="w-full max-w-3xl h-auto object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+
+              {/* ANEXO III: Estrutura Ministerial (Organograma P.G.M.) */}
+              <div className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-700/80 pb-3">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Anexo III</span>
+                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                      Estrutura Ministerial • Visão Geral e Organograma do P.G.M.
+                    </h4>
+                  </div>
+                  <a
+                    href="/images/estrutura_ministerial.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xs"
+                  >
+                    <ExternalLink size={13} /> Abrir Imagem Alta Resolução
+                  </a>
+                </div>
+                <div className="bg-white rounded-xl p-3 border border-slate-200 shadow-sm overflow-x-auto flex justify-center">
+                  <img
+                    src="/images/estrutura_ministerial.png"
+                    alt="Anexo III - Estrutura Ministerial Organograma PGM"
+                    className="w-full max-w-2xl h-auto object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+
+              {/* ANEXO IV: Árvore de Multiplicação Ministerial (3 Pernas) */}
+              <div className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-700/80 pb-3">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Anexo IV</span>
+                    <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                      Árvore de Multiplicação Ministerial (Modelo de Discipulado em 3 Pernas)
+                    </h4>
+                  </div>
+                  <a
+                    href="/images/arvore_discipulo_multiplicador.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xs"
+                  >
+                    <ExternalLink size={13} /> Abrir Imagem Alta Resolução
+                  </a>
+                </div>
+                <div className="bg-white rounded-xl p-3 border border-slate-200 shadow-sm overflow-x-auto flex justify-center">
+                  <img
+                    src="/images/arvore_discipulo_multiplicador.png"
+                    alt="Anexo IV - Árvore de Multiplicação Ministerial"
+                    className="w-full max-w-2xl h-auto object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Rodapé da Página de Anexos */}
+            <div className="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => setCurrentPage(activeLessons.length + 1)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              >
+                <ChevronLeft size={16} /> Voltar à Conclusão
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCurrentPage(0)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/20 transition-all hover:scale-105"
+              >
+                Voltar à Capa Principal
               </button>
             </div>
 
