@@ -167,6 +167,7 @@ export const VideosView: React.FC = () => {
   const [downloadModalVideo, setDownloadModalVideo] = useState<{ video: VideoItem; type: 'video' | 'audio' } | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [syncNotice, setSyncNotice] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form State
@@ -398,13 +399,32 @@ export const VideosView: React.FC = () => {
     // 4. Persistência Complementar no Supabase Cloud (se ativo)
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from('videos').upsert({
+        const isUuid = editingVideo && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(editingVideo.id);
+        const payload = {
           title: targetVideo.title,
           youtube_id: targetVideo.youtubeId || extractYouTubeId(targetVideo.youtubeUrl) || '',
           theme: targetVideo.theme,
           speaker: targetVideo.speaker,
           description: targetVideo.description
-        });
+        };
+
+        const { data: sbData, error: sbError } = isUuid
+          ? await supabase.from('videos').update(payload).eq('id', editingVideo.id).select().single()
+          : await supabase.from('videos').insert(payload).select().single();
+
+        if (sbError) {
+          console.warn('Erro ao salvar vídeo no Supabase:', sbError.message);
+          setSyncNotice('Vídeo salvo neste navegador. Para sincronizar na nuvem (Supabase) para todos os aparelhos, faça login com e-mail e senha de Super Admin (não use o Acesso Rápido demo).');
+        } else if (sbData?.id) {
+          setSyncNotice(null);
+          const syncedList = updatedList.map(v => v.id === targetVideo.id ? { ...v, id: sbData.id } : v);
+          setVideos(syncedList);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(syncedList));
+            localStorage.setItem(STORAGE_BACKUP_KEY, JSON.stringify(syncedList));
+            localStorage.setItem('pr_casas_videos', JSON.stringify(syncedList));
+          } catch {}
+        }
       } catch (sbErr) {
         console.warn('Supabase sync facultativo não completado:', sbErr);
       }
@@ -439,6 +459,16 @@ export const VideosView: React.FC = () => {
       await fetch(`/api/videos/${id}`, { method: 'DELETE' });
     } catch (e) {
       console.warn('Erro ao excluir do backend:', e);
+    }
+
+    // Excluir no Supabase Cloud (se for UUID válido)
+    if (isSupabaseConfigured && supabase && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+      try {
+        const { error } = await supabase.from('videos').delete().eq('id', id);
+        if (error) console.warn('Erro ao excluir vídeo no Supabase:', error.message);
+      } catch (e) {
+        console.warn('Erro ao excluir no Supabase:', e);
+      }
     }
   };
 
@@ -511,6 +541,17 @@ export const VideosView: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fadeIn relative">
+      {syncNotice && (
+        <div className="rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-400 px-4 py-3 flex items-start justify-between gap-3 text-xs sm:text-sm text-amber-900 dark:text-amber-200">
+          <div className="flex items-start gap-2">
+            <AlertCircle size={18} className="shrink-0 mt-0.5 text-amber-600" />
+            <span>{syncNotice}</span>
+          </div>
+          <button onClick={() => setSyncNotice(null)} className="text-amber-700 hover:text-amber-900">
+            <X size={16} />
+          </button>
+        </div>
+      )}
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
