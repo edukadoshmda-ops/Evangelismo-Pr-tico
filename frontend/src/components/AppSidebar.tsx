@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Headphones, BookOpen, Video, 
   MessageSquareQuote, Globe2, FileSpreadsheet, 
   LogOut, ExternalLink, ChevronLeft, ChevronRight, Flame,
-  Smartphone, GraduationCap, Award
+  Smartphone, GraduationCap, Award, Compass, Home, Users, GitFork
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,10 @@ import { TRACKS } from './AudioPlayer';
 
 export type TabType = 
   | 'dashboard' 
+  | 'escada'
+  | 'celulas'
+  | 'discipulado'
+  | 'arvore'
   | 'cursos'
   | 'certificados'
   | 'audiobook' 
@@ -47,6 +51,30 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       label: 'Painel Dashboard',
       icon: LayoutDashboard,
       badge: 'Geral',
+    },
+    {
+      id: 'escada' as TabType,
+      label: 'Escada do Sucesso',
+      icon: Compass,
+      badge: 'Visão',
+    },
+    {
+      id: 'celulas' as TabType,
+      label: 'Células & Oikós',
+      icon: Home,
+      badge: '1h30 • 12',
+    },
+    {
+      id: 'discipulado' as TabType,
+      label: 'Discipulado dos 12',
+      icon: Users,
+      badge: '15 em 15d',
+    },
+    {
+      id: 'arvore' as TabType,
+      label: 'Árvore & Transição',
+      icon: GitFork,
+      badge: '5 Fases',
     },
     {
       id: 'cursos' as TabType,
