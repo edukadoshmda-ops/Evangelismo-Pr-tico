@@ -217,6 +217,74 @@ export const CelulasView: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {/* Funcionamento da Célula Apostólica: 30 min + 30 min */}
+        <div className="mt-5 rounded-xl border-2 border-amber-300 dark:border-amber-700/70 bg-amber-50/70 dark:bg-amber-950/20 p-4">
+          <div className="text-center text-xs font-extrabold uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-3">
+            Funcionamento da Célula Apostólica (1 Hora = 30 min + 30 min)
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="rounded-xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 p-3.5 flex items-center gap-4">
+              <svg viewBox="0 0 110 90" className="w-20 h-16 shrink-0" aria-hidden="true">
+                <line x1="55" y1="68" x2="22" y2="42" stroke="#1E3A8A" strokeWidth="2.5" />
+                <line x1="55" y1="68" x2="55" y2="42" stroke="#1E3A8A" strokeWidth="2.5" />
+                <line x1="55" y1="68" x2="88" y2="42" stroke="#1E3A8A" strokeWidth="2.5" />
+                <line x1="22" y1="42" x2="10" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="22" y1="42" x2="22" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="22" y1="42" x2="34" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="55" y1="42" x2="55" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="88" y1="42" x2="76" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="88" y1="42" x2="88" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <line x1="88" y1="42" x2="100" y2="18" stroke="#0D9488" strokeWidth="2" />
+                <circle cx="10" cy="18" r="5" fill="#0D9488" />
+                <circle cx="22" cy="18" r="5" fill="#0D9488" />
+                <circle cx="34" cy="18" r="5" fill="#0D9488" />
+                <circle cx="55" cy="18" r="5" fill="#0D9488" />
+                <circle cx="76" cy="18" r="5" fill="#0D9488" />
+                <circle cx="88" cy="18" r="5" fill="#0D9488" />
+                <circle cx="100" cy="18" r="5" fill="#0D9488" />
+                <circle cx="22" cy="42" r="7" fill="#2563EB" />
+                <circle cx="55" cy="42" r="7" fill="#2563EB" />
+                <circle cx="88" cy="42" r="7" fill="#2563EB" />
+                <circle cx="55" cy="68" r="9.5" fill="#DC2626" stroke="#1E293B" strokeWidth="2" />
+              </svg>
+              <div>
+                <div className="text-xs font-extrabold uppercase text-slate-800 dark:text-slate-200">
+                  1ª Parte • 30 Minutos
+                </div>
+                <div className="text-sm font-bold text-teal-700 dark:text-teal-400">
+                  Líder com todos
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                  Comunhão, adoração e ministração geral conduzida pelo líder da célula com todo o grupo reunido.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 p-3.5 flex items-center gap-4">
+              <svg viewBox="0 0 110 90" className="w-20 h-16 shrink-0" aria-hidden="true">
+                <line x1="55" y1="68" x2="24" y2="24" stroke="#0D9488" strokeWidth="3" />
+                <line x1="55" y1="68" x2="55" y2="20" stroke="#0D9488" strokeWidth="3" />
+                <line x1="55" y1="68" x2="86" y2="24" stroke="#0D9488" strokeWidth="3" />
+                <circle cx="24" cy="24" r="9" fill="#0D9488" />
+                <circle cx="55" cy="20" r="9" fill="#0D9488" />
+                <circle cx="86" cy="24" r="9" fill="#0D9488" />
+                <circle cx="55" cy="68" r="11" fill="#2563EB" />
+              </svg>
+              <div>
+                <div className="text-xs font-extrabold uppercase text-slate-800 dark:text-slate-200">
+                  2ª Parte • 30 Minutos
+                </div>
+                <div className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                  3 Líderes com seus liderados
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                  Divisão em pequenos grupos de cuidado, oração, aplicação prática e acompanhamento próximo (até 3 por líder).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Células & Regra dos 12 */}
