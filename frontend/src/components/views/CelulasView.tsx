@@ -18,12 +18,12 @@ interface OikosContato {
   status: 'Orando' | 'Convidado' | 'Na Célula' | 'Decisão';
 }
 
-const ROTEIRO_1H30 = [
-  { etapa: '1. Comunhão e Quebra-gelo', minutos: 15, desc: 'Recepção calorosa aos convidados, lanche leve ou dinâmica rápida.', cor: 'bg-emerald-600' },
-  { etapa: '2. Momentos de Adoração', minutos: 20, desc: '2 a 3 louvores direcionados à presença de Deus e unidade.', cor: 'bg-teal-600' },
-  { etapa: '3. Ministração da Palavra', minutos: 30, desc: 'Tema central: Visão e Missão da igreja local (aplicação prática).', cor: 'bg-blue-600' },
-  { etapa: '4. Oração e Intercessão', minutos: 15, desc: 'Clamor pelas famílias, enfermos e lista Oikós.', cor: 'bg-purple-600' },
-  { etapa: '5. Avisos da Visão & Envio', minutos: 10, desc: 'Reforço dos cultos, batismo, discipulado quinzenal e multiplicação.', cor: 'bg-amber-600' },
+const ROTEIRO_1H = [
+  { etapa: '1. Comunhão e Quebra-gelo', minutos: 10, desc: 'Recepção calorosa aos convidados, lanche leve ou dinâmica rápida.', cor: 'bg-emerald-600' },
+  { etapa: '2. Momentos de Adoração', minutos: 15, desc: '2 a 3 louvores direcionados à presença de Deus e unidade.', cor: 'bg-teal-600' },
+  { etapa: '3. Ministração da Palavra', minutos: 20, desc: 'Tema central: Visão e Missão da igreja local (aplicação prática).', cor: 'bg-blue-600' },
+  { etapa: '4. Oração e Intercessão', minutos: 10, desc: 'Clamor pelas famílias, enfermos e lista Oikós.', cor: 'bg-purple-600' },
+  { etapa: '5. Avisos da Visão & Envio', minutos: 5, desc: 'Reforço dos cultos, batismo, discipulado quinzenal e multiplicação.', cor: 'bg-amber-600' },
 ];
 
 const DEFAULT_CELULAS: Celula[] = [
@@ -60,8 +60,8 @@ export const CelulasView: React.FC = () => {
   const [novoOikosNome, setNovoOikosNome] = useState('');
   const [novoOikosVinculo, setNovoOikosVinculo] = useState('');
 
-  // Cronômetro 1h30 (5400 segundos)
-  const [secondsLeft, setSecondsLeft] = useState(5400);
+  // Cronômetro 1 Hora (3600 segundos)
+  const [secondsLeft, setSecondsLeft] = useState(3600);
   const [running, setRunning] = useState(false);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export const CelulasView: React.FC = () => {
         id: `cel-${Date.now()}`,
         nome: novaCelulaNome.trim(),
         lider: novaCelulaLider.trim() || 'A definir',
-        diaHorario: novaCelulaDia.trim() || 'Semanal • 1h30',
+        diaHorario: novaCelulaDia.trim() || 'Semanal • 1 Hora',
         membros: [],
       },
     ]);
@@ -158,20 +158,20 @@ export const CelulasView: React.FC = () => {
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-amber-100 text-xs font-bold uppercase mb-2">
           <Home size={14} /> Células: O Coração da Igreja
         </span>
-        <h1 className="text-2xl sm:text-3xl font-extrabold">Gestão de Células (1h30) &amp; Multiplicação aos 12</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold">Gestão de Células (1 Hora) &amp; Multiplicação aos 12</h1>
         <p className="text-orange-50 text-sm mt-1">
           Comunhão, Adoração, Oração e Ministração da Palavra (Visão e Missão da igreja local). Multiplique sempre que chegar a 12 pessoas!
         </p>
       </div>
 
-      {/* Roteiro & Cronômetro 1h30 */}
+      {/* Roteiro & Cronômetro 1 Hora */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div className="flex items-center gap-2">
             <Clock className="text-teal-600" size={22} />
             <div>
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                Cronômetro &amp; Roteiro da Reunião (1h30)
+                Cronômetro &amp; Roteiro da Reunião (1 Hora)
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Controle exato do tempo para manter todas as células dinâmicas
@@ -193,10 +193,10 @@ export const CelulasView: React.FC = () => {
             <button
               onClick={() => {
                 setRunning(false);
-                setSecondsLeft(5400);
+                setSecondsLeft(3600);
               }}
               className="p-2 rounded-lg bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 text-slate-800 dark:text-white transition"
-              title="Reiniciar 1h30"
+              title="Reiniciar 1 Hora"
             >
               <RotateCcw size={16} />
             </button>
@@ -204,7 +204,7 @@ export const CelulasView: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {ROTEIRO_1H30.map((r) => (
+          {ROTEIRO_1H.map((r) => (
             <div
               key={r.etapa}
               className="rounded-xl border border-slate-200 dark:border-slate-800 p-3.5 bg-slate-50 dark:bg-slate-950/40"

@@ -113,7 +113,7 @@ const TRILHOS: TrilhoData[] = [
     textoBase: 'Atos 13.1-3 • Efésios 4.11-13 • Mateus 28.19',
     encontros: [
       '1. Chamado e envio: o modelo de Antioquia.',
-      '2. Liderança de célula: dinâmica (1h30), estrutura e cuidado.',
+      '2. Liderança de célula: dinâmica (1 hora), estrutura e cuidado.',
       '3. Multiplicar: como abrir uma nova célula ao chegar a 12 pessoas.',
       '4. Prestar contas e ser acompanhado pela liderança.',
       '5. Visão apostólica: gerar filhos e líderes que gerem outros.',
@@ -205,7 +205,7 @@ export const VisaoEscadaView: React.FC = () => {
           <div className="text-xs font-bold uppercase text-orange-700 dark:text-orange-400">Células: o coração</div>
           <div className="font-bold text-slate-900 dark:text-white mt-1">Onde tudo acontece e se multiplica</div>
           <p className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-            Reuniões de 1h30 com Comunhão, Adoração, Oração e Palavra (Visão e Missão). Multiplica ao chegar a 12.
+            Reuniões de 1 hora com Comunhão, Adoração, Oração e Palavra (Visão e Missão). Multiplica ao chegar a 12.
           </p>
         </div>
         <div className="bg-emerald-50 dark:bg-emerald-950/20 rounded-xl p-4 border border-emerald-300 dark:border-emerald-800 shadow-sm">

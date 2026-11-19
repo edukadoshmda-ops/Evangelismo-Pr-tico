@@ -47,7 +47,7 @@ const THEMES: VideoTheme[] = [
 
 function extractYouTubeId(url: string): string | null {
   if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|live\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return match && match[2].length === 11 ? match[2] : null;
 }
@@ -317,7 +317,11 @@ export const VideosView: React.FC = () => {
     setDuration(video.duration);
     setYoutubeUrl(video.youtubeUrl);
     setDescription(video.description);
-    setCustomThumbnail(video.thumbnail);
+    const isDefaultOrAutoThumb =
+      !video.thumbnail ||
+      video.thumbnail.includes('images.unsplash.com') ||
+      video.thumbnail.includes('img.youtube.com');
+    setCustomThumbnail(isDefaultOrAutoThumb ? '' : video.thumbnail);
     setShowModal(true);
   };
 
@@ -335,7 +339,12 @@ export const VideosView: React.FC = () => {
       ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
       : 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80';
     
-    const finalThumbnail = customThumbnail.trim() || autoThumbnail;
+    const urlChanged = editingVideo && youtubeUrl.trim() !== editingVideo.youtubeUrl;
+    const thumbUnchanged = editingVideo && customThumbnail.trim() === editingVideo.thumbnail;
+    const finalThumbnail =
+      urlChanged && thumbUnchanged
+        ? autoThumbnail
+        : customThumbnail.trim() || autoThumbnail;
 
     let updatedList: VideoItem[];
     let targetVideo: VideoItem;

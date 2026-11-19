@@ -25,7 +25,7 @@ const FASES_TRANSICAO: FaseTransicao[] = [
     id: 'f3',
     fase: 'Fase 3',
     titulo: 'Fase Piloto Interna',
-    desc: 'Abertura das primeiras células com membros já existentes para ajustar o roteiro de 1h30, os registros e a cultura de pequenos grupos.',
+    desc: 'Abertura das primeiras células com membros já existentes para ajustar o roteiro de 1 hora, os registros e a cultura de pequenos grupos.',
   },
   {
     id: 'f4',
