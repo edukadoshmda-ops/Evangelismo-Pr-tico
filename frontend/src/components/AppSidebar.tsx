@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Headphones, BookOpen, Video, 
   MessageSquareQuote, Globe2, FileSpreadsheet, 
   LogOut, ExternalLink, ChevronLeft, ChevronRight, Flame,
-  Smartphone, GraduationCap, Award, Compass, Home, Users, GitFork
+  Smartphone, GraduationCap, Award, Compass, Home, Users, GitFork, FileText
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { TRACKS } from './AudioPlayer';
 
 export type TabType = 
   | 'dashboard' 
+  | 'visao_apostolica'
   | 'escada'
   | 'celulas'
   | 'discipulado'
@@ -53,6 +54,12 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       badge: 'Geral',
     },
     {
+      id: 'visao_apostolica' as TabType,
+      label: 'VISÃO APOSTÓLICA & CÉLULAR',
+      icon: FileText,
+      badge: 'PDF • 14p',
+    },
+    {
       id: 'escada' as TabType,
       label: 'Escada do Sucesso',
       icon: Compass,
@@ -62,7 +69,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       id: 'celulas' as TabType,
       label: 'Células & Oikós',
       icon: Home,
-      badge: '1h30 • 12',
+      badge: '1h • 12',
     },
     {
       id: 'discipulado' as TabType,

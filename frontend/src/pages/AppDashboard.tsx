@@ -14,6 +14,7 @@ import { VisaoEscadaView } from '../components/views/VisaoEscadaView';
 import { CelulasView } from '../components/views/CelulasView';
 import { Discipulado12View } from '../components/views/Discipulado12View';
 import { ArvoreTransicaoView } from '../components/views/ArvoreTransicaoView';
+import { VisaoApostolicaCelularView } from '../components/views/VisaoApostolicaCelularView';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { getInitialTheme, applyTheme, Theme } from '../core/theme';
 import { AlunoCursoRegistro } from '../types/cursos';
@@ -65,8 +66,9 @@ export const AppDashboard: React.FC = () => {
               </span>
               <h2 className="font-heading font-bold text-lg text-slate-900 dark:text-white capitalize">
                 {activeTab === 'dashboard' && 'Painel Dashboard'}
+                {activeTab === 'visao_apostolica' && 'VISÃO APOSTÓLICA & CÉLULAR'}
                 {activeTab === 'escada' && 'Escada do Sucesso & Os 5 Ministérios'}
-                {activeTab === 'celulas' && 'Células (1h30), Regra dos 12 & Oikós'}
+                {activeTab === 'celulas' && 'Células (1 Hora), Regra dos 12 & Oikós'}
                 {activeTab === 'discipulado' && 'Discipulado dos 12 (Coletivo & Individual)'}
                 {activeTab === 'arvore' && 'Árvore de Multiplicação & Transição'}
                 {activeTab === 'cursos' && 'Fazer Cursos: Evangelismo & Discipulado'}
@@ -96,6 +98,7 @@ export const AppDashboard: React.FC = () => {
         {/* Dynamic View Body */}
         <main className="flex-1 p-4 sm:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
           {activeTab === 'dashboard' && <DashboardView onNavigate={setActiveTab} />}
+          {activeTab === 'visao_apostolica' && <VisaoApostolicaCelularView />}
           {activeTab === 'escada' && <VisaoEscadaView />}
           {activeTab === 'celulas' && <CelulasView />}
           {activeTab === 'discipulado' && <Discipulado12View />}
